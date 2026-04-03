@@ -14,6 +14,13 @@
   --orange:#f97316;--rose:#f87171;--purple:#a78bfa;
   --t1:#f0f6ff;--t2:#94a3b8;--t3:#3d5068;
 }
+body.theme-legacy {
+  --bg:#241c14;--s1:rgba(36,28,20,.97);--s2:rgba(44,34,26,.92);
+  --b1:rgba(210,180,140,.25);--b2:rgba(210,180,140,.45);
+  --cyan:#f4a460;--cyan2:#ffdead;--green:#90ee90;--amber:#ffa500;
+  --orange:#cd853f;--rose:#cd5c5c;--purple:#dda0dd;
+  --t1:#fff8dc;--t2:#deb887;--t3:#a0522d;
+}
 html,body{width:100%;height:100%;overflow:hidden;background:var(--bg);font-family:'Space Grotesk',sans-serif;color:var(--t1);touch-action:none}
 #cv{display:block;width:100vw;height:100vh;cursor:grab}
 #cv:active{cursor:grabbing}
@@ -161,6 +168,43 @@ select.ns:focus{border-color:var(--b2)}
   letter-spacing:.5px;cursor:pointer;transition:all .2s}
 #clr-btn:active{background:rgba(249,115,22,.15)}
 
+/* ── EVENTS SECTION (inside nav panel, below route planner) ── */
+#evt-section{margin-top:4px}
+.evt-card{background:rgba(255,255,255,.03);border:1px solid var(--b1);
+  border-radius:12px;padding:10px 12px;display:flex;gap:10px;align-items:center;
+  margin-bottom:8px}
+.evt-card:last-child{margin-bottom:0}
+.evt-time{background:rgba(236,72,153,.13);border:1px solid rgba(236,72,153,.3);
+  color:#fbcfe8;font-family:'JetBrains Mono';font-size:9px;padding:5px 7px;
+  border-radius:8px;text-align:center;min-width:54px;font-weight:700;flex-shrink:0}
+.evt-info{flex:1;min-width:0}
+.evt-title{font-size:12px;font-weight:600;margin-bottom:2px;
+  overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.evt-loc{font-size:10px;color:var(--cyan);font-family:'JetBrains Mono'}
+.evt-nav-btn{width:28px;height:28px;border-radius:50%;flex-shrink:0;
+  background:rgba(0,229,255,.1);color:var(--cyan2);
+  display:flex;align-items:center;justify-content:center;
+  border:1px solid rgba(0,229,255,.3);font-size:12px;cursor:pointer;
+  transition:all .2s}
+.evt-nav-btn:active{background:rgba(0,229,255,.22)}
+
+/* ── QR "You are here" TOOLTIP ── */
+#qr-here{position:fixed;top:58px;left:50%;transform:translateX(-50%);
+  z-index:290;display:none;
+  background:rgba(74,222,128,.12);border:1px solid rgba(74,222,128,.4);
+  border-radius:22px;padding:5px 14px 5px 10px;
+  display:none;align-items:center;gap:8px;
+  backdrop-filter:blur(16px);box-shadow:0 4px 16px rgba(0,0,0,.4);
+  pointer-events:none;white-space:nowrap}
+#qr-here.show{display:flex}
+.qr-dot{width:9px;height:9px;border-radius:50%;background:var(--green);
+  box-shadow:0 0 10px var(--green);flex-shrink:0;
+  animation:pulseQr 2s ease-in-out infinite}
+@keyframes pulseQr{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.5;transform:scale(.7)}}
+.qr-lbl{font-family:'JetBrains Mono';font-size:9px;color:rgba(74,222,128,.8);
+  text-transform:uppercase;letter-spacing:1px}
+.qr-name{font-size:12px;font-weight:700;color:var(--green);margin-left:2px}
+
 /* ── INFO CARD ── */
 #ic{position:fixed;z-index:270;display:none}
 @media(max-width:699px){
@@ -200,7 +244,7 @@ select.ns:focus{border-color:var(--b2)}
 
 /* ── CONTROLS ── */
 #ctrls{position:fixed;z-index:250;display:flex;gap:6px}
-@media(max-width:699px){#ctrls{top:58px;right:10px;flex-direction:row}}
+@media(max-width:699px){#ctrls{bottom:85px;right:10px;flex-direction:column}}
 @media(min-width:700px){#ctrls{right:14px;bottom:56px;flex-direction:column}}
 .cb{width:40px;height:40px;border-radius:11px;border:1px solid var(--b1);
   background:var(--s1);color:var(--cyan);cursor:pointer;
@@ -215,7 +259,7 @@ select.ns:focus{border-color:var(--b2)}
   display:flex;align-items:center;justify-content:center;
   font-family:'JetBrains Mono';font-size:11px;font-weight:700;
   color:var(--cyan);transition:transform .4s ease}
-@media(max-width:699px){#cmp{top:58px;left:10px}}
+@media(max-width:699px){#cmp{bottom:330px;right:10px}}
 @media(min-width:700px){#cmp{right:228px;top:68px}}
 
 /* ── LEGEND ── */
@@ -237,11 +281,16 @@ select.ns:focus{border-color:var(--b2)}
 .leg-lbl{font-size:11px;font-weight:500;color:var(--t2)}
 
 /* ── FILTER BAR ── */
-#fbar{position:fixed;bottom:0;left:0;right:0;z-index:200;
-  padding:7px 12px 9px;
-  background:linear-gradient(0,rgba(7,9,15,.98) 55%,transparent);
-  display:flex;justify-content:center;gap:5px;
+#fbar{position:fixed;z-index:200;display:flex;gap:5px;
   overflow-x:auto;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+@media(max-width:699px){
+  #fbar{top:112px;left:0;right:0;padding:5px 12px;justify-content:flex-start}
+}
+@media(min-width:700px){
+  #fbar{bottom:0;left:0;right:0;padding:7px 12px 9px;
+    background:linear-gradient(0,rgba(7,9,15,.98) 55%,transparent);
+    justify-content:center}
+}
 #fbar::-webkit-scrollbar{display:none}
 .ft{padding:6px 12px;border-radius:20px;font-size:10px;
   font-family:'JetBrains Mono';letter-spacing:.5px;
@@ -278,14 +327,16 @@ select.ns:focus{border-color:var(--b2)}
 @keyframes ldFill{from{width:0}to{width:100%}}
 .ld-tip{font-family:'JetBrains Mono';font-size:9px;color:var(--t3);letter-spacing:1px}
 
-/* scanlines */
-body::after{content:'';position:fixed;inset:0;z-index:998;pointer-events:none;
-  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.012) 2px,rgba(0,0,0,.012) 4px)}
+/* FX overlays */
+body.theme-tech::after{content:'';position:fixed;inset:0;z-index:998;pointer-events:none;
+  background:repeating-linear-gradient(0deg,transparent,transparent 2px,rgba(0,0,0,.015) 2px,rgba(0,0,0,.015) 4px)}
+body.theme-legacy::after{content:'';position:fixed;inset:0;z-index:998;pointer-events:none;
+  background-color:rgba(139,69,19,.04); box-shadow:inset 0 0 150px rgba(60,30,0,.6);}
 ::-webkit-scrollbar{width:3px}
 ::-webkit-scrollbar-thumb{background:var(--b1);border-radius:2px}
 </style>
 </head>
-<body>
+<body class="theme-tech">
 
 <div id="ld">
   <div class="ld-ring"></div>
@@ -309,6 +360,13 @@ body::after{content:'';position:fixed;inset:0;z-index:998;pointer-events:none;
   </div>
 </div>
 
+<!-- QR "You are here" subtle indicator (no popup/modal) -->
+<div id="qr-here">
+  <div class="qr-dot"></div>
+  <span class="qr-lbl">You are here:</span>
+  <span class="qr-name" id="qr-name-lbl"></span>
+</div>
+
 <div id="srch-wrap">
   <div class="srch-box">
     <span style="color:var(--cyan);font-size:15px;flex-shrink:0">🔍</span>
@@ -321,6 +379,7 @@ body::after{content:'';position:fixed;inset:0;z-index:998;pointer-events:none;
 <div id="cmp">N</div>
 
 <div id="ctrls">
+  <button class="cb" id="c-theme" title="Toggle Theme">☾</button>
   <button class="cb" id="c-rst">⌂</button>
   <button class="cb" id="c-zi">+</button>
   <button class="cb" id="c-zo">−</button>
@@ -365,6 +424,12 @@ body::after{content:'';position:fixed;inset:0;z-index:998;pointer-events:none;
       <div id="rc-steps"></div>
       <button id="clr-btn">✕ &nbsp;Clear Route</button>
     </div>
+
+    <!-- ── EVENTS SECTION ── -->
+    <div id="evt-section">
+      <div class="nav-sec">🎉 Techfest Events</div>
+      <div id="evts-list"></div>
+    </div>
   </div>
 </div>
 
@@ -402,109 +467,68 @@ body::after{content:'';position:fixed;inset:0;z-index:998;pointer-events:none;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
 <script>
 // ═══════════════════════════════════════════════════════════════════
-//  LDCE CAMPUS — ACCURATE 3D MAP
-//
-//  Reference: Official LDCE Campus Map (image provided)
-//  Coordinate system:
-//    X → East (+) / West (-)
-//    Z → South (+) / North (-)
-//  Campus boundary: approx. 48W × 54H units
-//  University Road runs along WEST edge (x ≈ -26)
-//  Main Gates at SOUTH (z ≈ +24)
-//  Hostel zone at NORTH (z ≈ -20 to -26)
-//
-//  Scale: 1 unit = 14 metres
-//  Road width: 3 units (42m)
-//  Cell spacing: 9 units between building centres
+//  LDCE CAMPUS NAVIGATOR — Merged Build
+//  UI:       OLD file (preserved exactly)
+//  Routing:  A* graph-based (from NEW file, enhanced)
+//  QR:       ?from=BUILDING_ID URL param
+//  Events:   Loaded from events.json, shown in sidebar
 // ═══════════════════════════════════════════════════════════════════
 
 const SCALE = 14; // metres per unit
 
-// Road corridors — path MUST travel along these
 const RX = [-27,-18,-9, 0, 9,18,27];
 const RZ = [-27,-18,-9, 0, 9,18,27];
 
-// ─────────────────────────────────────────────────────────────────
-//  BUILDINGS — carefully positioned to match actual campus map
-//  Each building has: id, display label, full name, block number,
-//  category, color, x/z position, w/d footprint, h height per floor
-//  fl = number of floors, flat = ground-level only
-// ─────────────────────────────────────────────────────────────────
+// ─── BUILDINGS ───────────────────────────────────────────────────
 const BLDGS = [
-
-  // ═══ GATES ═══
   { id:'GATE1', lbl:'Main Gate 1', full:'Main Gate 1', num:'G1',
     cat:'facility', clr:0xf6c90e, em:0x3a2800,
     x: 3, z:25, w:1.8,d:1.2,h:.7, fl:1, flat:true,
     desc:'Primary entrance to LDCE campus from Navrangpura / Ahmedabad University Road.' },
-
   { id:'GATE2', lbl:'Main Gate 2', full:'Main Gate 2', num:'G2',
     cat:'facility', clr:0xf6c90e, em:0x3a2800,
     x:-3, z:25, w:1.8,d:1.2,h:.7, fl:1, flat:true,
     desc:'Secondary main entrance to LDCE campus.' },
-
   { id:'HOSTEL_GATE', lbl:'Hostel Gate', full:'Hostel Gate (West)', num:'HG',
     cat:'facility', clr:0xf6c90e, em:0x3a2800,
     x:-26, z: 2, w:1.2,d:1.8,h:.7, fl:1, flat:true,
     desc:'Hostel zone entrance gate from University Road (west side).' },
-
-  // ═══ MAIN ACADEMIC AREA (south-centre) ═══
-
-  // Block 0 — Main Block / Principal Office (centre, above gates)
   { id:'B0', lbl:'Block 0', full:'Main Block — Principal Office', num:'0',
     cat:'admin', clr:0x3b82f6, em:0x0d1e50,
     x: 0, z:17, w:5.5,d:4, h:2.8, fl:4,
     desc:'Principal\'s Office, Civil Conference Room, Administration and faculty offices.' },
-
-  // Central Square — red, small, near Block 0
   { id:'CSQR', lbl:'Central Square', full:'Central Square', num:'■',
     cat:'facility', clr:0xef4444, em:0x3a0808,
     x: 4, z:15, w:2.2,d:2.2,h:.2, fl:1, flat:true,
     desc:'Central gathering point of the campus — a popular student hangout.' },
-
-  // Block 1 — LRC / Library (bottom-left corner, two separate structures)
   { id:'B1', lbl:'Block 1', full:'LRC Block & Library', num:'1',
     cat:'academic', clr:0x22c55e, em:0x082a12,
     x:-16, z:20, w:4,d:3.5, h:2, fl:3,
     desc:'Learning Resource Center and main campus Library — books, journals, digital resources.' },
-
-  // Block 2 — Very tall, runs vertically along left side
   { id:'B2', lbl:'Block 2', full:'Electrical, Computer, IC & Civil Dept.', num:'2',
     cat:'academic', clr:0xa855f7, em:0x280840,
     x:-12, z: 5, w:3.5,d:11, h:3.5, fl:5,
     desc:'Electrical Engg., Computer Engg., Instrumentation & Control, Civil Engg. and PG (WRM) departments.' },
-
-  // Block 3 — Civil Drawing Hall (centre area)
   { id:'B3', lbl:'Block 3', full:'Civil Drawing Hall', num:'3',
     cat:'academic', clr:0xf97316, em:0x3a1000,
     x:-3, z: 9, w:3.5,d:3.5,h:1.5, fl:2,
     desc:'Civil Engineering Drawing Hall — equipped with all drafting instruments and CAD workstations.' },
-
-  // Block 4 — Mech Drawing Hall (right of Block 3)
   { id:'B4', lbl:'Block 4', full:'Mechanical Drawing Hall', num:'4',
     cat:'academic', clr:0xf43f5e, em:0x3a0812,
     x: 4, z: 9, w:3.5,d:3.5,h:1.5, fl:2,
     desc:'Mechanical Engineering Drawing Hall with advanced drafting tools and design labs.' },
-
-  // Block 5 — Workshop/Mech (large, centre)
   { id:'B5', lbl:'Block 5', full:'Workshop, Mech. Engg. & Automobile', num:'5',
     cat:'academic', clr:0x64748b, em:0x151e28,
     x: 1, z: 2, w:7,d:6, h:2.8, fl:3,
     desc:'Students Store, Mech. Workshops, Automobile Lab, Siemens Centre of Excellence, Keepsake Welding CoE.' },
-
-  // Block 6 — Tall vertical block (right of Block 5)
   { id:'B6', lbl:'Block 6', full:'Mech. Applied Mechanics & LAA', num:'6',
     cat:'academic', clr:0x92400e, em:0x251008,
     x: 9, z: 2, w:3,d:9, h:2.5, fl:3,
-    desc:'Mechanical Engineering — Applied Mechanics department and LAA (Laboratory & Administrative Area) office.' },
-
-  // Block 7 — Chemical Engg (right side, centre-south)
+    desc:'Mechanical Engineering — Applied Mechanics department and LAA office.' },
   { id:'B7', lbl:'Block 7', full:'Chemical Engg., Rubber & Plastic', num:'7',
     cat:'academic', clr:0x14b8a6, em:0x052820,
     x:12, z:12, w:3.5,d:5, h:2.5, fl:3,
     desc:'Chemical Engineering with Rubber Technology and Plastic Technology labs.' },
-
-  // Block 8 — Textile Technology (multiple buildings, right-centre-north)
   { id:'B8A', lbl:'Block 8', full:'Textile Technology (Block 8)', num:'8',
     cat:'academic', clr:0xec4899, em:0x3a0820,
     x:14, z:-1, w:3,d:3,h:2, fl:3,
@@ -513,108 +537,70 @@ const BLDGS = [
     cat:'academic', clr:0xec4899, em:0x3a0820,
     x:18, z: 3, w:2.5,d:4,h:2, fl:3,
     desc:'Textile Technology — additional lab buildings.' },
-
-  // Block 9 — EC Engineering (far right, north)
   { id:'B9', lbl:'Block 9', full:'E.C. Engineering & ENV', num:'9',
     cat:'academic', clr:0x6366f1, em:0x100838,
     x:20, z:-4, w:5,d:5, h:3.2, fl:4,
     desc:'Electronics & Communication Engineering and Environmental Engineering departments.' },
-
-  // Block 10 — Annexe/IT/MCA (right side, centre)
   { id:'B10', lbl:'Block 10', full:'Annexe — BM, IT & MCA', num:'10',
     cat:'academic', clr:0x06b6d4, em:0x022030,
     x:16, z: 8, w:4.5,d:3.5,h:3, fl:4,
     desc:'Annexe Building housing Biomedical Engineering, Information Technology and MCA departments.' },
-
-  // ═══ FACILITIES ═══
-
-  // Vishwakarma Hall — blue, prominent west side
   { id:'VISH', lbl:'Vish. Hall', full:'Vishwakarma Hall', num:'VH',
     cat:'facility', clr:0x00e5ff, em:0x003840,
     x:-12, z:-2, w:4.5,d:3.5,h:2, fl:2, lmk:true,
     desc:'Main event and seminar venue of LDCE — heart of Tech Fest! Hosts major competitions, talks and cultural events.' },
-
-  // Canteen
   { id:'CANTEEN', lbl:'Canteen', full:'Main Canteen', num:'🍽',
     cat:'facility', clr:0xfbbf24, em:0x402a00,
     x:-4, z:-3, w:3,d:3,h:1.3, fl:1,
     desc:'Campus canteen — serving breakfast, lunch, snacks and tea. Most popular spot between classes!' },
-
-  // Tennis Court (flat, north of canteen)
   { id:'TENNIS', lbl:'Tennis Court', full:'Tennis Court', num:'🎾',
     cat:'sports', clr:0x4ade80, em:0x0a2a12,
     x:-9, z:-5, w:4.5,d:3.2,h:.15, fl:1, flat:true,
     desc:'Campus tennis court — open for students and faculty.' },
-
-  // Civil Lawn (large green area, south-centre)
   { id:'LAWN', lbl:'Civil Lawn', full:'Civil Lawn', num:'🌿',
     cat:'facility', clr:0x16a34a, em:0x082a10,
     x:-5, z:20, w:5.5,d:5,h:.2, fl:1, flat:true,
     desc:'Beautiful green open lawn near the Civil department — perfect for relaxing between lectures.' },
-
-  // Cricket Ground (large oval, south-right)
   { id:'CRICKET', lbl:'Cricket Ground', full:'Cricket Ground', num:'🏏',
     cat:'sports', clr:0x92400e, em:0x1e0c04,
     x: 9, z:20, w:9,d:8,h:.15, fl:1, flat:true,
     desc:'Main cricket ground of LDCE campus — hosts inter-college cricket tournaments.' },
-
-  // Washrooms
   { id:'WR1', lbl:'Washroom', full:'Washroom (Near Cricket)', num:'🚻',
     cat:'facility', clr:0x94a3b8, em:0x151e28,
     x:14, z:18, w:1,d:1.2,h:.8, fl:1, flat:true,
     desc:'Public washroom near the cricket ground.' },
-
-  // ═══ HOSTEL ZONE (north section) ═══
-
-  // PG & Boys Hostel (west, large irregular)
   { id:'BOYS_D', lbl:'Hostel D', full:'PG & Boys Hostel (Block D)', num:'HD',
     cat:'hostel', clr:0x60a5fa, em:0x0d1e40,
     x:-20, z:-9, w:3.5,d:6,h:3, fl:4,
     desc:'PG and Boys Hostel Block D — one of the largest hostel blocks, near University Road.' },
-
-  // Hostel Block A (centre north)
   { id:'HOSTA', lbl:'Hostel A', full:'Hostel Block A', num:'HA',
     cat:'hostel', clr:0x818cf8, em:0x10143a,
     x:-10, z:-15, w:4,d:3,h:2.5, fl:3,
     desc:'Hostel Block A — student residential accommodation.' },
-
-  // Hostel Block B
   { id:'HOSTB', lbl:'Hostel B', full:'Hostel Block B', num:'HB',
     cat:'hostel', clr:0x818cf8, em:0x10143a,
     x: -2, z:-15, w:4,d:3,h:2.5, fl:3,
     desc:'Hostel Block B — student residential accommodation.' },
-
-  // Hostel Block C
   { id:'HOSTC', lbl:'Hostel C', full:'Hostel Block C', num:'HC',
     cat:'hostel', clr:0x818cf8, em:0x10143a,
     x: 6, z:-15, w:4,d:3,h:2.5, fl:3,
     desc:'Hostel Block C — student residential accommodation.' },
-
-  // Hostel Block E (further north)
   { id:'HOSTE', lbl:'Hostel E', full:'Hostel Block E', num:'HE',
     cat:'hostel', clr:0x818cf8, em:0x10143a,
     x:-4, z:-21, w:3.5,d:2.8,h:2.5, fl:3,
     desc:'Hostel Block E.' },
-
-  // Hostel Block F
   { id:'HOSTF', lbl:'Hostel F', full:'Hostel Block F', num:'HF',
     cat:'hostel', clr:0x818cf8, em:0x10143a,
     x: 3, z:-21, w:3.5,d:2.8,h:2.5, fl:3,
     desc:'Hostel Block F.' },
-
-  // Girls Hostel (north-east, separate)
   { id:'GIRLS', lbl:'Girls Hostel', full:'Girls Hostel', num:'GH',
     cat:'hostel', clr:0xf472b6, em:0x380816,
     x:18, z:-14, w:5,d:4.5,h:3, fl:4,
     desc:'Girls Hostel — dedicated residential facility for female students, with all amenities.' },
-
-  // Staff Quarter (north-west)
   { id:'STAFF', lbl:'Staff Quarter', full:'Staff Quarters', num:'SQ',
     cat:'facility', clr:0x94a3b8, em:0x161e28,
     x:-18, z:-20, w:3.5,d:3.5,h:2.2, fl:3,
     desc:'Residential staff quarters for faculty and staff on campus.' },
-
-  // Mess (north-centre, large)
   { id:'MESS', lbl:'Mess', full:'Hostel Mess', num:'🥘',
     cat:'facility', clr:0xf97316, em:0x3a1400,
     x:-10, z:-21, w:5.5,d:3,h:1.5, fl:1,
@@ -630,63 +616,108 @@ const CATS = {
 };
 
 // ════════════════════════════════════════════════════════
-//  ROAD-BASED SMART PATHFINDING
-//  Every path snaps to road grid — NEVER goes through buildings
+//  A* ROUTING SYSTEM (from new file, graph-based)
+//  Builds a grid of road intersections; each building
+//  connects via a mid-node to the nearest road grid node.
 // ════════════════════════════════════════════════════════
-function snap(v, arr){ return arr.reduce((p,c)=>Math.abs(c-v)<Math.abs(p-v)?c:p); }
 
-function roadPath(fid, tid){
-  const a = BLDGS.find(b=>b.id===fid), b = BLDGS.find(b=>b.id===tid);
-  if(!a||!b) return [];
-  const Y = .5;
-  // snap each building to its nearest road corridor
-  const rxa = snap(a.x, RX), rza = snap(a.z, RZ);
-  const rxb = snap(b.x, RX), rzb = snap(b.z, RZ);
+function snap(v, arr){ return arr.reduce((p,c) => Math.abs(c-v) < Math.abs(p-v) ? c : p); }
 
-  const raw = [
-    [a.x,   a.z  ],  // 0: start inside building
-    [a.x,   rza  ],  // 1: go to nearest horiz road (move N/S)
-    [rxa,   rza  ],  // 2: reach vert road intersection
-    [rxa,   rzb  ],  // 3: travel along vert road to dest lat
-    [rxb,   rzb  ],  // 4: cross to dest vert road
-    [b.x,   rzb  ],  // 5: approach dest along horiz road
-    [b.x,   b.z  ],  // 6: arrive at dest
-  ];
+// Build road-grid nodes
+const nodes = {};
+RX.forEach(x => { RZ.forEach(z => { nodes[`${x}_${z}`] = {x, z, edges:{}}; }); });
 
-  // Deduplicate consecutive identical points
-  const pts = [new THREE.Vector3(raw[0][0],Y,raw[0][1])];
-  for(let i=1; i<raw.length; i++){
-    const prev = raw[i-1], cur = raw[i];
-    if(Math.abs(cur[0]-prev[0])>.08 || Math.abs(cur[1]-prev[1])>.08)
-      pts.push(new THREE.Vector3(cur[0],Y,cur[1]));
+// Connect grid intersections
+RX.forEach((x, i) => {
+  RZ.forEach((z, j) => {
+    const id = `${x}_${z}`;
+    if(i < RX.length-1){
+      const id2 = `${RX[i+1]}_${z}`;
+      nodes[id].edges[id2] = (nodes[id2].edges[id] = Math.abs(RX[i+1]-x));
+    }
+    if(j < RZ.length-1){
+      const id2 = `${x}_${RZ[j+1]}`;
+      nodes[id].edges[id2] = (nodes[id2].edges[id] = Math.abs(RZ[j+1]-z));
+    }
+  });
+});
+
+// Connect each building to its nearest road node via a mid-node
+BLDGS.forEach(b => {
+  nodes[b.id] = {x: b.x, z: b.z, edges:{}};
+  const rX = snap(b.x, RX), rZ = snap(b.z, RZ);
+  const midId = `${b.id}_mid`;
+  if(Math.abs(b.x - rX) < Math.abs(b.z - rZ)){
+    // closer horizontally — go east/west first
+    nodes[midId] = {x: rX, z: b.z, edges:{}};
+    nodes[b.id].edges[midId]         = nodes[midId].edges[b.id]          = Math.abs(b.x - rX);
+    nodes[midId].edges[`${rX}_${rZ}`]= nodes[`${rX}_${rZ}`].edges[midId]= Math.abs(b.z - rZ);
+  } else {
+    // closer vertically — go north/south first
+    nodes[midId] = {x: b.x, z: rZ, edges:{}};
+    nodes[b.id].edges[midId]         = nodes[midId].edges[b.id]          = Math.abs(b.z - rZ);
+    nodes[midId].edges[`${rX}_${rZ}`]= nodes[`${rX}_${rZ}`].edges[midId]= Math.abs(b.x - rX);
   }
-  return pts;
+});
+
+// A* (simplified Dijkstra with heuristic via Euclidean distance)
+function astar(startId, endId){
+  if(!nodes[startId] || !nodes[endId]) return [];
+  const endN = nodes[endId];
+  const dist = {}, prev = {};
+  const open = new Set(Object.keys(nodes));
+  for(const n of open) dist[n] = Infinity;
+  dist[startId] = 0;
+
+  while(open.size){
+    // Pick node with smallest f = dist + heuristic
+    let u = null, minF = Infinity;
+    for(const n of open){
+      const h = Math.hypot(nodes[n].x - endN.x, nodes[n].z - endN.z);
+      const f = dist[n] + h;
+      if(f < minF){ minF = f; u = n; }
+    }
+    if(!u || u === endId) break;
+    open.delete(u);
+    for(const v in nodes[u].edges){
+      if(!open.has(v)) continue;
+      const alt = dist[u] + nodes[u].edges[v];
+      if(alt < dist[v]){ dist[v] = alt; prev[v] = u; }
+    }
+  }
+
+  // Reconstruct path
+  const path = [];
+  for(let u = endId; u; u = prev[u]) path.unshift(u);
+  if(path[0] !== startId) return []; // no path found
+
+  return path.map(id => new THREE.Vector3(nodes[id].x, 0.5, nodes[id].z));
 }
 
 function pLen(pts){ let d=0; for(let i=1;i<pts.length;i++) d+=pts[i].distanceTo(pts[i-1]); return d; }
-function calcDist(a,b){ return Math.round(pLen(roadPath(a,b))*SCALE); }
+function calcDist(a, b){ return Math.round(pLen(astar(a, b)) * SCALE); }
 
-function buildSteps(fid,tid){
-  const a=BLDGS.find(b=>b.id===fid), b=BLDGS.find(b=>b.id===tid);
+function buildSteps(fid, tid){
+  const a = BLDGS.find(b=>b.id===fid), b = BLDGS.find(b=>b.id===tid);
   if(!a||!b) return [];
-  const pts=roadPath(fid,tid);
-  const out=[{ dir:`Start at`, place:`${a.full}`, dist:'' }];
-  for(let i=1;i<pts.length;i++){
-    const dx=pts[i].x-pts[i-1].x, dz=pts[i].z-pts[i-1].z;
-    const seg=Math.round(pts[i].distanceTo(pts[i-1])*SCALE);
-    if(seg<8) continue;
+  const pts = astar(fid, tid);
+  const out = [{ dir:'Start at', place:`${a.full}`, dist:'' }];
+  for(let i=1; i<pts.length; i++){
+    const dx = pts[i].x - pts[i-1].x, dz = pts[i].z - pts[i-1].z;
+    const seg = Math.round(pts[i].distanceTo(pts[i-1]) * SCALE);
+    if(seg < 8) continue;
     let icon='', dir='';
-    if(Math.abs(dz)>Math.abs(dx)){
-      if(dz<0){ icon='↑'; dir='Head north'; }
-      else     { icon='↓'; dir='Head south'; }
+    if(Math.abs(dz) > Math.abs(dx)){
+      if(dz < 0){ icon='↑'; dir='Head north'; }
+      else       { icon='↓'; dir='Head south'; }
     } else {
-      if(dx>0){ icon='→'; dir='Turn right (east)'; }
-      else     { icon='←'; dir='Turn left (west)'; }
+      if(dx > 0){ icon='→'; dir='Turn right (east)'; }
+      else       { icon='←'; dir='Turn left (west)'; }
     }
     out.push({ dir:`${icon} ${dir}`, place:'', dist:`${seg} m` });
   }
-  out.push({ dir:`Arrive at`, place:`${b.full}`, dist:'' });
-  if(!b.flat && b.fl>1) out.push({ dir:`🏢 ${b.fl}-storey building`, place:'Check floor directory at entrance.', dist:'' });
+  out.push({ dir:'Arrive at', place:`${b.full}`, dist:'' });
+  if(!b.flat && b.fl > 1) out.push({ dir:`🏢 ${b.fl}-storey building`, place:'Check floor directory at entrance.', dist:'' });
   return out;
 }
 
@@ -700,27 +731,27 @@ ren.setPixelRatio(Math.min(devicePixelRatio, 2));
 ren.shadowMap.enabled = true;
 ren.shadowMap.type    = THREE.PCFSoftShadowMap;
 ren.toneMapping       = THREE.ACESFilmicToneMapping;
-ren.toneMappingExposure = .9;
+ren.toneMappingExposure = 1.3;
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x07090f);
-scene.fog = new THREE.FogExp2(0x07090f, .012);
 
 const cam = new THREE.PerspectiveCamera(47, innerWidth/innerHeight, .1, 500);
 
 // ── LIGHTS ──
-scene.add(new THREE.AmbientLight(0x1a2744, 2.2));
-const sun = new THREE.DirectionalLight(0xfff8e0, 1.3);
+const ambLight = new THREE.AmbientLight(0x1a2744, 3.2);
+scene.add(ambLight);
+const sun = new THREE.DirectionalLight(0xfff8e0, 1.8);
 sun.position.set(12, 32, 18);
 sun.castShadow = true;
 sun.shadow.mapSize.set(2048, 2048);
-sun.shadow.camera.left   = -65;  sun.shadow.camera.right = 65;
-sun.shadow.camera.top    =  65;  sun.shadow.camera.bottom = -65;
-sun.shadow.camera.far    = 180;
+sun.shadow.camera.left = -65; sun.shadow.camera.right = 65;
+sun.shadow.camera.top  =  65; sun.shadow.camera.bottom = -65;
+sun.shadow.camera.far  = 180;
 scene.add(sun);
-const fill = new THREE.DirectionalLight(0x2050aa, .4); fill.position.set(-20,12,-8); scene.add(fill);
-const nL1 = new THREE.PointLight(0x00e5ff, 2.8, 40); nL1.position.set(-14,10,-5); scene.add(nL1);
-const nL2 = new THREE.PointLight(0xf97316, 2,   32); nL2.position.set(14, 9,  8); scene.add(nL2);
+const fill = new THREE.DirectionalLight(0x2050aa, .6); fill.position.set(-20,12,-8); scene.add(fill);
+const nL1  = new THREE.PointLight(0x00e5ff, 3.5, 40); nL1.position.set(-14,10,-5); scene.add(nL1);
+const nL2  = new THREE.PointLight(0xf97316, 2.5, 32); nL2.position.set(14, 9,  8); scene.add(nL2);
 
 // ── GROUND ──
 const gnd = new THREE.Mesh(
@@ -733,34 +764,28 @@ scene.add(gnd);
 scene.add(new THREE.GridHelper(220, 55, 0x0c1e30, 0x091525));
 
 // ── ROADS ──
-const ROAD_W = 3.2;
-// Material
-const roadMat  = new THREE.MeshStandardMaterial({ color:0x0d1c30, roughness:.9 });
-const paveMat  = new THREE.MeshStandardMaterial({ color:0x131f35, roughness:.95 });
-const dashMatY = new THREE.MeshStandardMaterial({ color:0xfbbf24, emissive:0xfbbf24, emissiveIntensity:.22 });
-const dashMatW = new THREE.MeshStandardMaterial({ color:0x1e3050, roughness:.9 });
+const ROAD_W  = 3.2;
+const roadMat = new THREE.MeshStandardMaterial({ color:0x0d1c30, roughness:.9 });
+const paveMat = new THREE.MeshStandardMaterial({ color:0x131f35, roughness:.95 });
+const dashMatY= new THREE.MeshStandardMaterial({ color:0xfbbf24, emissive:0xfbbf24, emissiveIntensity:.22 });
+const dashMatW= new THREE.MeshStandardMaterial({ color:0x1e3050, roughness:.9 });
 
-// Horizontal roads (east-west)
 RZ.forEach(rz => {
   const r = new THREE.Mesh(new THREE.BoxGeometry(180, .08, ROAD_W), roadMat);
   r.position.set(0, .03, rz); r.receiveShadow = true; scene.add(r);
-  // centre dashes
   for(let x=-36; x<=36; x+=4.2){
     const d = new THREE.Mesh(new THREE.BoxGeometry(2.2, .09, .11), dashMatW);
     d.position.set(x, .045, rz); scene.add(d);
   }
-  // pavements
   [ROAD_W/2+.28, -ROAD_W/2-.28].forEach(off => {
     const p = new THREE.Mesh(new THREE.BoxGeometry(180, .05, .55), paveMat);
     p.position.set(0, .04, rz+off); scene.add(p);
   });
 });
 
-// Vertical roads (north-south)
 RX.forEach(rx => {
   const r = new THREE.Mesh(new THREE.BoxGeometry(ROAD_W, .08, 180), roadMat);
   r.position.set(rx, .03, 0); r.receiveShadow = true; scene.add(r);
-  // yellow centre dashes
   for(let z=-36; z<=36; z+=4.2){
     const d = new THREE.Mesh(new THREE.BoxGeometry(.11, .09, 2), dashMatY);
     d.position.set(rx, .045, z); scene.add(d);
@@ -774,23 +799,19 @@ RX.forEach(rx => {
 // ── CAMPUS BOUNDARY WALL ──
 const wallMat = new THREE.MeshStandardMaterial({ color:0x1a3050, roughness:.9, metalness:.1 });
 [
-  [0,  30, 58, .9],   // south wall
-  [0, -30, 58, .9],   // north wall
-  [-30, 0, .9, 60],   // west wall (University Road side)
-  [30,  0, .9, 60],   // east wall
+  [0,  30, 58, .9],
+  [0, -30, 58, .9],
+  [-30, 0, .9, 60],
+  [30,  0, .9, 60],
 ].forEach(([x,z,w,d]) => {
   const wl = new THREE.Mesh(new THREE.BoxGeometry(w, 1.1, d), wallMat);
   wl.position.set(x, .55, z); scene.add(wl);
 });
-
-// Gate pillars
 [-3, 3].forEach(gx => {
   const p = new THREE.Mesh(new THREE.BoxGeometry(.8, 2.5, .8),
     new THREE.MeshStandardMaterial({ color:0xfbbf24, emissive:0xfbbf24, emissiveIntensity:.4 }));
   p.position.set(gx, 1.25, 30); scene.add(p);
 });
-
-// University Road strip (west)
 const uRoad = new THREE.Mesh(new THREE.BoxGeometry(1, .06, 60),
   new THREE.MeshStandardMaterial({ color:0x151f32, roughness:.9 }));
 uRoad.position.set(-28, .03, 0); scene.add(uRoad);
@@ -798,7 +819,6 @@ uRoad.position.set(-28, .03, 0); scene.add(uRoad);
 // ── TREES ──
 const treeTrunk = new THREE.MeshStandardMaterial({ color:0x5d4037 });
 const treeLeaf  = new THREE.MeshStandardMaterial({ color:0x1a5c2a, emissive:0x082a10, emissiveIntensity:.4 });
-
 [
   [-22,14],[-22,0],[-22,-12],[-22,-22],
   [22,14], [22,0], [22,-12],[22,-22],
@@ -816,16 +836,16 @@ const treeLeaf  = new THREE.MeshStandardMaterial({ color:0x1a5c2a, emissive:0x08
   g.position.set(x, 0, z); scene.add(g);
 });
 
-// ── BUILD 3D BUILDINGS ──
+// ── BUILDINGS ──
 const bGrp = new THREE.Group();
 const bMap  = {};
 
 BLDGS.forEach(b => {
-  const g   = new THREE.Group();
-  const bh  = b.flat ? .22 : (b.h + (b.fl-1) * .68);
+  const g  = new THREE.Group();
+  const bh = b.flat ? .22 : (b.h + (b.fl-1) * .68);
   const hex = '#' + b.clr.toString(16).padStart(6,'0');
 
-  // Drop shadow disc
+  // Drop shadow
   const shd = new THREE.Mesh(
     new THREE.BoxGeometry(b.w+.7, .04, b.d+.7),
     new THREE.MeshStandardMaterial({ color:0x000000, opacity:.2, transparent:true })
@@ -839,11 +859,10 @@ BLDGS.forEach(b => {
   });
   const body = new THREE.Mesh(new THREE.BoxGeometry(b.w, bh, b.d), mat);
   body.position.y = bh/2;
-  body.castShadow  = true;
-  body.receiveShadow = true;
+  body.castShadow = body.receiveShadow = true;
   g.add(body);
 
-  // Floor separation lines + window glow
+  // Floor lines & window glow
   if(!b.flat && b.fl > 1){
     for(let f=1; f<b.fl; f++){
       const fl = new THREE.Mesh(
@@ -852,7 +871,6 @@ BLDGS.forEach(b => {
       );
       fl.position.y = (bh/b.fl)*f; g.add(fl);
     }
-    // window glow strips per floor
     for(let f=0; f<b.fl; f++){
       const wg = new THREE.Mesh(
         new THREE.BoxGeometry(b.w-.35, .26, b.d+.02),
@@ -878,45 +896,31 @@ BLDGS.forEach(b => {
     const pl = new THREE.PointLight(b.clr, 4, 18); pl.position.y = bh+2; g.add(pl);
   }
 
-  // ── LABEL SPRITE ──
-  // Bigger, clearer labels with block number badge
+  // Label sprite
   const LC = document.createElement('canvas');
-  LC.width  = 340; LC.height = 96;
+  LC.width = 340; LC.height = 96;
   const ctx = LC.getContext('2d');
-
-  // Background panel
   ctx.fillStyle = 'rgba(7,9,15,.94)';
   ctx.beginPath(); ctx.roundRect(3,3,334,90,12); ctx.fill();
-  // Coloured left accent bar
   ctx.fillStyle = hex+'cc';
   ctx.beginPath(); ctx.roundRect(3,3,42,90,12); ctx.fill();
-  // Border
   ctx.strokeStyle = hex; ctx.lineWidth = 2;
   ctx.beginPath(); ctx.roundRect(3,3,334,90,12); ctx.stroke();
-
-  // Block number
   ctx.font = 'bold 22px Bebas Neue,monospace';
-  ctx.fillStyle = '#ffffff';
-  ctx.textAlign = 'center';
+  ctx.fillStyle = '#ffffff'; ctx.textAlign = 'center';
   ctx.fillText(b.num.length>3 ? b.num.substring(0,3) : b.num, 24, 57);
-
-  // Name
   ctx.textAlign = 'left';
   ctx.font = 'bold 17px Space Grotesk,sans-serif';
   ctx.fillStyle = '#f0f6ff';
   ctx.fillText(b.lbl, 54, 32);
-
-  // Full name (truncated)
   ctx.font = '11px Space Grotesk,sans-serif';
   ctx.fillStyle = 'rgba(148,163,184,.8)';
   const fullTxt = b.full.length>32 ? b.full.substring(0,32)+'…' : b.full;
   ctx.fillText(fullTxt, 54, 52);
-
-  // Floor count
   if(!b.flat){
     ctx.font = '9px JetBrains Mono,monospace';
     ctx.fillStyle = hex+'99';
-    ctx.fillText(b.fl + ' FL  ·  ' + CATS[b.cat]?.lbl, 54, 70);
+    ctx.fillText(b.fl + ' FL  ·  ' + (CATS[b.cat]?.lbl||''), 54, 70);
   }
 
   const sp = new THREE.Sprite(new THREE.SpriteMaterial({
@@ -936,8 +940,21 @@ BLDGS.forEach(b => {
 });
 scene.add(bGrp);
 
+// ── USER LOCATION MARKER (for QR mode) ──
+const usrMarker = new THREE.Mesh(
+  new THREE.SphereGeometry(0.45, 14, 14),
+  new THREE.MeshStandardMaterial({ color:0x4ade80, emissive:0x4ade80, emissiveIntensity:3, depthTest:false })
+);
+usrMarker.renderOrder = 100; usrMarker.visible = false; scene.add(usrMarker);
+
+const usrRing = new THREE.Mesh(
+  new THREE.RingGeometry(.7, 1.1, 32),
+  new THREE.MeshStandardMaterial({ color:0x4ade80, emissive:0x4ade80, emissiveIntensity:1.5, transparent:true, side:THREE.DoubleSide, depthTest:false })
+);
+usrRing.rotation.x = -Math.PI/2; usrRing.renderOrder = 99; usrRing.visible = false; scene.add(usrRing);
+
 // ════════════════════════════════════════════════════════
-//  PATH RENDERING
+//  PATH RENDERING (slightly thicker / more visible glow)
 // ════════════════════════════════════════════════════════
 let pathObjs = [];
 function clearPath(){
@@ -947,42 +964,44 @@ function clearPath(){
 
 function drawPath(fid, tid){
   clearPath();
-  const pts = roadPath(fid, tid);
+  const pts = astar(fid, tid);
   if(pts.length < 2) return;
 
-  // Slightly elevated points
-  const ePts = pts.map(p => new THREE.Vector3(p.x, p.y+.1, p.z));
-
-  // Main glow line
-  const geo = new THREE.BufferGeometry().setFromPoints(ePts);
-  const ln = new THREE.Line(geo, new THREE.LineBasicMaterial({ color:0x00e5ff, linewidth:3 }));
+  // Main glow line — slightly thicker via two layered lines
+  const geo = new THREE.BufferGeometry().setFromPoints(pts);
+  const ln = new THREE.Line(geo, new THREE.LineBasicMaterial({ color:0x00e5ff, linewidth:4 }));
   ln.renderOrder = 30; scene.add(ln); pathObjs.push(ln);
 
-  // Soft halos
-  [-0.28, 0.28].forEach(off => {
-    const g2 = new THREE.BufferGeometry().setFromPoints(ePts.map(p=>new THREE.Vector3(p.x+off,p.y-.02,p.z+off)));
-    const l2 = new THREE.Line(g2, new THREE.LineBasicMaterial({ color:0x00e5ff, transparent:true, opacity:.18 }));
+  // Wide soft halo lines for visibility
+  [-0.35, 0, 0.35].forEach((off, i) => {
+    const g2 = new THREE.BufferGeometry().setFromPoints(
+      pts.map(p => new THREE.Vector3(p.x+off, p.y - (i===1 ? .05 : .02), p.z+off))
+    );
+    const l2 = new THREE.Line(g2, new THREE.LineBasicMaterial({
+      color: i===1 ? 0x00ffff : 0x00e5ff,
+      transparent:true, opacity: i===1 ? 0.12 : 0.22
+    }));
     l2.renderOrder = 29; scene.add(l2); pathObjs.push(l2);
   });
 
-  // Animated dots distributed along full path
-  const total = pLen(ePts);
+  // Animated dots along path
+  const total = pLen(pts);
   const nDots = Math.max(7, Math.round(total/2.2));
   for(let i=0; i<=nDots; i++){
-    let rem = (i/nDots)*total, p = ePts[0].clone();
-    for(let j=1; j<ePts.length; j++){
-      const seg = ePts[j].distanceTo(ePts[j-1]);
-      if(rem <= seg){ p = ePts[j-1].clone().lerp(ePts[j], seg>0?rem/seg:0); break; }
-      rem -= seg; p = ePts[j].clone();
+    let rem = (i/nDots)*total, p = pts[0].clone();
+    for(let j=1; j<pts.length; j++){
+      const seg = pts[j].distanceTo(pts[j-1]);
+      if(rem <= seg){ p = pts[j-1].clone().lerp(pts[j], seg>0?rem/seg:0); break; }
+      rem -= seg; p = pts[j].clone();
     }
     const dot = new THREE.Mesh(
-      new THREE.SphereGeometry(.23, 8, 8),
+      new THREE.SphereGeometry(.22, 8, 8),
       new THREE.MeshStandardMaterial({ color:0x00e5ff, emissive:0x00e5ff, emissiveIntensity:5 })
     );
-    dot.position.set(p.x, p.y+.15, p.z);
+    dot.position.set(p.x, p.y+.12, p.z);
     dot.userData.pd  = true;
     dot.userData.off = i * .6;
-    dot.userData.by  = p.y + .15;
+    dot.userData.by  = p.y + .12;
     scene.add(dot); pathObjs.push(dot);
   }
 
@@ -1025,22 +1044,24 @@ function drawPath(fid, tid){
 }
 
 // ════════════════════════════════════════════════════════
-//  CAMERA CONTROLS
+//  CAMERA CONTROLS (smooth lerp from new file)
 // ════════════════════════════════════════════════════════
 let drag=false, pM={x:0,y:0};
-let sph={th:.4, ph:.78, r:60};
-let tgt=new THREE.Vector3(0, 0, 4);
+// Dual sph: tgt (where we want to be) + cur (current, lerped)
+let tgtSph = {th:.4, ph:.78, r:60};
+let curSph  = {th:.4, ph:.78, r:60};
+let tgtPos  = new THREE.Vector3(0, 0, 4);
+let curPos  = new THREE.Vector3(0, 0, 4);
 let hov=null, selId=null;
 
 function updateCam(){
-  const x=sph.r*Math.sin(sph.ph)*Math.sin(sph.th);
-  const y=sph.r*Math.cos(sph.ph);
-  const z=sph.r*Math.sin(sph.ph)*Math.cos(sph.th);
-  cam.position.set(tgt.x+x, y, tgt.z+z);
-  cam.lookAt(tgt);
-  // Compass
+  const x = curSph.r*Math.sin(curSph.ph)*Math.sin(curSph.th);
+  const y = curSph.r*Math.cos(curSph.ph);
+  const z = curSph.r*Math.sin(curSph.ph)*Math.cos(curSph.th);
+  cam.position.set(curPos.x+x, y, curPos.z+z);
+  cam.lookAt(curPos);
   const dirs=['N','NE','E','SE','S','SW','W','NW'];
-  const normTh = ((sph.th%(Math.PI*2))+Math.PI*2)%(Math.PI*2);
+  const normTh = ((curSph.th%(Math.PI*2))+Math.PI*2)%(Math.PI*2);
   document.getElementById('cmp').textContent = dirs[Math.round(normTh/(Math.PI/4))%8] || 'N';
 }
 
@@ -1048,14 +1069,12 @@ cv.addEventListener('mousedown', e=>{ drag=true; pM={x:e.clientX,y:e.clientY}; }
 window.addEventListener('mouseup', ()=>drag=false);
 window.addEventListener('mousemove', e=>{
   if(!drag) return;
-  sph.th -= (e.clientX-pM.x)*.005;
-  sph.ph  = Math.max(.18, Math.min(1.52, sph.ph+(e.clientY-pM.y)*.005));
+  tgtSph.th -= (e.clientX-pM.x)*.005;
+  tgtSph.ph  = Math.max(.18, Math.min(1.52, tgtSph.ph+(e.clientY-pM.y)*.005));
   pM = {x:e.clientX,y:e.clientY};
-  updateCam();
 });
 cv.addEventListener('wheel', e=>{
-  sph.r = Math.max(10, Math.min(120, sph.r+e.deltaY*.065));
-  updateCam();
+  tgtSph.r = Math.max(10, Math.min(120, tgtSph.r+e.deltaY*.065));
 },{ passive:true });
 
 let pinchD=0;
@@ -1072,24 +1091,23 @@ cv.addEventListener('touchmove', e=>{
   e.preventDefault();
   if(e.touches.length===2){
     const d = Math.hypot(e.touches[0].clientX-e.touches[1].clientX, e.touches[0].clientY-e.touches[1].clientY);
-    sph.r = Math.max(10, Math.min(120, sph.r-(d-pinchD)*.1));
-    pinchD=d; updateCam();
+    tgtSph.r = Math.max(10, Math.min(120, tgtSph.r-(d-pinchD)*.1));
+    pinchD=d;
   } else if(drag && e.touches.length===1){
-    sph.th -= (e.touches[0].clientX-pM.x)*.005;
-    sph.ph  = Math.max(.18, Math.min(1.52, sph.ph+(e.touches[0].clientY-pM.y)*.005));
+    tgtSph.th -= (e.touches[0].clientX-pM.x)*.005;
+    tgtSph.ph  = Math.max(.18, Math.min(1.52, tgtSph.ph+(e.touches[0].clientY-pM.y)*.005));
     pM = {x:e.touches[0].clientX,y:e.touches[0].clientY};
-    updateCam();
   }
 },{ passive:false });
 cv.addEventListener('touchend', e=>{ if(e.touches.length===0) drag=false; },{ passive:true });
 
-document.getElementById('c-rst').onclick=()=>{ sph={th:.4,ph:.78,r:60}; tgt.set(0,0,4); updateCam(); };
-document.getElementById('c-zi' ).onclick=()=>{ sph.r=Math.max(10,  sph.r-8);  updateCam(); };
-document.getElementById('c-zo' ).onclick=()=>{ sph.r=Math.min(120, sph.r+8);  updateCam(); };
-document.getElementById('c-top').onclick=()=>{ sph.ph=.18; updateCam(); };
+document.getElementById('c-rst').onclick=()=>{ tgtSph={th:.4,ph:.78,r:60}; tgtPos.set(0,0,4); };
+document.getElementById('c-zi' ).onclick=()=>{ tgtSph.r=Math.max(10,  tgtSph.r-8); };
+document.getElementById('c-zo' ).onclick=()=>{ tgtSph.r=Math.min(120, tgtSph.r+8); };
+document.getElementById('c-top').onclick=()=>{ tgtSph.ph=.18; };
 
 // ════════════════════════════════════════════════════════
-//  RAYCASTING — tap/click to select buildings
+//  RAYCASTING
 // ════════════════════════════════════════════════════════
 const ray=new THREE.Raycaster(), mPos=new THREE.Vector2();
 const tip=document.getElementById('tip');
@@ -1133,7 +1151,6 @@ cv.addEventListener('click', e=>{
     selectBuilding(hits[0].object.parent.userData.id);
 });
 
-// Touch tap
 let touchStartPos={x:0,y:0};
 cv.addEventListener('touchstart', e=>{ touchStartPos={x:e.touches[0].clientX,y:e.touches[0].clientY}; },{ passive:true });
 cv.addEventListener('touchend', e=>{
@@ -1150,14 +1167,14 @@ cv.addEventListener('touchend', e=>{
 function selectBuilding(id){
   selId = id;
   const b = BLDGS.find(x=>x.id===id); if(!b) return;
-  tgt.set(b.x, 0, b.z); sph.r=22; updateCam();
+  tgtPos.set(b.x, 0, b.z); tgtSph.r=22;
 
   const hex = '#'+b.clr.toString(16).padStart(6,'0');
   document.getElementById('ic-num').textContent  = b.num;
   document.getElementById('ic-num').style.color  = hex;
   document.getElementById('ic-name').textContent = b.full;
   document.getElementById('ic-name').style.color = hex;
-  document.getElementById('ic-desc').textContent = b.desc;
+  document.getElementById('ic-desc').textContent = b.desc || '';
   document.getElementById('ic-tags').innerHTML   = [
     b.cat && `<span class="ic-tag" style="color:${hex};border-color:${hex}55">${CATS[b.cat]?.lbl||b.cat}</span>`,
     !b.flat && b.fl && `<span class="ic-tag" style="color:var(--t3);border-color:var(--b1)">${b.fl} Floors</span>`,
@@ -1173,7 +1190,6 @@ function selectBuilding(id){
 
   document.getElementById('ic').style.display='block';
 
-  // Highlight selected
   bGrp.children.forEach(g=>{
     const m=g.userData.body;
     if(m) m.material.emissiveIntensity = g.userData.id===id ? 2.8 : .65;
@@ -1182,7 +1198,6 @@ function selectBuilding(id){
   document.getElementById('to-s').value = id;
   checkGo();
 
-  // Close nav panel on mobile
   if(window.innerWidth<700){
     document.getElementById('nav').classList.remove('open');
     document.getElementById('nav').classList.remove('peek');
@@ -1206,7 +1221,6 @@ function toggleNav(){
   p.classList.remove('peek');
 }
 
-// Populate selects
 const opts = BLDGS.map(b=>`<option value="${b.id}">${b.full}</option>`).join('');
 document.getElementById('from-s').innerHTML='<option value="">You are at...</option>'+opts;
 document.getElementById('to-s'  ).innerHTML='<option value="">Go to...</option>'+opts;
@@ -1231,7 +1245,6 @@ document.getElementById('go-btn').onclick=()=>{
   drawPath(fid,tid);
   document.getElementById('rc-d').textContent=d;
   document.getElementById('rc-w').textContent=w;
-  // Build step directions HTML
   const stepsHTML = buildSteps(fid,tid).map((s,i)=>`
     <div class="step">
       <div class="step-num">${i+1}</div>
@@ -1242,12 +1255,9 @@ document.getElementById('go-btn').onclick=()=>{
     </div>`).join('');
   document.getElementById('rc-steps').innerHTML=stepsHTML;
   document.getElementById('rc').style.display='block';
-  // Zoom to show full route
-  tgt.set((a.x+b.x)/2, 0, (a.z+b.z)/2);
-  sph.r = Math.max(38, Math.hypot(a.x-b.x, a.z-b.z)*2.6+22);
-  updateCam();
+  tgtPos.set((a.x+b.x)/2, 0, (a.z+b.z)/2);
+  tgtSph.r = Math.max(38, Math.hypot(a.x-b.x, a.z-b.z)*2.6+22);
   document.getElementById('ic').style.display='none';
-  // On mobile: show peek card with result
   if(window.innerWidth<700){
     const n=document.getElementById('nav');
     n.classList.remove('open');
@@ -1271,7 +1281,7 @@ document.getElementById('ic-nav').onclick=()=>{
   if(fs){
     document.getElementById('go-btn').click();
   } else {
-    toggleNav(); // open nav to pick "from"
+    toggleNav();
     const sel=document.getElementById('from-s');
     sel.style.borderColor='rgba(249,115,22,.8)';
     sel.style.boxShadow='0 0 14px rgba(249,115,22,.4)';
@@ -1289,9 +1299,9 @@ siEl.addEventListener('input',()=>{
   if(!q){ srEl.style.display='none'; return; }
   const ms=BLDGS.filter(b=>
     b.lbl.toLowerCase().includes(q) ||
-    b.full.toLowerCase().includes(q) ||
-    b.num.toLowerCase().includes(q)  ||
-    b.desc.toLowerCase().includes(q) ||
+    b.full.toLowerCase().includes(q)||
+    b.num.toLowerCase().includes(q) ||
+    b.desc.toLowerCase().includes(q)||
     b.cat.toLowerCase().includes(q)
   );
   if(!ms.length){ srEl.style.display='none'; return; }
@@ -1328,12 +1338,115 @@ document.querySelectorAll('.ft').forEach(btn=>{
 });
 
 // ════════════════════════════════════════════════════════
+//  QR SYSTEM — ?from=BUILDING_ID
+//  Sets "from" location, focuses camera, shows subtle
+//  "You are here" indicator (no popup/modal)
+// ════════════════════════════════════════════════════════
+(function initQR(){
+  const params  = new URLSearchParams(window.location.search);
+  const qId     = params.get('from') || params.get('qr');
+  if(!qId) return;
+  const b = BLDGS.find(x=>x.id===qId);
+  if(!b) return;
+
+  // Set from selector
+  document.getElementById('from-s').value = qId;
+  checkGo();
+
+  // Show subtle "You are here" label near search bar
+  document.getElementById('qr-name-lbl').textContent = b.full;
+  document.getElementById('qr-here').classList.add('show');
+
+  // Place user marker on map
+  usrMarker.visible = usrRing.visible = true;
+  usrMarker.position.set(b.x, 1, b.z);
+  usrRing.position.set(b.x, 0.4, b.z);
+
+  // Focus camera on the building
+  tgtPos.set(b.x, 0, b.z);
+  tgtSph.r  = 28;
+  tgtSph.ph = .55;
+
+  // Open nav panel to prompt user to pick destination
+  if(window.innerWidth<700){
+    setTimeout(()=>{
+      document.getElementById('nav').classList.add('open');
+      navOpen=true;
+    }, 2600);
+  }
+})();
+
+// ════════════════════════════════════════════════════════
+//  EVENTS SYSTEM
+//  Loads from events.json; falls back to empty array.
+//  Each event: { name, location, time }
+//  Shows inside existing sidebar below route planner.
+// ════════════════════════════════════════════════════════
+function renderEvents(evts){
+  const list = document.getElementById('evts-list');
+  if(!evts || !evts.length){
+    list.innerHTML = '<div style="font-size:11px;color:var(--t3);font-family:JetBrains Mono,monospace;padding:4px 2px">No events loaded. Add events.json.</div>';
+    return;
+  }
+  list.innerHTML = '';
+  evts.forEach(e=>{
+    const bldg = BLDGS.find(x=>x.id===e.location);
+    const card = document.createElement('div');
+    card.className = 'evt-card';
+    // Time — show first word (e.g. "10:00" from "10:00 AM")
+    const timeParts = e.time ? e.time.split(' ') : ['—'];
+    card.innerHTML = `
+      <div class="evt-time">${timeParts[0]}<br><span style="font-size:8px;opacity:.7">${timeParts[1]||''}</span></div>
+      <div class="evt-info">
+        <div class="evt-title">${e.name}</div>
+        <div class="evt-loc">📌 ${bldg ? bldg.lbl : (e.location||'?')}</div>
+      </div>
+      <button class="evt-nav-btn" title="Navigate to event">→</button>
+    `;
+    card.querySelector('.evt-nav-btn').onclick = ()=>{
+      const tid = e.location;
+      if(!tid || !BLDGS.find(x=>x.id===tid)) return;
+      document.getElementById('to-s').value = tid;
+      checkGo();
+      // If from is set, immediately show route
+      if(document.getElementById('from-s').value){
+        document.getElementById('go-btn').click();
+      } else {
+        // Highlight from selector
+        if(window.innerWidth<700){
+          document.getElementById('nav').classList.add('open');
+          navOpen=true;
+        }
+        const sel=document.getElementById('from-s');
+        sel.style.borderColor='rgba(249,115,22,.8)';
+        sel.style.boxShadow='0 0 14px rgba(249,115,22,.4)';
+        setTimeout(()=>{ sel.style.borderColor=''; sel.style.boxShadow=''; },2800);
+      }
+    };
+    list.appendChild(card);
+  });
+}
+
+fetch('events.json')
+  .then(r=>r.json())
+  .then(renderEvents)
+  .catch(()=>renderEvents([]));
+
+// ════════════════════════════════════════════════════════
 //  ANIMATION LOOP
 // ════════════════════════════════════════════════════════
 let T=0;
 function animate(){
   requestAnimationFrame(animate); T+=.016;
-  // Ambient light pulse
+
+  // Smooth camera lerp
+  curSph.th += (tgtSph.th - curSph.th) * .08;
+  curSph.ph += (tgtSph.ph - curSph.ph) * .08;
+  curSph.r  += (tgtSph.r  - curSph.r ) * .08;
+  curPos.lerp(tgtPos, .08);
+  updateCam();
+
+  // Ambient lights pulse
   nL1.intensity = 2.5 + Math.sin(T*1.4)*.9;
   nL2.intensity = 1.8 + Math.cos(T*1.1)*.7;
 
@@ -1353,15 +1466,22 @@ function animate(){
     }
   });
 
-  // Animate path dots
+  // Animate path dots and flags
   pathObjs.forEach(o=>{
-    if(o.userData.pd)     o.position.y = o.userData.by + Math.sin(T*4+o.userData.off)*.2;
-    if(o.userData.pRing)  o.material.opacity = .28 + Math.sin(T*2.8)*.26;
+    if(o.userData.pd)    o.position.y = o.userData.by + Math.sin(T*4+o.userData.off)*.2;
+    if(o.userData.pRing) o.material.opacity = .28 + Math.sin(T*2.8)*.26;
     if(o.userData.isPole||o.userData.isFlag){
       const bh=o.userData.flagBase;
       o.position.y = bh + (o.userData.isPole?.95:1.55) + Math.sin(T*2.5)*.09;
     }
   });
+
+  // User marker pulse (QR mode)
+  if(usrMarker.visible){
+    usrMarker.position.y = 1 + Math.sin(T*4)*.18;
+    usrRing.scale.setScalar(1 + Math.sin(T*3)*.14);
+    usrRing.material.opacity = 0.4 + Math.sin(T*3)*.28;
+  }
 
   ren.render(scene, cam);
 }
@@ -1371,8 +1491,44 @@ window.addEventListener('resize',()=>{
   ren.setSize(innerWidth,innerHeight);
 });
 
-updateCam();
 animate();
+
+// ════════════════════════════════════════════════════════
+//  THEME TOGGLE
+// ════════════════════════════════════════════════════════
+const THEMES = {
+  tech: {
+    bg:0x07090f, gnd:0x0d1320, road:0x0d1c30, pave:0x131f35, wall:0x1a3050, uroad:0x151f32,
+    amb:0x1a2744, ambInt:3.2, sun:0xfff8e0, sunInt:1.8,
+    fill:0x2050aa, nl1:0x00e5ff, nl2:0xf97316
+  },
+  legacy: {
+    bg:0x241c14, gnd:0x3d3126, road:0x2e231c, pave:0x382b20, wall:0x4a3a2a, uroad:0x2e231c,
+    amb:0x403020, ambInt:3.2, sun:0xffeab0, sunInt:1.6,
+    fill:0x503020, nl1:0xdeb887, nl2:0xcd853f
+  }
+};
+
+let curTheme = 'tech';
+document.getElementById('c-theme').onclick = () => {
+  curTheme = curTheme === 'tech' ? 'legacy' : 'tech';
+  document.body.className = 'theme-' + curTheme;
+  document.getElementById('c-theme').textContent = curTheme === 'tech' ? '☾' : '☀';
+  const t = THEMES[curTheme];
+  scene.background.setHex(t.bg);
+  gnd.material.color.setHex(t.gnd);
+  roadMat.color.setHex(t.road);
+  paveMat.color.setHex(t.pave);
+  wallMat.color.setHex(t.wall);
+  uRoad.material.color.setHex(t.uroad);
+  ambLight.color.setHex(t.amb);
+  ambLight.intensity = t.ambInt;
+  sun.color.setHex(t.sun);
+  sun.intensity = t.sunInt;
+  fill.color.setHex(t.fill);
+  nL1.color.setHex(t.nl1);
+  nL2.color.setHex(t.nl2);
+};
 
 // Dismiss loading screen
 setTimeout(()=>{

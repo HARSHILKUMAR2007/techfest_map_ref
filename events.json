@@ -1,0 +1,34 @@
+[
+  {
+    "id": "e1",
+    "name": "RoboWars Final",
+    "location": "VISH",
+    "time": "14:00 - 18:00",
+    "category": "Competition",
+    "description": "The ultimate robotics showdown in the main arena."
+  },
+  {
+    "id": "e2",
+    "name": "Hackathon Check-in",
+    "location": "B1",
+    "time": "09:00 - 10:00",
+    "category": "Registration",
+    "description": "Check-in for the 24-hour coding marathon."
+  },
+  {
+    "id": "e3",
+    "name": "Guest Lecture: AI Future",
+    "location": "B10",
+    "time": "11:00 - 12:30",
+    "category": "Talks",
+    "description": "Insights on the future of GenAI by industry experts."
+  },
+  {
+    "id": "e4",
+    "name": "Live Music / DJ Night",
+    "location": "LAWN",
+    "time": "19:00 - 22:00",
+    "category": "Cultural",
+    "description": "Wind down with live music at the Civil Lawn."
+  }
+]
