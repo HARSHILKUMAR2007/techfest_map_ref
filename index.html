@@ -721,6 +721,51 @@ function buildSteps(fid, tid){
   return out;
 }
 
+function smoothPath(points) {
+  if (points.length < 3) return points;
+
+  let smooth = [];
+  smooth.push(points[0]);
+
+  for (let i = 1; i < points.length - 1; i++) {
+
+    let prev = points[i - 1];
+    let curr = points[i];
+    let next = points[i + 1];
+
+    let dir1 = new THREE.Vector3().subVectors(curr, prev).normalize();
+    let dir2 = new THREE.Vector3().subVectors(next, curr).normalize();
+
+    let angle = dir1.dot(dir2);
+
+    // Straight → keep
+    if (angle > 0.98) {
+      smooth.push(curr);
+      continue;
+    }
+
+    // 🔥 Create SMALL rounded corner (important)
+    let cornerSize = 0.6; // tweak this
+
+    let pA = curr.clone().sub(dir1.multiplyScalar(cornerSize));
+    let pB = curr.clone().add(dir2.multiplyScalar(cornerSize));
+
+    let curve = new THREE.QuadraticBezierCurve3(
+      pA,
+      curr,
+      pB
+    );
+
+    let pts = curve.getPoints(6);
+
+    smooth.push(...pts);
+  }
+
+  smooth.push(points[points.length - 1]);
+
+  return smooth;
+}
+
 // ════════════════════════════════════════════════════════
 //  THREE.JS SCENE SETUP
 // ════════════════════════════════════════════════════════
@@ -957,90 +1002,133 @@ usrRing.rotation.x = -Math.PI/2; usrRing.renderOrder = 99; usrRing.visible = fal
 //  PATH RENDERING (slightly thicker / more visible glow)
 // ════════════════════════════════════════════════════════
 let pathObjs = [];
+let arrows = [];
+let currentPathPoints = [];
+
 function clearPath(){
   pathObjs.forEach(o => scene.remove(o));
   pathObjs = [];
+  arrows = []; // VERY IMPORTANT
 }
 
 function drawPath(fid, tid){
   clearPath();
-  const pts = astar(fid, tid);
+  let rawPts = astar(fid, tid);
+  let pts = smoothPath(rawPts);
+  currentPathPoints = pts;
   if(pts.length < 2) return;
 
-  // Main glow line — slightly thicker via two layered lines
-  const geo = new THREE.BufferGeometry().setFromPoints(pts);
-  const ln = new THREE.Line(geo, new THREE.LineBasicMaterial({ color:0x00e5ff, linewidth:4 }));
-  ln.renderOrder = 30; scene.add(ln); pathObjs.push(ln);
+  // ===== NEW ROUTE UI (FROM index.html) =====
+  for(let i = 1; i < pts.length; i++){
 
-  // Wide soft halo lines for visibility
-  [-0.35, 0, 0.35].forEach((off, i) => {
-    const g2 = new THREE.BufferGeometry().setFromPoints(
-      pts.map(p => new THREE.Vector3(p.x+off, p.y - (i===1 ? .05 : .02), p.z+off))
-    );
-    const l2 = new THREE.Line(g2, new THREE.LineBasicMaterial({
-      color: i===1 ? 0x00ffff : 0x00e5ff,
-      transparent:true, opacity: i===1 ? 0.12 : 0.22
-    }));
-    l2.renderOrder = 29; scene.add(l2); pathObjs.push(l2);
-  });
+    let p1 = pts[i-1];
+    let p2 = pts[i];
 
-  // Animated dots along path
-  const total = pLen(pts);
-  const nDots = Math.max(7, Math.round(total/2.2));
-  for(let i=0; i<=nDots; i++){
-    let rem = (i/nDots)*total, p = pts[0].clone();
-    for(let j=1; j<pts.length; j++){
-      const seg = pts[j].distanceTo(pts[j-1]);
-      if(rem <= seg){ p = pts[j-1].clone().lerp(pts[j], seg>0?rem/seg:0); break; }
-      rem -= seg; p = pts[j].clone();
-    }
-    const dot = new THREE.Mesh(
-      new THREE.SphereGeometry(.22, 8, 8),
-      new THREE.MeshStandardMaterial({ color:0x00e5ff, emissive:0x00e5ff, emissiveIntensity:5 })
+    let d = p1.distanceTo(p2);
+    if(d < 0.1) continue;
+
+    // --- DARK BASE (contrast layer) ---
+    let base = new THREE.Mesh(
+      new THREE.PlaneGeometry(1.4, d),
+      new THREE.MeshBasicMaterial({
+        color: 0x000000,
+        transparent: true,
+        opacity: 0.25
+      })
     );
-    dot.position.set(p.x, p.y+.12, p.z);
-    dot.userData.pd  = true;
-    dot.userData.off = i * .6;
-    dot.userData.by  = p.y + .12;
-    scene.add(dot); pathObjs.push(dot);
+
+    base.position.copy(p1).lerp(p2, 0.5);
+    base.position.y = 0.29;
+    base.rotation.x = -Math.PI/2;
+    base.rotation.z = Math.atan2(p2.x - p1.x, p2.z - p1.z);
+
+    scene.add(base);
+    pathObjs.push(base);
+
+    // --- MAIN ROUTE STRIP ---
+    let route = new THREE.Mesh(
+      new THREE.PlaneGeometry(1.2, d),
+      new THREE.MeshStandardMaterial({
+        color: 0x3b82f6,          // nicer blue
+        emissive: 0x60a5fa,       // glow color
+        emissiveIntensity: 0.6,   // 🔥 increase glow
+        transparent: true,
+        opacity: 0.95,
+        side: THREE.DoubleSide
+      })
+    );
+    
+    route.position.copy(p1).lerp(p2, 0.5);
+    route.position.y = 0.3;
+    route.rotation.x = -Math.PI/2;
+    route.rotation.z = Math.atan2(p2.x - p1.x, p2.z - p1.z);
+
+    let glow = new THREE.Mesh(
+      new THREE.PlaneGeometry(2.2, d),
+      new THREE.MeshBasicMaterial({
+        color: 0x60a5fa,
+        transparent: true,
+        opacity: 0.5,
+        depthWrite: false
+      })
+    );
+
+    glow.position.copy(route.position);
+    glow.position.y = 0.28;
+    glow.rotation.copy(route.rotation);
+
+    scene.add(glow);
+    pathObjs.push(glow);
+
+    scene.add(route);
+    pathObjs.push(route);
   }
 
-  // Origin GREEN ring + pin
-  const aB = BLDGS.find(b=>b.id===fid);
-  const pin = new THREE.Mesh(
-    new THREE.SphereGeometry(.5, 10, 10),
-    new THREE.MeshStandardMaterial({ color:0x4ade80, emissive:0x4ade80, emissiveIntensity:5 })
-  );
-  pin.position.set(aB.x, .65, aB.z);
-  scene.add(pin); pathObjs.push(pin);
+  // ===== ADD MOVING ARROWS HERE =====
+  let totalLen = 0;
 
-  const ring = new THREE.Mesh(
-    new THREE.RingGeometry(.65, .9, 30),
-    new THREE.MeshStandardMaterial({ color:0x4ade80, emissive:0x4ade80, emissiveIntensity:3, transparent:true, opacity:.6, side:THREE.DoubleSide })
-  );
-  ring.rotation.x = -Math.PI/2;
-  ring.position.set(aB.x, .22, aB.z);
-  ring.userData.pRing = true;
-  scene.add(ring); pathObjs.push(ring);
+  for(let i=1; i<pts.length; i++){
+    totalLen += pts[i].distanceTo(pts[i-1]);
+  }
 
-  // Destination ORANGE flag
-  const bB = BLDGS.find(b=>b.id===tid);
-  const bh = bMap[tid] ? bMap[tid].userData.bh : 1;
-  const pole = new THREE.Mesh(
-    new THREE.BoxGeometry(.14, 1.8, .14),
-    new THREE.MeshStandardMaterial({ color:0xffffff, emissive:0xffffff, emissiveIntensity:1.8 })
-  );
-  pole.position.set(bB.x, bh+.95, bB.z);
-  pole.userData.flagBase = bh; pole.userData.isPole = true;
-  scene.add(pole); pathObjs.push(pole);
+  let arrowCount = Math.max(4, Math.floor(totalLen / 5));
 
-  const flag = new THREE.Mesh(
-    new THREE.BoxGeometry(.85, .5, .06),
-    new THREE.MeshStandardMaterial({ color:0xf97316, emissive:0xf97316, emissiveIntensity:3.5 })
-  );
-  flag.position.set(bB.x+.5, bh+1.55, bB.z);
-  flag.userData.flagBase = bh; flag.userData.isFlag = true;
-  scene.add(flag); pathObjs.push(flag);
+  for(let i = 0; i < arrowCount; i++){
+
+    let arrow = new THREE.Mesh(
+      new THREE.ConeGeometry(0.35, 0.7, 4),
+      new THREE.MeshStandardMaterial({
+        color: 0xffffff,
+        emissive: 0xffffff,
+        emissiveIntensity: 1.2,
+        depthTest: true,
+        depthWrite: true,
+        polygonOffset: true,
+        polygonOffsetFactor: -2,
+        polygonOffsetUnits: -2,
+      })
+    );
+
+    arrow.rotation.x = -Math.PI/2;
+
+    arrow.userData = {
+      isArrow: true,
+      offset: (i / arrowCount) * totalLen
+    };
+
+    // SET INITIAL POSITION (VERY IMPORTANT)
+    let pStart = pts[0];
+    let pNext  = pts[1];
+
+    if(pStart && pNext){
+      let pos = pStart.clone().lerp(pNext, 0.01);
+      arrow.position.set(pos.x, pos.y + 0.5, pos.z);
+    }
+
+    scene.add(arrow);
+    arrows.push(arrow);
+    pathObjs.push(arrow);
+  }
 }
 
 // ════════════════════════════════════════════════════════
@@ -1466,15 +1554,57 @@ function animate(){
     }
   });
 
-  // Animate path dots and flags
-  pathObjs.forEach(o=>{
-    if(o.userData.pd)    o.position.y = o.userData.by + Math.sin(T*4+o.userData.off)*.2;
-    if(o.userData.pRing) o.material.opacity = .28 + Math.sin(T*2.8)*.26;
-    if(o.userData.isPole||o.userData.isFlag){
-      const bh=o.userData.flagBase;
-      o.position.y = bh + (o.userData.isPole?.95:1.55) + Math.sin(T*2.5)*.09;
+  arrows.forEach(a => {
+
+  // ✅ ADD THIS LINE (VERY IMPORTANT)
+  if(!currentPathPoints || currentPathPoints.length < 2) return;
+
+  a.userData.offset += 0.08;
+
+  let dist = a.userData.offset;
+  let total = 0;
+
+  for(let i = 1; i < currentPathPoints.length; i++){
+
+    let p1 = currentPathPoints[i-1];
+    let p2 = currentPathPoints[i];
+
+    let seg = p1.distanceTo(p2);
+
+    if(total + seg >= dist){
+
+      let t = (dist - total) / seg;
+
+      let pos = p1.clone().lerp(p2, t);
+      a.position.set(pos.x, pos.y + 1.0, pos.z);
+
+      let dir = new THREE.Vector3().subVectors(p2, p1).normalize();
+
+      // smooth direction instead of angle
+      if(!a.userData.dir){
+        a.userData.dir = dir.clone();
+      }
+
+      a.userData.dir.lerp(dir, 0.15); // smooth blend
+
+      let angle = -Math.atan2(a.userData.dir.x, a.userData.dir.z);
+
+      a.rotation.set(-Math.PI/2, 0, angle);
+
+      // keep flat
+      a.rotation.x = -Math.PI / 2;
+      a.rotation.y = 0;
+
+      return; // ✅ CHANGE break → return
     }
-  });
+
+    total += seg;
+  }
+
+  // ✅ LOOP RESET FIX
+  a.userData.offset = 0;
+
+});
 
   // User marker pulse (QR mode)
   if(usrMarker.visible){
