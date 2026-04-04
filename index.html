@@ -106,8 +106,12 @@
       align-items: center;
       justify-content: center;
       font-size: 16px;
-      box-shadow: 0 0 14px rgba(0, 229, 255, .35);
-      animation: logoSpin 12s linear infinite
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.4);
+    }
+
+    .hdr-logo:hover {
+      transform: scale(1.05);
+      box-shadow: 0 0 20px rgba(0, 229, 255, 0.5);
     }
 
     @keyframes logoSpin {
@@ -116,15 +120,13 @@
       }
     }
 
-    .hdr-logo-inner {
-      width: 28px;
-      height: 28px;
+    .hdr-logo-inner img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
       border-radius: 50%;
-      background: var(--bg);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 15px
+      background: transparent;
+      transform: scale(1.3)
     }
 
     .hdr-title {
@@ -133,7 +135,9 @@
       letter-spacing: 2px;
       background: linear-gradient(135deg, var(--cyan2), var(--cyan));
       -webkit-background-clip: text;
-      -webkit-text-fill-color: transparent
+      -webkit-text-fill-color: transparent;
+      text-transform: none;
+      font-weight: 500;
     }
 
     .hdr-sub {
@@ -185,6 +189,7 @@
     #srch-wrap {
       position: fixed;
       top: 58px;
+      z-index: 300;
       left: 50%;
       transform: translateX(-50%);
       z-index: 280;
@@ -734,22 +739,35 @@
     /* ── QR "You are here" TOOLTIP ── */
     #qr-here {
       position: fixed;
-      top: 58px;
+      top: 110px;
       left: 50%;
       transform: translateX(-50%);
       z-index: 290;
       display: none;
-      background: rgba(74, 222, 128, .12);
-      border: 1px solid rgba(74, 222, 128, .4);
+      background:rgba(16, 185, 129, 0.18);
+      border: 1px solid rgba(74, 222, 128, .6);
       border-radius: 22px;
-      padding: 5px 14px 5px 10px;
+      padding: 6px 16px;
       display: none;
       align-items: center;
       gap: 8px;
-      backdrop-filter: blur(16px);
-      box-shadow: 0 4px 16px rgba(0, 0, 0, .4);
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 
+        0 4px 16px rgba(0,0,0,0.4),
+        0 0 18px rgba(74, 222, 128, 0.25);
       pointer-events: none;
       white-space: nowrap
+    }
+
+    #srch-wrap {
+      top: 58px;
+    }
+
+    @media (min-width:700px) {
+      #qr-here {
+        top: 100px;
+      }
     }
 
     #qr-here.show {
@@ -812,7 +830,7 @@
 
       .ic-in {
         border-radius: 22px 22px 0 0;
-        padding: 16px 16px 30px
+        padding: 16px 16px 300px
       }
 
       .ic-in::before {
@@ -1289,7 +1307,7 @@
 
   <div id="ld">
     <div class="ld-ring"></div>
-    <div class="ld-t1">LDCE NAVIGATOR</div>
+    <div class="ld-t1">Lakshya 2.0</div>
     <div class="ld-t2">L.D. COLLEGE OF ENGINEERING<br>AHMEDABAD — 3D CAMPUS MAP</div>
     <div class="ld-bar">
       <div class="ld-fill"></div>
@@ -1300,10 +1318,12 @@
   <div id="hdr">
     <div class="hdr-l">
       <div class="hdr-logo">
-        <div class="hdr-logo-inner">LD</div>
+        <div class="hdr-logo-inner">
+          <img src="logo.png" alt="LD">
+        </div>
       </div>
       <div>
-        <div class="hdr-title">LDCE Navigator</div>
+        <div class="hdr-title">Lakshya Navigator</div>
         <div class="hdr-sub">L.D. College of Engineering, Ahmedabad</div>
       </div>
     </div>
@@ -1447,20 +1467,20 @@
       { id: 'B0', lbl: 'Block 0', full: 'Main Block', num: '0', cat: 'admin', clr: 0x3b82f6, em: 0x0d1e50, x: 0, z: 13, w: 6, d: 4, h: 2.8, fl: 4, desc: 'Admin offices' },
       { id: 'CRICKET', lbl: 'Cricket Ground', full: 'Cricket Ground', num: 'CG', cat: 'sports', clr: 0xd2b48c, em: 0x3a2800, x: 16, z: 16, w: 12, d: 12, h: .15, fl: 1, isRound: true, flat: true, desc: 'Main match ground' },
 
-      { id: 'B2', lbl: 'Block 2', full: 'Elec/Comp/Civil', num: '2', cat: 'academic', clr: 0xa855f7, em: 0x280840, x: -15, z: 0, w: 4, d: 14, h: 3.5, fl: 5, desc: 'Dept Block 2' },
+      { id: 'B2', lbl: 'Block 2', full: 'Block 2 (Elec/Comp/Civil)', num: '2', cat: 'academic', clr: 0xa855f7, em: 0x280840, x: -15, z: 0, w: 4, d: 14, h: 3.5, fl: 5, desc: 'Dept Block 2' },
 
-      { id: 'B3', lbl: 'Block 3', full: 'Civil Drawing Hall', num: '3', cat: 'academic', clr: 0xf97316, em: 0x3a1000, x: -4, z: 6, w: 4, d: 3, h: 1.5, fl: 2, desc: 'Drawing Hall' },
-      { id: 'B4', lbl: 'Block 4', full: 'Mech Drawing Hall', num: '4', cat: 'academic', clr: 0xf43f5e, em: 0x3a0812, x: 4, z: 6, w: 4, d: 3, h: 1.5, fl: 2, desc: 'Drawing Hall' },
-      { id: 'B5', lbl: 'Block 5', full: 'Mech Workshop', num: '5', cat: 'academic', clr: 0x64748b, em: 0x151e28, x: 0, z: -1, w: 8, d: 7, h: 2.8, fl: 3, desc: 'Workshop' },
+      { id: 'B3', lbl: 'Block 3', full: 'Block 3 (Civil Drawing Hall)', num: '3', cat: 'academic', clr: 0xf97316, em: 0x3a1000, x: -4, z: 6, w: 4, d: 3, h: 1.5, fl: 2, desc: 'Drawing Hall' },
+      { id: 'B4', lbl: 'Block 4', full: 'Block 4 (Mech Drawing Hall)', num: '4', cat: 'academic', clr: 0xf43f5e, em: 0x3a0812, x: 4, z: 6, w: 4, d: 3, h: 1.5, fl: 2, desc: 'Drawing Hall' },
+      { id: 'B5', lbl: 'Block 5', full: 'Block 5 (Mech Workshop)', num: '5', cat: 'academic', clr: 0x64748b, em: 0x151e28, x: 0, z: -1, w: 8, d: 7, h: 2.8, fl: 3, desc: 'Workshop' },
       { id: 'TENNIS', lbl: 'Tennis Court', full: 'Tennis Court', num: 'TC', cat: 'sports', clr: 0x4ade80, em: 0x0a2a12, x: -4, z: -6, w: 4, d: 3, h: .15, fl: 1, flat: true, desc: 'Courts' },
       { id: 'CANTEEN', lbl: 'Canteen', full: 'Main Canteen', num: 'C', cat: 'facility', clr: 0xfbbf24, em: 0x402a00, x: 4, z: -6, w: 4, d: 3, h: 1.3, fl: 1, desc: 'Canteen' },
 
-      { id: 'B6', lbl: 'App Mech/LAA', full: 'App Mech/LAA', num: '6', cat: 'academic', clr: 0x92400e, em: 0x251008, x: 14, z: 2, w: 4, d: 10, h: 2.5, fl: 3, desc: 'App Mech' },
-      { id: 'B8', lbl: 'Textile', full: 'Textile', num: '8', cat: 'academic', clr: 0xec4899, em: 0x3a0820, x: 14, z: -5.5, w: 4, d: 3, h: 2, fl: 3, desc: 'Textile' },
-      { id: 'B7', lbl: 'Block 7', full: 'Chem Engg', num: '7', cat: 'academic', clr: 0x14b8a6, em: 0x052820, x: 20, z: 5, w: 4, d: 4, h: 2.5, fl: 3, desc: 'Chemical Engg' },
-      { id: 'B10', lbl: 'Block 10', full: 'Annexe', num: '10', cat: 'academic', clr: 0x06b6d4, em: 0x022030, x: 20, z: 0, w: 4, d: 3, h: 3, fl: 4, desc: 'MCA, BM' },
-      { id: 'B12', lbl: 'Block 12', full: 'Block 12', num: '12', cat: 'academic', clr: 0xec4899, em: 0x3a0820, x: 20, z: -5.5, w: 4, d: 6, h: 3, fl: 4, desc: 'Block 12' },
-      { id: 'B9', lbl: 'Block 9', full: 'EC/ENV', num: '9', cat: 'academic', clr: 0x6366f1, em: 0x100838, x: 20, z: -14, w: 6, d: 6, h: 3.2, fl: 4, isRound: true, desc: 'EC and Env' },
+      { id: 'B6', lbl: 'Block 6', full: 'Block 6 (App Mech/LAA)', num: '6', cat: 'academic', clr: 0x92400e, em: 0x251008, x: 14, z: 2, w: 4, d: 10, h: 2.5, fl: 3, desc: 'App Mech' },
+      { id: 'B8', lbl: 'Textile', full: 'Block 8 (Textile)', num: '8', cat: 'academic', clr: 0xec4899, em: 0x3a0820, x: 14, z: -5.5, w: 4, d: 3, h: 2, fl: 3, desc: 'Textile' },
+      { id: 'B7', lbl: 'Block 7', full: 'Block 7 (Chem Engg)', num: '7', cat: 'academic', clr: 0x14b8a6, em: 0x052820, x: 20, z: 5, w: 4, d: 4, h: 2.5, fl: 3, desc: 'Chemical Engg' },
+      { id: 'B10', lbl: 'Block 10', full: 'Block 10 (Annexe Building)', num: '10', cat: 'academic', clr: 0x06b6d4, em: 0x022030, x: 20, z: 0, w: 4, d: 3, h: 3, fl: 4, desc: 'MCA, BM' },
+      { id: 'B12', lbl: 'Block 12', full: 'Tark Shaastra — 24 Hours Hackathon', num: '12', cat: 'academic', clr: 0xec4899, em: 0x3a0820, x: 20, z: -5.5, w: 4, d: 6, h: 3, fl: 4, desc: 'Block 12' },
+      { id: 'B9', lbl: 'Block 9', full: 'Block 9 (EC/ENV)', num: '9', cat: 'academic', clr: 0x6366f1, em: 0x100838, x: 20, z: -14, w: 6, d: 6, h: 3.2, fl: 4, isRound: true, desc: 'EC and Env' },
 
       { id: 'BOYS_D', lbl: 'PG Hostel', full: 'PG Boys Hostel', num: 'HD', cat: 'hostel', clr: 0x60a5fa, em: 0x0d1e40, x: -20, z: -16, w: 5, d: 10, h: 3, fl: 4, desc: 'PG Hostel' },
       { id: 'STAFF', lbl: 'Staff Quarter', full: 'Staff Quarter', num: 'SQ', cat: 'facility', clr: 0x94a3b8, em: 0x161e28, x: -12, z: -18, w: 3, d: 3, h: 2.2, fl: 3, desc: 'Staff' },
@@ -1514,19 +1534,40 @@
     // Connect each building to its nearest road node via a mid-node
     BLDGS.forEach(b => {
       nodes[b.id] = { x: b.x, z: b.z, edges: {} };
-      const rX = snap(b.x, RX), rZ = snap(b.z, RZ);
-      const midId = `${b.id}_mid`;
-      if (Math.abs(b.x - rX) < Math.abs(b.z - rZ)) {
-        // closer horizontally — go east/west first
-        nodes[midId] = { x: rX, z: b.z, edges: {} };
-        nodes[b.id].edges[midId] = nodes[midId].edges[b.id] = Math.abs(b.x - rX);
-        nodes[midId].edges[`${rX}_${rZ}`] = nodes[`${rX}_${rZ}`].edges[midId] = Math.abs(b.z - rZ);
+
+      // 🔥 Find closest ROAD LINE (not intersection)
+      const nearestRX = snap(b.x, RX);
+      const nearestRZ = snap(b.z, RZ);
+
+      let ex, ez, roadId;
+
+      // Decide which road is closer
+      if (Math.abs(b.x - nearestRX) < Math.abs(b.z - nearestRZ)) {
+        // connect to vertical road (X fixed)
+        ex = nearestRX;
+        ez = b.z;
+
+        roadId = `${nearestRX}_${snap(b.z, RZ)}`; // nearest node on that road
       } else {
-        // closer vertically — go north/south first
-        nodes[midId] = { x: b.x, z: rZ, edges: {} };
-        nodes[b.id].edges[midId] = nodes[midId].edges[b.id] = Math.abs(b.z - rZ);
-        nodes[midId].edges[`${rX}_${rZ}`] = nodes[`${rX}_${rZ}`].edges[midId] = Math.abs(b.x - rX);
+        // connect to horizontal road (Z fixed)
+        ex = b.x;
+        ez = nearestRZ;
+
+        roadId = `${snap(b.x, RX)}_${nearestRZ}`;
       }
+
+      const entryId = `${b.id}_entry`;
+      nodes[entryId] = { x: ex, z: ez, edges: {} };
+
+      // building → entry
+      const d1 = Math.hypot(b.x - ex, b.z - ez);
+      nodes[b.id].edges[entryId] = d1;
+      nodes[entryId].edges[b.id] = d1;
+
+      // entry → road grid (nearest node ON SAME ROAD)
+      const d2 = Math.hypot(ex - nodes[roadId].x, ez - nodes[roadId].z);
+      nodes[entryId].edges[roadId] = d2;
+      nodes[roadId].edges[entryId] = d2;
     });
 
     // A* (simplified Dijkstra with heuristic via Euclidean distance)
@@ -1560,7 +1601,11 @@
       for (let u = endId; u; u = prev[u]) path.unshift(u);
       if (path[0] !== startId) return []; // no path found
 
-      return path.map(id => new THREE.Vector3(nodes[id].x, 0.5, nodes[id].z));
+      const clean = path.filter((id, i) => {
+        if(i === 0 || i === path.length - 1) return true; // always keep endpoints
+        return !id.endsWith('_mid');                       // drop mid-nodes in between
+      });
+      return clean.map(id => new THREE.Vector3(nodes[id].x, 0.5, nodes[id].z));
     }
 
     function pLen(pts) { let d = 0; for (let i = 1; i < pts.length; i++) d += pts[i].distanceTo(pts[i - 1]); return d; }
@@ -1614,7 +1659,7 @@
         }
 
         // 🔥 Create SMALL rounded corner (important)
-        let cornerSize = 0.6; // tweak this
+        let cornerSize = 1.2; // tweak this
 
         let pA = curr.clone().sub(dir1.multiplyScalar(cornerSize));
         let pB = curr.clone().add(dir2.multiplyScalar(cornerSize));
@@ -1880,16 +1925,32 @@
 
     // ── USER LOCATION MARKER (for QR mode) ──
     const usrMarker = new THREE.Mesh(
-      new THREE.SphereGeometry(0.45, 14, 14),
-      new THREE.MeshStandardMaterial({ color: 0x4ade80, emissive: 0x4ade80, emissiveIntensity: 3, depthTest: false })
+      new THREE.SphereGeometry(0.7, 20, 20), // bigger + smoother
+      new THREE.MeshStandardMaterial({ color: 0x00ffcc, emissive: 0x00ffcc, emissiveIntensity: 5, depthTest: false })
     );
     usrMarker.renderOrder = 100; usrMarker.visible = false; scene.add(usrMarker);
 
     const usrRing = new THREE.Mesh(
-      new THREE.RingGeometry(.7, 1.1, 32),
-      new THREE.MeshStandardMaterial({ color: 0x4ade80, emissive: 0x4ade80, emissiveIntensity: 1.5, transparent: true, side: THREE.DoubleSide, depthTest: false })
+      new THREE.RingGeometry(1.2, 2.2, 64),
+      new THREE.MeshStandardMaterial({ color: 0x00ffcc, emissive: 0x00ffcc, emissiveIntensity: 1.5, transparent: true, side: THREE.DoubleSide, depthTest: false })
     );
     usrRing.rotation.x = -Math.PI / 2; usrRing.renderOrder = 99; usrRing.visible = false; scene.add(usrRing);
+
+    // ── USER BEAM (NEW) ──
+    const usrBeam = new THREE.Mesh(
+      new THREE.CylinderGeometry(0.5, 0.5, 60, 32),
+      new THREE.MeshBasicMaterial({
+        color: 0x00ffcc,
+        transparent: true,
+        opacity: 0.2,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending
+      })
+    );
+
+    usrBeam.position.y = 30; // half of height
+    usrBeam.visible = false;
+    scene.add(usrBeam);
 
     // ════════════════════════════════════════════════════════
     //  PATH RENDERING (slightly thicker / more visible glow)
@@ -2272,6 +2333,10 @@
         setTimeout(() => { sel.style.borderColor = ''; sel.style.boxShadow = ''; }, 2800);
       }
     };
+    document.getElementById('ic-x').onclick = () => {
+      document.getElementById('ic').style.display = 'none';
+    };
+    
 
     // ════════════════════════════════════════════════════════
     //  SEARCH
@@ -2345,6 +2410,8 @@
       usrMarker.visible = usrRing.visible = true;
       usrMarker.position.set(b.x, 1, b.z);
       usrRing.position.set(b.x, 0.4, b.z);
+      usrBeam.visible = true;
+      usrBeam.position.set(b.x, 5, b.z);
 
       // Focus camera on the building
       tgtPos.set(b.x, 0, b.z);
@@ -2533,8 +2600,13 @@
       // User marker pulse (QR mode)
       if (usrMarker.visible) {
         usrMarker.position.y = 1 + Math.sin(T * 4) * .18;
+
         usrRing.scale.setScalar(1 + Math.sin(T * 3) * .14);
         usrRing.material.opacity = 0.4 + Math.sin(T * 3) * .28;
+
+        // 🔥 Beam animation
+        usrBeam.material.opacity = 0.2 + Math.sin(T * 2) * 0.1;
+        usrBeam.scale.y = 1 + Math.sin(T * 2) * 0.1;
       }
 
       ren.render(scene, cam);
