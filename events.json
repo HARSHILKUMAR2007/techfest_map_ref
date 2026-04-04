@@ -1,34 +1,317 @@
 [
   {
     "id": "e1",
-    "name": "RoboWars Final",
-    "location": "VISH",
-    "time": "14:00 - 18:00",
-    "category": "Competition",
-    "description": "The ultimate robotics showdown in the main arena."
+    "name": "Tark Shaastra — 24 Hours Hackathon",
+    "category": "CS / Hackathon",
+    "date": "18–19 April 2026",
+    "time": "12:00 PM (Day 1) – Submissions Day 2",
+    "location": "Block 12",
+    "description": "A flagship hackathon where teams collaborate to build impactful prototypes within 24 hours, tackling real-world challenges through creativity, coding, and problem-solving."
   },
   {
     "id": "e2",
-    "name": "Hackathon Check-in",
-    "location": "B1",
-    "time": "09:00 - 10:00",
-    "category": "Registration",
-    "description": "Check-in for the 24-hour coding marathon."
+    "name": "Rapid CAD Arena",
+    "category": "Mechanical",
+    "date": "18–19 April 2026",
+    "time": "12:00 PM onwards",
+    "location": "514, Mechanical Workshop",
+    "description": "A high-intensity CAD design challenge where participants convert engineering requirements into precise 2D drawings and 3D models under strict time limits."
   },
   {
     "id": "e3",
-    "name": "Guest Lecture: AI Future",
-    "location": "B10",
-    "time": "11:00 - 12:30",
-    "category": "Talks",
-    "description": "Insights on the future of GenAI by industry experts."
+    "name": "Drone Grand Prix",
+    "category": "Tech / Robotics",
+    "date": "18 April 2026",
+    "time": "4:00 PM – 7:00 PM",
+    "location": "Drone Grand Prix Area",
+    "description": "A competitive drone racing event where teams navigate a specially designed obstacle course, evaluated on speed, stability, control, and durability."
   },
   {
     "id": "e4",
-    "name": "Live Music / DJ Night",
-    "location": "LAWN",
-    "time": "19:00 - 22:00",
-    "category": "Cultural",
-    "description": "Wind down with live music at the Civil Lawn."
+    "name": "Aero-Struct Challenges",
+    "category": "Mechanical",
+    "date": "18–19 April 2026",
+    "time": "11:00 AM onwards",
+    "location": "VJ Jani Hall",
+    "description": "A two-round engineering showdown — teams build a load-bearing chassis from simple materials, then craft an aerodynamic body tested under live airflow."
+  },
+  {
+    "id": "e5",
+    "name": "Structural Survival",
+    "category": "Civil",
+    "date": "18–19 April 2026",
+    "time": "11:00 AM – 6:00 PM",
+    "location": "CT Lab",
+    "description": "Teams design and construct a bridge model from simple materials, which is tested with increasing loads until failure, evaluating structural ingenuity and efficiency."
+  },
+  {
+    "id": "e6",
+    "name": "RoboRush",
+    "category": "Robotics",
+    "date": "18 April 2026",
+    "time": "1:00 PM – 6:00 PM",
+    "location": "Cricket Ground",
+    "description": "Teams engineer FPV-enabled robots and guide them through an intense obstacle course — ramps, tunnels, sharp turns — entirely via a live first-person camera feed."
+  },
+  {
+    "id": "e7",
+    "name": "Renewable ReMakers",
+    "category": "Environmental / Tech",
+    "date": "19 April 2026",
+    "time": "10:00 AM – 4:00 PM",
+    "location": "Block 5 Corridor",
+    "description": "A sustainability challenge where teams design working prototypes that transform waste materials into renewable energy solutions like biogas, biofuel, or bioelectricity."
+  },
+  {
+    "id": "e8",
+    "name": "Auction & Creation",
+    "category": "Electronics",
+    "date": "19 April 2026",
+    "time": "10:00 AM – 3:00 PM",
+    "location": "Upnishad Hall",
+    "description": "An electronics innovation challenge where teams build a functional prototype from given components, with a live auction adding a strategic layer to the competition."
+  },
+  {
+    "id": "e9",
+    "name": "C2C Display Presentation",
+    "category": "General",
+    "date": "18 April 2026",
+    "time": "TBD",
+    "location": "TBD",
+    "description": "A structured presentation event where participants showcase their projects, innovations, or research through compelling visual displays to an audience and judging panel."
+  },
+  {
+    "id": "e10",
+    "name": "Civil Chaos",
+    "category": "Civil",
+    "date": "18–19 April 2026",
+    "time": "11:00 AM onwards",
+    "location": "Visveswarya Hall",
+    "description": "Teams first create a meme highlighting a real civil engineering problem, then develop a technical poster proposing an innovative solution, followed by a judge Q&A."
+  },
+  {
+    "id": "e11",
+    "name": "Quiz Crete",
+    "category": "Civil",
+    "date": "19 April 2026",
+    "time": "10:00 AM – 2:00 PM",
+    "location": "Vishwakarma Hall",
+    "description": "A multi-round civil engineering quiz testing concepts through MCQs, visual-based questions, and case-based problems under competitive pressure."
+  },
+  {
+    "id": "e12",
+    "name": "Youth Parliament",
+    "category": "General / Literary",
+    "date": "18–19 April 2026",
+    "time": "11:00 AM onwards",
+    "location": "Ramanujan Hall",
+    "description": "A simulation of parliamentary proceedings fostering leadership, public speaking, and policy understanding through structured debates on national development themes."
+  },
+  {
+    "id": "e13",
+    "name": "Circuit Debugging",
+    "category": "Electrical / Electronics",
+    "date": "18 April 2026",
+    "time": "11:00 AM – 3:00 PM",
+    "location": "BEE Lab",
+    "description": "A two-round electronics challenge — teams first simulate and debug circuits digitally, then physically build and verify the same circuit on a breadboard."
+  },
+  {
+    "id": "e14",
+    "name": "Pitch the Idea",
+    "category": "General / Entrepreneurship",
+    "date": "18–19 April 2026",
+    "time": "11:00 AM onwards",
+    "location": "GD Room",
+    "description": "An entrepreneurship event where participants pitch innovative startup ideas to a panel of judges, evaluated on originality, business model clarity, and delivery."
+  },
+  {
+    "id": "e15",
+    "name": "Balance Track",
+    "category": "Robotics",
+    "date": "19 April 2026",
+    "time": "10:00 AM – 5:00 PM",
+    "location": "Visveswarya Hall",
+    "description": "Teams design a self-balancing autonomous robot that follows a predefined track while carrying a mounted water can, maintaining stability without external support."
+  },
+  {
+    "id": "e16",
+    "name": "AI Short Film Generation",
+    "category": "CS / AI",
+    "date": "18 April 2026",
+    "time": "3:00 PM – 7:00 PM",
+    "location": "Visveswarya Hall",
+    "description": "Participants use AI tools to generate short films centred around the theme of sustainability and environmental impact, judged on storytelling and innovative use of AI."
+  },
+  {
+    "id": "e17",
+    "name": "RoboMaze (Maze Solver)",
+    "category": "Robotics",
+    "date": "19 April 2026",
+    "time": "11:00 AM – 3:00 PM",
+    "location": "Room 525, Siemens Lab",
+    "description": "Participants build autonomous robots capable of navigating a predefined maze using only onboard sensors and programming — no human intervention allowed."
+  },
+  {
+    "id": "e18",
+    "name": "Filter Fusion",
+    "category": "Environmental",
+    "date": "18 April 2026",
+    "time": "12:00 PM – 6:00 PM",
+    "location": "Block 3",
+    "description": "A sustainability challenge where teams build filtration systems from waste or recyclable materials for water purification or air filtration, promoting circular economy practices."
+  },
+  {
+    "id": "e19",
+    "name": "LineXplorer",
+    "category": "Robotics",
+    "date": "18 April 2026",
+    "time": "2:00 PM – 7:00 PM",
+    "location": "Room 525, Siemens Lab",
+    "description": "A robotics competition where participants design autonomous line-following robots, encouraging hands-on learning in embedded systems, sensor programming, and autonomous control."
+  },
+  {
+    "id": "e20",
+    "name": "The Painted Realm (Cosmic Palette)",
+    "category": "Art / Culture",
+    "date": "19 April 2026",
+    "time": "10:00 AM – 1:00 PM",
+    "location": "Homi Bhabha Hall",
+    "description": "A live space-themed art competition where participants bring their cosmic imagination to life through painting and illustration based on a surprise on-the-spot theme."
+  },
+  {
+    "id": "e21",
+    "name": "ChemVista",
+    "category": "Chemical Engineering",
+    "date": "18 April 2026",
+    "time": "11:00 AM – 2:00 PM",
+    "location": "Electrical Lawn",
+    "description": "A creative poster design competition encouraging students to visually communicate ideas around sustainability, green technology, and engineering innovation."
+  },
+  {
+    "id": "e22",
+    "name": "TechTrace — Offline Tech Treasure Hunt",
+    "category": "CS / Tech",
+    "date": "18 April 2026",
+    "time": "1:00 PM – 5:00 PM",
+    "location": "Campus-wide",
+    "description": "A campus-wide treasure hunt where teams solve coding clues and technical puzzles across multiple locations, covering programming, binary logic, and algorithms."
+  },
+  {
+    "id": "e23",
+    "name": "Chem-Car-O-Burn",
+    "category": "Chemical Engineering",
+    "date": "19 April 2026",
+    "time": "10:00 AM – 12:00 PM",
+    "location": "BEE Lab",
+    "description": "Teams design and build a model car powered by chemical reactions and compete on a track, judged on speed, stability, and accuracy of performance."
+  },
+  {
+    "id": "e24",
+    "name": "SimulChem",
+    "category": "Chemical Engineering",
+    "date": "19 April 2026",
+    "time": "12:00 PM – 5:00 PM",
+    "location": "Computer Lab",
+    "description": "Participants design and simulate a chemical process using tools like DWSIM, building flowsheets and optimising performance within competition constraints."
+  },
+  {
+    "id": "e25",
+    "name": "ChemQuest",
+    "category": "Chemical Engineering",
+    "date": "18 April 2026",
+    "time": "11:00 AM – 3:00 PM",
+    "location": "Room 401, Block 4",
+    "description": "A technical quiz competition focused on core chemical engineering concepts — thermodynamics, heat transfer, fluid mechanics, reaction engineering, and industrial processes."
+  },
+  {
+    "id": "e26",
+    "name": "The Last Engineer Standing",
+    "category": "General",
+    "date": "19 April 2026",
+    "time": "11:00 AM – 1:00 PM",
+    "location": "Homi Bhabha Hall",
+    "description": "An all-rounder competition to identify the most versatile engineer at Lakshya 2.0, featuring aptitude tests, technical problem-solving, case studies, and multi-disciplinary judge interactions."
+  },
+  {
+    "id": "e27",
+    "name": "PromptCraft",
+    "category": "CS / AI",
+    "date": "18 April 2026",
+    "time": "12:00 PM – 4:00 PM",
+    "location": "Chanakya Hall",
+    "description": "An AI competition where participants craft precise and creative prompts to generate optimal outputs from AI tools, reflecting the real-world importance of prompt engineering."
+  },
+  {
+    "id": "e28",
+    "name": "Imposter Code Quest",
+    "category": "CS / AI",
+    "date": "19 April 2026",
+    "time": "11:00 AM – 2:00 PM",
+    "location": "Chanakya Hall",
+    "description": "A unique challenge blending programming ability with social deduction — teams solve a programming problem while secretly identifying an impostor among them."
+  },
+  {
+    "id": "e29",
+    "name": "Eco-Clean Water Fest",
+    "category": "Environmental",
+    "date": "18 April 2026",
+    "time": "3:00 PM – 6:00 PM",
+    "location": "Block 5 Corridor",
+    "description": "Participants design an adsorption column using agro-bio waste materials to remove colour from industrial wastewater, evaluated on clarity and colour removal efficiency."
+  },
+  {
+    "id": "e30",
+    "name": "Cosmic Hunt",
+    "category": "General",
+    "date": "18–19 April 2026",
+    "time": "12:00 PM onwards",
+    "location": "Room 401, Block 4",
+    "description": "A space-themed escape room challenge where teams act as astronauts trapped in a malfunctioning space station, decoding messages and solving puzzles to restore systems."
+  },
+  {
+    "id": "e31",
+    "name": "Market Masters — Stock Market & Global Training Seminar",
+    "category": "Finance / General",
+    "date": "19 April 2026",
+    "time": "3:00 PM – 5:00 PM",
+    "location": "TPO Hall (Aryabhatta Hall)",
+    "description": "An insightful seminar by experienced traders and finance professionals covering how global financial markets operate, including trading strategies, instruments, and risk management."
+  },
+  {
+    "id": "e32",
+    "name": "LD Talks / Tech Talks",
+    "category": "General",
+    "date": "18 April 2026",
+    "time": "12:00 PM – 3:00 PM",
+    "location": "TPO Hall (Aryabhatta Hall)",
+    "description": "An interactive tech podcast-style session where industry experts are interviewed by student moderators, discussing real-world technology applications, career insights, and emerging trends."
+  },
+  {
+    "id": "e33",
+    "name": "ByteHunt",
+    "category": "CS / Tech",
+    "date": "18 April 2026",
+    "time": "3:00 PM – 7:00 PM",
+    "location": "Annexe",
+    "description": "A tech-based competitive hunt where participants tackle byte-sized challenges spanning coding, logic, and digital problem-solving, racing through clues across computing concepts."
+  },
+  {
+    "id": "e34",
+    "name": "Bachpan NGO — The Changemaker",
+    "category": "Social Impact / NGO",
+    "date": "18 April 2026",
+    "time": "4:00 PM – 7:00 PM",
+    "location": "TPO Hall (Aryabhatta Hall)",
+    "description": "A raw, unscripted live podcast session featuring a real changemaker discussing grassroots impact, personal failures, career clarity, and youth participation in nation-building."
+  },
+  {
+    "id": "e35",
+    "name": "Sky Gazing Night — Explore the Universe",
+    "category": "Astronomy",
+    "date": "18 April 2026",
+    "time": "8:00 PM – 11:00 PM",
+    "location": "Cricket Ground",
+    "description": "An astronomy observation event where participants explore celestial objects like the Moon, planets, and constellations through telescopes. Organized by Prakalpa Club."
   }
 ]
