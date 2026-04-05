@@ -301,7 +301,7 @@
     }
 
     /* Make QR go behind navbar when open */
-    #nav.open ~ #qr-here {
+    #nav.open~#qr-here {
       z-index: 200;
       opacity: 0.2;
     }
@@ -749,11 +749,9 @@
       transform: translateX(-50%);
       z-index: 250;
       display: none;
-      background: linear-gradient(
-        to right,
-        rgba(0,0,0,0.55),
-        rgba(0,0,0,0.35)
-      );
+      background: linear-gradient(to right,
+          rgba(0, 0, 0, 0.55),
+          rgba(0, 0, 0, 0.35));
       border: 1px solid rgba(74, 222, 128, 0.9);
       border-radius: 22px;
       padding: 6px 16px;
@@ -761,25 +759,30 @@
       gap: 8px;
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
-      box-shadow: 
-        0 6px 24px rgba(0,0,0,0.6),
+      box-shadow:
+        0 6px 24px rgba(0, 0, 0, 0.6),
         0 0 22px rgba(74, 222, 128, 0.45),
         0 0 40px rgba(74, 222, 128, 0.25);
       pointer-events: none;
       white-space: nowrap;
       color: #d1fae5;
       font-weight: 600;
-      text-shadow: 0 0 6px rgba(0,0,0,0.6);
+      text-shadow: 0 0 6px rgba(0, 0, 0, 0.6);
     }
 
     /* 📱 MOBILE ORDER FIX */
     @media (max-width:699px) {
-      #srch-wrap { top: 58px; }
+      #srch-wrap {
+        top: 58px;
+      }
 
-      #fbar { top: 110px; }
+      #fbar {
+        top: 110px;
+      }
 
-      #qr-here { 
-        top: 160px;   /* BELOW FILTER */
+      #qr-here {
+        top: 160px;
+        /* BELOW FILTER */
       }
     }
 
@@ -803,7 +806,7 @@
       height: 8px;
       background: #4ade80;
       border-radius: 50%;
-      box-shadow: 
+      box-shadow:
         0 0 10px #4ade80,
         0 0 20px rgba(74, 222, 128, 0.8);
     }
@@ -813,8 +816,15 @@
     }
 
     @keyframes blinkQR {
-      0%, 100% { opacity: 1; }
-      50% { opacity: 0.3; }
+
+      0%,
+      100% {
+        opacity: 1;
+      }
+
+      50% {
+        opacity: 0.3;
+      }
     }
 
     @keyframes pulseQr {
@@ -1484,7 +1494,7 @@
     //  Events:   Loaded from events.json, shown in sidebar
     // ═══════════════════════════════════════════════════════════════════
 
-    const SCALE = 14; // metres per unit
+    const SCALE = 7; // metres per unit
 
     const RX = [-24, -9, 9, 17, 24];
     const RZ = [-24, -9, 9, 24];
@@ -2452,7 +2462,7 @@
     document.getElementById('ic-x').onclick = () => {
       document.getElementById('ic').style.display = 'none';
     };
-    
+
 
     // ════════════════════════════════════════════════════════
     //  SEARCH
