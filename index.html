@@ -300,6 +300,12 @@
       overflow: hidden
     }
 
+    /* Make QR go behind navbar when open */
+    #nav.open ~ #qr-here {
+      z-index: 200;
+      opacity: 0.2;
+    }
+
     /* MOBILE: bottom sheet */
     @media(max-width:699px) {
       #nav {
@@ -739,35 +745,53 @@
     /* ── QR "You are here" TOOLTIP ── */
     #qr-here {
       position: fixed;
-      top: 110px;
       left: 50%;
       transform: translateX(-50%);
-      z-index: 290;
+      z-index: 250;
       display: none;
-      background:rgba(16, 185, 129, 0.18);
-      border: 1px solid rgba(74, 222, 128, .6);
+      background: linear-gradient(
+        to right,
+        rgba(0,0,0,0.55),
+        rgba(0,0,0,0.35)
+      );
+      border: 1px solid rgba(74, 222, 128, 0.9);
       border-radius: 22px;
       padding: 6px 16px;
-      display: none;
       align-items: center;
       gap: 8px;
       backdrop-filter: blur(18px);
       -webkit-backdrop-filter: blur(18px);
       box-shadow: 
-        0 4px 16px rgba(0,0,0,0.4),
-        0 0 18px rgba(74, 222, 128, 0.25);
+        0 6px 24px rgba(0,0,0,0.6),
+        0 0 22px rgba(74, 222, 128, 0.45),
+        0 0 40px rgba(74, 222, 128, 0.25);
       pointer-events: none;
-      white-space: nowrap
+      white-space: nowrap;
+      color: #d1fae5;
+      font-weight: 600;
+      text-shadow: 0 0 6px rgba(0,0,0,0.6);
     }
 
-    #srch-wrap {
-      top: 58px;
+    /* 📱 MOBILE ORDER FIX */
+    @media (max-width:699px) {
+      #srch-wrap { top: 58px; }
+
+      #fbar { top: 110px; }
+
+      #qr-here { 
+        top: 160px;   /* BELOW FILTER */
+      }
     }
 
+    /* 💻 DESKTOP (unchanged feel) */
     @media (min-width:700px) {
       #qr-here {
         top: 100px;
       }
+    }
+
+    #srch-wrap {
+      top: 58px;
     }
 
     #qr-here.show {
@@ -775,13 +799,22 @@
     }
 
     .qr-dot {
-      width: 9px;
-      height: 9px;
+      width: 8px;
+      height: 8px;
+      background: #4ade80;
       border-radius: 50%;
-      background: var(--green);
-      box-shadow: 0 0 10px var(--green);
-      flex-shrink: 0;
-      animation: pulseQr 2s ease-in-out infinite
+      box-shadow: 
+        0 0 10px #4ade80,
+        0 0 20px rgba(74, 222, 128, 0.8);
+    }
+
+    #qr-here.blinking {
+      animation: blinkQR 1s ease-in-out infinite;
+    }
+
+    @keyframes blinkQR {
+      0%, 100% { opacity: 1; }
+      50% { opacity: 0.3; }
     }
 
     @keyframes pulseQr {
@@ -2260,10 +2293,28 @@
     let navOpen = false;
     function toggleNav() {
       if (window.innerWidth >= 700) return;
+
       navOpen = !navOpen;
       const p = document.getElementById('nav');
       p.classList.toggle('open', navOpen);
       p.classList.remove('peek');
+
+      if (!navOpen) setTimeout(() => { p.scrollTop = 0; }, 380);
+
+      if (qrCompleted) return;
+
+      const qrBox = document.getElementById('qr-here');
+
+      if (navOpen) {
+        stopQRBlinkTimer();
+        qrBox.style.opacity = '0.2';
+      } else {
+        qrBox.style.opacity = '1';
+        setTimeout(() => {
+          qrBox.classList.add('show');
+          startQRBlinkTimer();
+        }, 400);
+      }
     }
 
     const opts = BLDGS.map(b => `<option value="${b.id}">${b.full}</option>`).join('');
@@ -2288,6 +2339,13 @@
       const a = BLDGS.find(b => b.id === fid), b = BLDGS.find(b => b.id === tid);
       const d = calcDist(fid, tid), w = Math.max(1, Math.round(d / 80));
       drawPath(fid, tid);
+      if (!qrCompleted) {
+        const qrBox = document.getElementById('qr-here');
+        clearTimeout(qrTimer);
+        qrBox.classList.remove('blinking', 'show');
+        qrBox.style.display = 'none';
+        qrCompleted = true;
+      }
       document.getElementById('rc-d').textContent = d;
       document.getElementById('rc-w').textContent = w;
       const stepsHTML = buildSteps(fid, tid).map((s, i) => `
@@ -2308,6 +2366,7 @@
         n.classList.remove('open');
         n.classList.add('peek');
         navOpen = false;
+        setTimeout(() => { n.scrollTop = 0; }, 380);
       }
     };
 
@@ -2391,6 +2450,32 @@
     //  Sets "from" location, focuses camera, shows subtle
     //  "You are here" indicator (no popup/modal)
     // ════════════════════════════════════════════════════════
+
+    let qrTimer;
+    let qrCompleted = false;
+
+    function startQRBlinkTimer() {
+      if (qrCompleted) return;
+
+      const qrBox = document.getElementById('qr-here');
+      qrBox.classList.add('blinking');
+      clearTimeout(qrTimer);
+
+      qrTimer = setTimeout(() => {
+        qrBox.classList.remove('blinking');
+        qrBox.classList.remove('show');
+        qrBox.style.display = 'none';
+        qrCompleted = true;
+      }, 6000);
+    }
+
+    function stopQRBlinkTimer() {
+      if (qrCompleted) return;
+
+      const qrBox = document.getElementById('qr-here');
+      qrBox.classList.remove('blinking');
+      clearTimeout(qrTimer);
+    }
     (function initQR() {
       const params = new URLSearchParams(window.location.search);
       const qId = params.get('from') || params.get('qr');
@@ -2404,7 +2489,14 @@
 
       // Show subtle "You are here" label near search bar
       document.getElementById('qr-name-lbl').textContent = b.full;
-      document.getElementById('qr-here').classList.add('show');
+
+      const qrBox = document.getElementById('qr-here');
+
+      // SHOW
+      qrBox.classList.add('show');
+
+      // START blinking after slight delay
+      setTimeout(startQRBlinkTimer, 800);
 
       // Place user marker on map
       usrMarker.visible = usrRing.visible = true;
@@ -2423,6 +2515,10 @@
         setTimeout(() => {
           document.getElementById('nav').classList.add('open');
           navOpen = true;
+
+          // stop QR while nav is open
+          stopQRBlinkTimer();
+          document.getElementById('qr-here').style.opacity = "0.2";
         }, 2600);
       }
     })();
