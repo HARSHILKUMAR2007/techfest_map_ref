@@ -185,6 +185,26 @@
       background: rgba(251, 191, 36, .08)
     }
 
+    /* ── GOOGLE MAP BUTTON ── */
+    .b-gmap {
+      border-color: rgba(74, 222, 128, .4);
+      color: var(--green);
+      background: rgba(74, 222, 128, .08);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: background .2s, border-color .2s, box-shadow .2s
+    }
+
+    .b-gmap:hover,
+    .b-gmap:active {
+      background: rgba(74, 222, 128, .18);
+      border-color: rgba(74, 222, 128, .7);
+      box-shadow: 0 0 10px rgba(74, 222, 128, .25)
+    }
+
     /* ── SEARCH ── */
     #srch-wrap {
       position: fixed;
@@ -1414,6 +1434,7 @@
     <div class="hdr-r">
       <div class="badge b-cyan">Tech Fest 2026</div>
       <div class="badge b-amber">3D Map</div>
+      <a class="badge b-gmap" href="https://harshilkumar2007.github.io/ldce_g_map/" target="_blank" rel="noopener noreferrer">🗺 Google Map</a>
     </div>
   </div>
 
@@ -1566,7 +1587,7 @@
       { id: 'B8', lbl: 'Textile', full: 'Block 8 (Textile)', num: '8', cat: 'academic', clr: 0xec4899, em: 0x3a0820, x: 14, z: -5.5, w: 4, d: 3, h: 2, fl: 3, desc: 'Textile' },
       { id: 'B7', lbl: 'Block 7', full: 'Block 7 (Chem Engg)', num: '7', cat: 'academic', clr: 0x14b8a6, em: 0x052820, x: 20, z: 5, w: 4, d: 4, h: 2.5, fl: 3, desc: 'Chemical Engg' },
       { id: 'B10', lbl: 'Block 10', full: 'Block 10 (Annexe Building)', num: '10', cat: 'academic', clr: 0x06b6d4, em: 0x022030, x: 20, z: 0, w: 4, d: 3, h: 3, fl: 4, desc: 'MCA, BM' },
-      { id: 'B12', lbl: 'Block 12', full: 'Tark Shaastra — 24 Hours Hackathon', num: '12', cat: 'academic', clr: 0xec4899, em: 0x3a0820, x: 20, z: -5.5, w: 4, d: 6, h: 3, fl: 4, desc: 'Block 12' },
+      { id: 'B12', lbl: 'Block 12', full: 'Tark Shaastra — 24 Hours Hackathon', num: '12', cat: 'academic', clr: 0xec4899, em: 0x3a0820, x: 13, z: -14.2, w: 4, d: 4, h: 3, fl: 4, desc: 'Block 12' },
       { id: 'B9', lbl: 'Block 9', full: 'Block 9 (EC/ENV)', num: '9', cat: 'academic', clr: 0x6366f1, em: 0x100838, x: 20, z: -14, w: 6, d: 6, h: 3.2, fl: 4, isRound: true, desc: 'EC and Env' },
 
       { id: 'BOYS_D', lbl: 'PG Hostel', full: 'PG Boys Hostel', num: 'HD', cat: 'hostel', clr: 0x60a5fa, em: 0x0d1e40, x: -20, z: -16, w: 5, d: 10, h: 3, fl: 4, desc: 'PG Hostel' },
@@ -1578,7 +1599,7 @@
       { id: 'HOSTC', lbl: 'Hostel C', full: 'Hostel Block C', num: 'HC', cat: 'hostel', clr: 0x818cf8, em: 0x10143a, x: 5, z: -14, w: 3, d: 3, h: 2.5, fl: 3, desc: 'Hostel C' },
       { id: 'HOSTE', lbl: 'Hostel E', full: 'Hostel Block E', num: 'HE', cat: 'hostel', clr: 0x818cf8, em: 0x10143a, x: -1, z: -18, w: 3, d: 3, h: 2.5, fl: 3, desc: 'Hostel E' },
       { id: 'HOSTF', lbl: 'Hostel F', full: 'Hostel Block F', num: 'HF', cat: 'hostel', clr: 0x818cf8, em: 0x10143a, x: 4, z: -18, w: 3, d: 3, h: 2.5, fl: 3, desc: 'Hostel F' },
-      { id: 'GIRLS', lbl: 'Girls Hostel', full: 'Girls Hostel', num: 'GH', cat: 'hostel', clr: 0xf472b6, em: 0x380816, x: 16, z: -17, w: 8, d: 5, h: 3, fl: 4, desc: 'Girls Hostel' },
+      { id: 'GIRLS', lbl: 'Girls Hostel', full: 'Girls Hostel', num: 'GH', cat: 'hostel', clr: 0xf472b6, em: 0x380816, x: 16, z: -19, w: 8, d: 5, h: 3, fl: 4, desc: 'Girls Hostel' },
 
       { id: 'CSQR', lbl: 'Square', full: 'Central Square', num: 'S', cat: 'facility', clr: 0xef4444, em: 0x3a0808, x: 0, z: 16, w: 2.2, d: 2.2, h: .2, fl: 1, flat: true, desc: 'Square' }
     ];
