@@ -185,6 +185,26 @@
       background: rgba(251, 191, 36, .08)
     }
 
+    /* ── GOOGLE MAP BUTTON ── */
+    .b-gmap {
+      border-color: rgba(74, 222, 128, .4);
+      color: var(--green);
+      background: rgba(74, 222, 128, .08);
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      cursor: pointer;
+      transition: background .2s, border-color .2s, box-shadow .2s
+    }
+
+    .b-gmap:hover,
+    .b-gmap:active {
+      background: rgba(74, 222, 128, .18);
+      border-color: rgba(74, 222, 128, .7);
+      box-shadow: 0 0 10px rgba(74, 222, 128, .25)
+    }
+
     /* ── SEARCH ── */
     #srch-wrap {
       position: fixed;
@@ -1373,6 +1393,7 @@
     <div class="hdr-r">
       <div class="badge b-cyan">Tech Fest 2026</div>
       <div class="badge b-amber">3D Map</div>
+      <a class="badge b-gmap" href="https://harshilkumar2007.github.io/ldce_g_map/" target="_blank" rel="noopener noreferrer">🗺 Google Map</a>
     </div>
   </div>
 
