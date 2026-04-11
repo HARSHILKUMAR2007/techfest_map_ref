@@ -1390,7 +1390,7 @@
       color: var(--amber);
       white-space: nowrap;
       backdrop-filter: blur(18px);
-      box-shadow: 0 0 22px rgba(251, 191, 36, .35), 0 6px 24px rgba(0,0,0,.6);
+      box-shadow: 0 0 22px rgba(251, 191, 36, .35), 0 6px 24px rgba(0, 0, 0, .6);
       opacity: 0;
       transition: opacity .3s ease, transform .3s ease
     }
@@ -1402,7 +1402,9 @@
 
     /* On mobile: hide compass, show event mode btn in ctrls */
     @media(max-width:699px) {
-      #cmp { display: none }
+      #cmp {
+        display: none
+      }
     }
   </style>
 </head>
@@ -1434,7 +1436,8 @@
     <div class="hdr-r">
       <div class="badge b-cyan">Tech Fest 2026</div>
       <div class="badge b-amber">3D Map</div>
-      <a class="badge b-gmap" href="https://harshilkumar2007.github.io/ldce_g_map/" target="_blank" rel="noopener noreferrer">🗺 Google Map</a>
+      <a class="badge b-gmap" href="https://harshilkumar2007.github.io/ldce_g_map/" target="_blank"
+        rel="noopener noreferrer">🗺 Google Map</a>
     </div>
   </div>
 
@@ -1559,49 +1562,49 @@
     //  Events:   Loaded from events.json, shown in sidebar
     // ═══════════════════════════════════════════════════════════════════
 
-    const SCALE = 7; // metres per unit
+    const SCALE = 11.0; // recalibrated for hybrid graph
 
-    const RX = [-24, -9, 9, 17, 24];
-    const RZ = [-24, -9, 9, 24];
+    const RX = [-27, -7.2, 9, 18, 27];
+    const RZ = [-27, -3.6, 14.4, 27];
 
     // ─── BUILDINGS ───────────────────────────────────────────────────
     const BLDGS = [
-      { id: 'GATE1', lbl: 'Main Gate 1', full: 'Main Gate 1', num: 'G1', cat: 'facility', clr: 0xf6c90e, em: 0x3a2800, x: 9, z: 25, w: 5, d: 1, h: 1.5, fl: 1, isGate: true, desc: 'Primary entrance' },
-      { id: 'GATE2', lbl: 'Main Gate 2', full: 'Main Gate 2', num: 'G2', cat: 'facility', clr: 0xf6c90e, em: 0x3a2800, x: -9, z: 25, w: 5, d: 1, h: 1.5, fl: 1, isGate: true, desc: 'Secondary entrance' },
-      { id: 'HOSTEL_GATE', lbl: 'Hostel Gate', full: 'Hostel Gate (West)', num: 'HG', cat: 'facility', clr: 0xf6c90e, em: 0x3a2800, x: -24, z: -9, w: 1, d: 5, h: 1.5, fl: 1, isGate: true, desc: 'Hostel gate' },
+      { id: 'GATE1', lbl: 'Main Gate 1', full: 'Main Gate 1', num: 'G1', cat: 'facility', clr: 0xf6c90e, em: 0x3a2800, x: 9, z: 27, w: 5, d: 1, h: 1.5, fl: 1, isGate: true, desc: 'Primary entrance' },
+      { id: 'GATE2', lbl: 'Main Gate 2', full: 'Main Gate 2', num: 'G2', cat: 'facility', clr: 0xf6c90e, em: 0x3a2800, x: -7.2, z: 27, w: 5, d: 1, h: 1.5, fl: 1, isGate: true, desc: 'Secondary entrance' },
+      { id: 'HOSTEL_GATE', lbl: 'Hostel Gate', full: 'Hostel Gate (West)', num: 'HG', cat: 'facility', clr: 0xf6c90e, em: 0x3a2800, x: -28.1, z: -3.6, w: 1, d: 5, h: 1.5, fl: 1, isGate: true, desc: 'Hostel gate' },
 
-      { id: 'B1', lbl: 'Block 1', full: 'LRC Block & Library', num: '1', cat: 'academic', clr: 0x22c55e, em: 0x082a12, x: -16, z: 18, w: 5, d: 5, h: 2, fl: 3, desc: 'Library' },
-      { id: 'LAWN', lbl: 'Lawn', full: 'Civil Lawn', num: 'L', cat: 'facility', clr: 0x16a34a, em: 0x082a10, x: 0, z: 20, w: 14, d: 6, h: .2, fl: 1, flat: true, desc: 'Green space' },
-      { id: 'B0', lbl: 'Block 0', full: 'Main Block', num: '0', cat: 'admin', clr: 0x3b82f6, em: 0x0d1e50, x: 0, z: 13, w: 6, d: 4, h: 2.8, fl: 4, desc: 'Admin offices' },
-      { id: 'CRICKET', lbl: 'Cricket Ground', full: 'Cricket Ground', num: 'CG', cat: 'sports', clr: 0xd2b48c, em: 0x3a2800, x: 16, z: 16, w: 12, d: 12, h: .15, fl: 1, isRound: true, flat: true, desc: 'Main match ground' },
+      { id: 'B1', lbl: 'Block 1', full: 'LRC Block & Library', num: '1', cat: 'academic', clr: 0x22c55e, em: 0x082a12, x: -16.4, z: 22, w: 5, d: 5, h: 2, fl: 3, desc: 'Library' },
+      { id: 'LAWN', lbl: 'Lawn', full: 'Civil Lawn', num: 'L', cat: 'facility', clr: 0x16a34a, em: 0x082a10, x: 0.9, z: 23.4, w: 14, d: 6, h: .2, fl: 1, flat: true, desc: 'Green space' },
+      { id: 'B0', lbl: 'Block 0', full: 'Main Block', num: '0', cat: 'admin', clr: 0x3b82f6, em: 0x0d1e50, x: 0.9, z: 17.8, w: 6, d: 4, h: 2.8, fl: 4, desc: 'Admin offices' },
+      { id: 'CRICKET', lbl: 'Cricket Ground', full: 'Cricket Ground', num: 'CG', cat: 'sports', clr: 0xd2b48c, em: 0x3a2800, x: 18, z: 20.4, w: 12, d: 12, h: .15, fl: 1, isRound: true, flat: true, desc: 'Main match ground' },
 
-      { id: 'B2', lbl: 'Block 2', full: 'Block 2 (Elec/Comp/Civil)', num: '2', cat: 'academic', clr: 0xa855f7, em: 0x280840, x: -15, z: 0, w: 4, d: 14, h: 3.5, fl: 5, desc: 'Dept Block 2' },
+      { id: 'B2', lbl: 'Block 2', full: 'Block 2 (Elec/Comp/Civil)', num: '2', cat: 'academic', clr: 0xa855f7, em: 0x280840, x: -15.1, z: 5.4, w: 4, d: 14, h: 3.5, fl: 5, desc: 'Dept Block 2' },
 
-      { id: 'B3', lbl: 'Block 3', full: 'Block 3 (Civil Drawing Hall)', num: '3', cat: 'academic', clr: 0xf97316, em: 0x3a1000, x: -4, z: 6, w: 4, d: 3, h: 1.5, fl: 2, desc: 'Drawing Hall' },
-      { id: 'B4', lbl: 'Block 4', full: 'Block 4 (Mech Drawing Hall)', num: '4', cat: 'academic', clr: 0xf43f5e, em: 0x3a0812, x: 4, z: 6, w: 4, d: 3, h: 1.5, fl: 2, desc: 'Drawing Hall' },
-      { id: 'B5', lbl: 'Block 5', full: 'Block 5 (Mech Workshop)', num: '5', cat: 'academic', clr: 0x64748b, em: 0x151e28, x: 0, z: -1, w: 8, d: 7, h: 2.8, fl: 3, desc: 'Workshop' },
-      { id: 'TENNIS', lbl: 'Tennis Court', full: 'Tennis Court', num: 'TC', cat: 'sports', clr: 0x4ade80, em: 0x0a2a12, x: -4, z: -6, w: 4, d: 3, h: .15, fl: 1, flat: true, desc: 'Courts' },
-      { id: 'CANTEEN', lbl: 'Canteen', full: 'Main Canteen', num: 'C', cat: 'facility', clr: 0xfbbf24, em: 0x402a00, x: 4, z: -6, w: 4, d: 3, h: 1.3, fl: 1, desc: 'Canteen' },
+      { id: 'B3', lbl: 'Block 3', full: 'Block 3 (Civil Drawing Hall)', num: '3', cat: 'academic', clr: 0xf97316, em: 0x3a1000, x: -2.7, z: 11.3, w: 4, d: 3, h: 1.5, fl: 2, desc: 'Drawing Hall' },
+      { id: 'B4', lbl: 'Block 4', full: 'Block 4 (Mech Drawing Hall)', num: '4', cat: 'academic', clr: 0xf43f5e, em: 0x3a0812, x: 4.5, z: 11.3, w: 4, d: 3, h: 1.5, fl: 2, desc: 'Drawing Hall' },
+      { id: 'B5', lbl: 'Block 5', full: 'Block 5 (Mech Workshop)', num: '5', cat: 'academic', clr: 0x64748b, em: 0x151e28, x: 0.9, z: 4.3, w: 8, d: 7, h: 2.8, fl: 3, desc: 'Workshop' },
+      { id: 'TENNIS', lbl: 'Tennis Court', full: 'Tennis Court', num: 'TC', cat: 'sports', clr: 0x4ade80, em: 0x0a2a12, x: -2.7, z: -0.5, w: 4, d: 3, h: .15, fl: 1, flat: true, desc: 'Courts' },
+      { id: 'CANTEEN', lbl: 'Canteen', full: 'Main Canteen', num: 'C', cat: 'facility', clr: 0xfbbf24, em: 0x402a00, x: 4.5, z: -0.5, w: 4, d: 3, h: 1.3, fl: 1, desc: 'Canteen' },
 
-      { id: 'B6', lbl: 'Block 6', full: 'Block 6 (App Mech/LAA)', num: '6', cat: 'academic', clr: 0x92400e, em: 0x251008, x: 14, z: 2, w: 4, d: 10, h: 2.5, fl: 3, desc: 'App Mech' },
-      { id: 'B8', lbl: 'Textile', full: 'Block 8 (Textile)', num: '8', cat: 'academic', clr: 0xec4899, em: 0x3a0820, x: 14, z: -5.5, w: 4, d: 3, h: 2, fl: 3, desc: 'Textile' },
-      { id: 'B7', lbl: 'Block 7', full: 'Block 7 (Chem Engg)', num: '7', cat: 'academic', clr: 0x14b8a6, em: 0x052820, x: 20, z: 5, w: 4, d: 4, h: 2.5, fl: 3, desc: 'Chemical Engg' },
-      { id: 'B10', lbl: 'Block 10', full: 'Block 10 (Annexe Building)', num: '10', cat: 'academic', clr: 0x06b6d4, em: 0x022030, x: 20, z: 0, w: 4, d: 3, h: 3, fl: 4, desc: 'MCA, BM' },
-      { id: 'B12', lbl: 'Block 12', full: 'Tark Shaastra — 24 Hours Hackathon', num: '12', cat: 'academic', clr: 0xec4899, em: 0x3a0820, x: 13, z: -14.2, w: 4, d: 4, h: 3, fl: 4, desc: 'Block 12' },
-      { id: 'B9', lbl: 'Block 9', full: 'Block 9 (EC/ENV)', num: '9', cat: 'academic', clr: 0x6366f1, em: 0x100838, x: 20, z: -14, w: 6, d: 6, h: 3.2, fl: 4, isRound: true, desc: 'EC and Env' },
+      { id: 'B6', lbl: 'Block 6', full: 'Block 6 (App Mech/LAA)', num: '6', cat: 'academic', clr: 0x92400e, em: 0x251008, x: 11, z: 7.4, w: 4, d: 10, h: 2.5, fl: 3, desc: 'App Mech' },
+      { id: 'B8', lbl: 'Textile', full: 'Block 8 (Textile)', num: '8', cat: 'academic', clr: 0xec4899, em: 0x3a0820, x: 14.6, z: -0.1, w: 4, d: 3, h: 2, fl: 3, desc: 'Textile' },
+      { id: 'B7', lbl: 'Block 7', full: 'Block 7 (Chem Engg)', num: '7', cat: 'academic', clr: 0x14b8a6, em: 0x052820, x: 22.1, z: 10.4, w: 4, d: 4, h: 2.5, fl: 3, desc: 'Chemical Engg' },
+      { id: 'B10', lbl: 'Block 10', full: 'Block 10 (Annexe Building)', num: '10', cat: 'academic', clr: 0x06b6d4, em: 0x022030, x: 22.1, z: 5.4, w: 4, d: 3, h: 3, fl: 4, desc: 'MCA, BM' },
+      { id: 'B12', lbl: 'Block 12', full: 'Tark Shaastra — 24 Hours Hackathon', num: '12', cat: 'academic', clr: 0xec4899, em: 0x3a0820, x: 22.1, z: -21, w: 4, d: 4, h: 3, fl: 4, desc: 'Block 12' },
+      { id: 'B9', lbl: 'Block 9', full: 'Block 9 (EC/ENV)', num: '9', cat: 'academic', clr: 0x6366f1, em: 0x100838, x: 22.1, z: -8.3, w: 6, d: 6, h: 3.2, fl: 4, isRound: true, desc: 'EC and Env' },
 
-      { id: 'BOYS_D', lbl: 'PG Hostel', full: 'PG Boys Hostel', num: 'HD', cat: 'hostel', clr: 0x60a5fa, em: 0x0d1e40, x: -20, z: -16, w: 5, d: 10, h: 3, fl: 4, desc: 'PG Hostel' },
-      { id: 'STAFF', lbl: 'Staff Quarter', full: 'Staff Quarter', num: 'SQ', cat: 'facility', clr: 0x94a3b8, em: 0x161e28, x: -12, z: -18, w: 3, d: 3, h: 2.2, fl: 3, desc: 'Staff' },
-      { id: 'OFFICE', lbl: 'Office', full: 'Office', num: 'O', cat: 'admin', clr: 0x3b82f6, em: 0x0d1e50, x: -12, z: -14, w: 3, d: 3, h: 2.8, fl: 4, desc: 'Main offices' },
-      { id: 'MESS', lbl: 'Mess', full: 'Hostel Mess', num: 'M', cat: 'facility', clr: 0xf97316, em: 0x3a1400, x: -6, z: -18, w: 4, d: 3, h: 1.5, fl: 1, desc: 'Mess' },
-      { id: 'HOSTA', lbl: 'Hostel A', full: 'Hostel Block A', num: 'HA', cat: 'hostel', clr: 0x818cf8, em: 0x10143a, x: -6, z: -14, w: 3, d: 3, h: 2.5, fl: 3, desc: 'Hostel A' },
-      { id: 'HOSTB', lbl: 'Hostel B', full: 'Hostel Block B', num: 'HB', cat: 'hostel', clr: 0x818cf8, em: 0x10143a, x: 0, z: -14, w: 3, d: 3, h: 2.5, fl: 3, desc: 'Hostel B' },
-      { id: 'HOSTC', lbl: 'Hostel C', full: 'Hostel Block C', num: 'HC', cat: 'hostel', clr: 0x818cf8, em: 0x10143a, x: 5, z: -14, w: 3, d: 3, h: 2.5, fl: 3, desc: 'Hostel C' },
-      { id: 'HOSTE', lbl: 'Hostel E', full: 'Hostel Block E', num: 'HE', cat: 'hostel', clr: 0x818cf8, em: 0x10143a, x: -1, z: -18, w: 3, d: 3, h: 2.5, fl: 3, desc: 'Hostel E' },
-      { id: 'HOSTF', lbl: 'Hostel F', full: 'Hostel Block F', num: 'HF', cat: 'hostel', clr: 0x818cf8, em: 0x10143a, x: 4, z: -18, w: 3, d: 3, h: 2.5, fl: 3, desc: 'Hostel F' },
-      { id: 'GIRLS', lbl: 'Girls Hostel', full: 'Girls Hostel', num: 'GH', cat: 'hostel', clr: 0xf472b6, em: 0x380816, x: 16, z: -19, w: 8, d: 5, h: 3, fl: 4, desc: 'Girls Hostel' },
+      { id: 'BOYS_D', lbl: 'PG Hostel', full: 'PG Boys Hostel', num: 'HD', cat: 'hostel', clr: 0x60a5fa, em: 0x0d1e40, x: -21.8, z: -14.6, w: 5, d: 10, h: 3, fl: 4, desc: 'PG Hostel' },
+      { id: 'STAFF', lbl: 'Staff Quarter', full: 'Staff Quarter', num: 'SQ', cat: 'facility', clr: 0x94a3b8, em: 0x161e28, x: -11.2, z: -17.6, w: 3, d: 3, h: 2.2, fl: 3, desc: 'Staff' },
+      { id: 'OFFICE', lbl: 'Office', full: 'Office', num: 'O', cat: 'admin', clr: 0x3b82f6, em: 0x0d1e50, x: -11.2, z: -11.3, w: 3, d: 3, h: 2.8, fl: 4, desc: 'Main offices' },
+      { id: 'MESS', lbl: 'Mess', full: 'Hostel Mess', num: 'M', cat: 'facility', clr: 0xf97316, em: 0x3a1400, x: -4.5, z: -17.6, w: 4, d: 3, h: 1.5, fl: 1, desc: 'Mess' },
+      { id: 'HOSTA', lbl: 'Hostel A', full: 'Hostel Block A', num: 'HA', cat: 'hostel', clr: 0x818cf8, em: 0x10143a, x: -4.5, z: -11.3, w: 3, d: 3, h: 2.5, fl: 3, desc: 'Hostel A' },
+      { id: 'HOSTB', lbl: 'Hostel B', full: 'Hostel Block B', num: 'HB', cat: 'hostel', clr: 0x818cf8, em: 0x10143a, x: 0.9, z: -11.3, w: 3, d: 3, h: 2.5, fl: 3, desc: 'Hostel B' },
+      { id: 'HOSTC', lbl: 'Hostel C', full: 'Hostel Block C', num: 'HC', cat: 'hostel', clr: 0x818cf8, em: 0x10143a, x: 5.4, z: -11.3, w: 3, d: 3, h: 2.5, fl: 3, desc: 'Hostel C' },
+      { id: 'HOSTE', lbl: 'Hostel E', full: 'Hostel Block E', num: 'HE', cat: 'hostel', clr: 0x818cf8, em: 0x10143a, x: 0, z: -17.6, w: 3, d: 3, h: 2.5, fl: 3, desc: 'Hostel E' },
+      { id: 'HOSTF', lbl: 'Hostel F', full: 'Hostel Block F', num: 'HF', cat: 'hostel', clr: 0x818cf8, em: 0x10143a, x: 4.5, z: -17.6, w: 3, d: 3, h: 2.5, fl: 3, desc: 'Hostel F' },
+      { id: 'GIRLS', lbl: 'Girls Hostel', full: 'Girls Hostel', num: 'GH', cat: 'hostel', clr: 0xf472b6, em: 0x380816, x: 13.4, z: -22, w: 8, d: 5, h: 3, fl: 4, desc: 'Girls Hostel' },
 
-      { id: 'CSQR', lbl: 'Square', full: 'Central Square', num: 'S', cat: 'facility', clr: 0xef4444, em: 0x3a0808, x: 0, z: 16, w: 2.2, d: 2.2, h: .2, fl: 1, flat: true, desc: 'Square' }
+      { id: 'CSQR', lbl: 'Square', full: 'Central Square', num: 'S', cat: 'facility', clr: 0xef4444, em: 0x3a0808, x: 0.9, z: 20.3, w: 2.2, d: 2.2, h: .2, fl: 1, flat: true, desc: 'Square' }
     ];
 
     const CATS = {
@@ -1773,8 +1776,81 @@
       return simplified.map(p => new THREE.Vector3(p.x, 0.5, p.z));
     }
 
+    // ════════════════════════════════════════════════════════
+    //  CUSTOM CAMPUS DISTANCES
+    // ════════════════════════════════════════════════════════
+    const USER_ROUTES = [
+      ['HOSTEL_GATE', 'B2', 300],
+      ['HOSTEL_GATE', 'CANTEEN', 300],
+      ['HOSTEL_GATE', 'B12', 550],
+      ['HOSTEL_GATE', 'OFFICE', 150],
+      ['OFFICE', 'BOYS_D', 100],
+      ['GATE1', 'CRICKET', 100],
+      ['CRICKET', 'B10', 100],
+      ['B10', 'B12', 200],
+      ['GATE1', 'B12', 400],
+      ['GATE1', 'B0', 150],
+      ['GATE1', 'B1', 250],
+      ['GATE1', 'B4', 200],
+      ['GATE1', 'B5', 250],
+      ['HOSTEL_GATE', 'B6', 400],
+      ['HOSTEL_GATE', 'B8', 400]
+    ];
+
+    const _distCache = {};
     function pLen(pts) { let d = 0; for (let i = 1; i < pts.length; i++) d += pts[i].distanceTo(pts[i - 1]); return d; }
-    function calcDist(a, b) { return Math.round(pLen(astar(a, b)) * SCALE); }
+
+    function dijkstra(startId, endId) {
+      const nodes = BLDGS.map(b => b.id);
+      const dists = {};
+      nodes.forEach(n => dists[n] = Infinity);
+      dists[startId] = 0;
+      const visited = new Set();
+      while (visited.size < nodes.length) {
+        let u = null;
+        for (const n of nodes) {
+          if (!visited.has(n) && (u === null || dists[n] < dists[u])) u = n;
+        }
+        if (u === null || dists[u] === Infinity || u === endId) break;
+        visited.add(u);
+        for (const v of nodes) {
+          if (visited.has(v)) continue;
+          let weight = Infinity;
+          const userRoute = USER_ROUTES.find(r => (r[0] === u && r[1] === v) || (r[0] === v && r[1] === u));
+          if (userRoute) {
+            weight = userRoute[2];
+          } else {
+            // Unified graph considers all physical adjacencies via map scale
+            weight = Math.round(pLen(astar(u, v)) * SCALE);
+          }
+          if (dists[u] + weight < dists[v]) dists[v] = dists[u] + weight;
+        }
+      }
+      return dists[endId];
+    }
+
+    function calcDist(startId, endId) {
+      if (startId === endId) return 0;
+      const key = `${startId}_${endId}`;
+      if (_distCache[key]) return _distCache[key];
+
+      // 1. Direct match priority
+      const direct = USER_ROUTES.find(r => (r[0] === startId && r[1] === endId) || (r[0] === endId && r[1] === startId));
+      if (direct) {
+        const res = direct[2];
+        _distCache[key] = _distCache[`${endId}_${startId}`] = res;
+        return res;
+      }
+
+      // 2. Shortest path in hybrid (User + Grid) graph
+      let result = dijkstra(startId, endId);
+
+      // Round to nearest 10
+      result = Math.round(result / 10) * 10;
+
+      _distCache[key] = _distCache[`${endId}_${startId}`] = result;
+      return result;
+    }
 
     function buildSteps(fid, tid) {
       const a = BLDGS.find(b => b.id === fid), b = BLDGS.find(b => b.id === tid);
