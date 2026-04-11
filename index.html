@@ -1459,6 +1459,7 @@
   <div id="evt-toast"></div>
 
   <div id="ctrls">
+    <button class="cb" id="c-travelmode" title="Travel Mode: Walking">🚶</button>
     <button class="cb" id="c-evtmode" title="Event Mode">⚡</button>
     <button class="cb" id="c-theme" title="Toggle Theme">☾</button>
     <button class="cb" id="c-rst">⌂</button>
@@ -1570,29 +1571,29 @@
       { id: 'GATE2', lbl: 'Main Gate 2', full: 'Main Gate 2', num: 'G2', cat: 'facility', clr: 0xf6c90e, em: 0x3a2800, x: -9, z: 25, w: 5, d: 1, h: 1.5, fl: 1, isGate: true, desc: 'Secondary entrance' },
       { id: 'HOSTEL_GATE', lbl: 'Hostel Gate', full: 'Hostel Gate (West)', num: 'HG', cat: 'facility', clr: 0xf6c90e, em: 0x3a2800, x: -24, z: -9, w: 1, d: 5, h: 1.5, fl: 1, isGate: true, desc: 'Hostel gate' },
 
-      { id: 'B1', lbl: 'Block 1', full: 'LRC Block & Library', num: '1', cat: 'academic', clr: 0x22c55e, em: 0x082a12, x: -16, z: 18, w: 5, d: 5, h: 2, fl: 3, desc: 'Library' },
+      { id: 'B1', lbl: 'Block 1', full: 'LRC Block & Library', num: '1', cat: 'academic', clr: 0x22c55e, em: 0x082a12, x: -16, z: 18, w: 5, d: 5, h: 2, fl: 2, desc: 'Library' },
       { id: 'LAWN', lbl: 'Lawn', full: 'Civil Lawn', num: 'L', cat: 'facility', clr: 0x16a34a, em: 0x082a10, x: 0, z: 20, w: 14, d: 6, h: .2, fl: 1, flat: true, desc: 'Green space' },
-      { id: 'B0', lbl: 'Block 0', full: 'Main Block', num: '0', cat: 'admin', clr: 0x3b82f6, em: 0x0d1e50, x: 0, z: 13, w: 6, d: 4, h: 2.8, fl: 4, desc: 'Admin offices' },
+      { id: 'B0', lbl: 'Block 0', full: 'Main Block', num: '0', cat: 'admin', clr: 0x3b82f6, em: 0x0d1e50, x: 0, z: 13, w: 6, d: 4, h: 2.8, fl: 2, desc: 'Admin offices' },
       { id: 'CRICKET', lbl: 'Cricket Ground', full: 'Cricket Ground', num: 'CG', cat: 'sports', clr: 0xd2b48c, em: 0x3a2800, x: 16, z: 16, w: 12, d: 12, h: .15, fl: 1, isRound: true, flat: true, desc: 'Main match ground' },
 
-      { id: 'B2', lbl: 'Block 2', full: 'Block 2 (Elec/Comp/Civil)', num: '2', cat: 'academic', clr: 0xa855f7, em: 0x280840, x: -15, z: 0, w: 4, d: 14, h: 3.5, fl: 5, desc: 'Dept Block 2' },
+      { id: 'B2', lbl: 'Block 2', full: 'Block 2 (Elec/Comp/Civil)', num: '2', cat: 'academic', clr: 0xa855f7, em: 0x280840, x: -15, z: 0, w: 4, d: 14, h: 3.5, fl: 3, desc: 'Dept Block 2' },
 
       { id: 'B3', lbl: 'Block 3', full: 'Block 3 (Civil Drawing Hall)', num: '3', cat: 'academic', clr: 0xf97316, em: 0x3a1000, x: -4, z: 6, w: 4, d: 3, h: 1.5, fl: 2, desc: 'Drawing Hall' },
       { id: 'B4', lbl: 'Block 4', full: 'Block 4 (Mech Drawing Hall)', num: '4', cat: 'academic', clr: 0xf43f5e, em: 0x3a0812, x: 4, z: 6, w: 4, d: 3, h: 1.5, fl: 2, desc: 'Drawing Hall' },
       { id: 'B5', lbl: 'Block 5', full: 'Block 5 (Mech Workshop)', num: '5', cat: 'academic', clr: 0x64748b, em: 0x151e28, x: 0, z: -1, w: 8, d: 7, h: 2.8, fl: 3, desc: 'Workshop' },
       { id: 'TENNIS', lbl: 'Tennis Court', full: 'Tennis Court', num: 'TC', cat: 'sports', clr: 0x4ade80, em: 0x0a2a12, x: -4, z: -6, w: 4, d: 3, h: .15, fl: 1, flat: true, desc: 'Courts' },
-      { id: 'CANTEEN', lbl: 'Canteen', full: 'Main Canteen', num: 'C', cat: 'facility', clr: 0xfbbf24, em: 0x402a00, x: 4, z: -6, w: 4, d: 3, h: 1.3, fl: 1, desc: 'Canteen' },
+      { id: 'CANTEEN', lbl: 'Canteen', full: 'Main Canteen', num: 'C', cat: 'facility', clr: 0xfbbf24, em: 0x402a00, x: 4, z: -6, w: 4, d: 3, h: 1.3, fl: 2, desc: 'Canteen' },
 
       { id: 'B6', lbl: 'Block 6', full: 'Block 6 (App Mech/LAA)', num: '6', cat: 'academic', clr: 0x92400e, em: 0x251008, x: 14, z: 2, w: 4, d: 10, h: 2.5, fl: 3, desc: 'App Mech' },
       { id: 'B8', lbl: 'Textile', full: 'Block 8 (Textile)', num: '8', cat: 'academic', clr: 0xec4899, em: 0x3a0820, x: 14, z: -5.5, w: 4, d: 3, h: 2, fl: 3, desc: 'Textile' },
       { id: 'B7', lbl: 'Block 7', full: 'Block 7 (Chem Engg)', num: '7', cat: 'academic', clr: 0x14b8a6, em: 0x052820, x: 20, z: 5, w: 4, d: 4, h: 2.5, fl: 3, desc: 'Chemical Engg' },
       { id: 'B10', lbl: 'Block 10', full: 'Block 10 (Annexe Building)', num: '10', cat: 'academic', clr: 0x06b6d4, em: 0x022030, x: 20, z: 0, w: 4, d: 3, h: 3, fl: 4, desc: 'MCA, BM' },
-      { id: 'B12', lbl: 'Block 12', full: 'Tark Shaastra — 24 Hours Hackathon', num: '12', cat: 'academic', clr: 0xec4899, em: 0x3a0820, x: 13, z: -14.2, w: 4, d: 4, h: 3, fl: 4, desc: 'Block 12' },
+      { id: 'B12', lbl: 'Block 12', full: 'Tark Shaastra — 24 Hours Hackathon', num: '12', cat: 'academic', clr: 0xec4899, em: 0x3a0820, x: 13, z: -14.2, w: 4, d: 4, h: 3, fl: 5, desc: 'Block 12' },
       { id: 'B9', lbl: 'Block 9', full: 'Block 9 (EC/ENV)', num: '9', cat: 'academic', clr: 0x6366f1, em: 0x100838, x: 20, z: -14, w: 6, d: 6, h: 3.2, fl: 4, isRound: true, desc: 'EC and Env' },
 
-      { id: 'BOYS_D', lbl: 'PG Hostel', full: 'PG Boys Hostel', num: 'HD', cat: 'hostel', clr: 0x60a5fa, em: 0x0d1e40, x: -20, z: -16, w: 5, d: 10, h: 3, fl: 4, desc: 'PG Hostel' },
+      { id: 'BOYS_D', lbl: 'PG Hostel', full: 'PG Boys Hostel', num: 'HD', cat: 'hostel', clr: 0x60a5fa, em: 0x0d1e40, x: -20, z: -16, w: 5, d: 10, h: 3, fl: 3, desc: 'PG Hostel' },
       { id: 'STAFF', lbl: 'Staff Quarter', full: 'Staff Quarter', num: 'SQ', cat: 'facility', clr: 0x94a3b8, em: 0x161e28, x: -12, z: -18, w: 3, d: 3, h: 2.2, fl: 3, desc: 'Staff' },
-      { id: 'OFFICE', lbl: 'Office', full: 'Office', num: 'O', cat: 'admin', clr: 0x3b82f6, em: 0x0d1e50, x: -12, z: -14, w: 3, d: 3, h: 2.8, fl: 4, desc: 'Main offices' },
+      { id: 'OFFICE', lbl: 'Office', full: 'Office', num: 'O', cat: 'admin', clr: 0x3b82f6, em: 0x0d1e50, x: -12, z: -14, w: 3, d: 3, h: 2.8, fl: 2, desc: 'Main offices' },
       { id: 'MESS', lbl: 'Mess', full: 'Hostel Mess', num: 'M', cat: 'facility', clr: 0xf97316, em: 0x3a1400, x: -6, z: -18, w: 4, d: 3, h: 1.5, fl: 1, desc: 'Mess' },
       { id: 'HOSTA', lbl: 'Hostel A', full: 'Hostel Block A', num: 'HA', cat: 'hostel', clr: 0x818cf8, em: 0x10143a, x: -6, z: -14, w: 3, d: 3, h: 2.5, fl: 3, desc: 'Hostel A' },
       { id: 'HOSTB', lbl: 'Hostel B', full: 'Hostel Block B', num: 'HB', cat: 'hostel', clr: 0x818cf8, em: 0x10143a, x: 0, z: -14, w: 3, d: 3, h: 2.5, fl: 3, desc: 'Hostel B' },
@@ -1630,11 +1631,15 @@
         const id = `${x}_${z}`;
         if (i < RX.length - 1) {
           const id2 = `${RX[i + 1]}_${z}`;
-          nodes[id].edges[id2] = (nodes[id2].edges[id] = Math.abs(RX[i + 1] - x));
+          const d = Math.abs(RX[i + 1] - x);
+          nodes[id].edges[id2] = { dist: d, walk: true, vehicle: true };
+          nodes[id2].edges[id] = { dist: d, walk: true, vehicle: true };
         }
         if (j < RZ.length - 1) {
           const id2 = `${x}_${RZ[j + 1]}`;
-          nodes[id].edges[id2] = (nodes[id2].edges[id] = Math.abs(RZ[j + 1] - z));
+          const d = Math.abs(RZ[j + 1] - z);
+          nodes[id].edges[id2] = { dist: d, walk: true, vehicle: true };
+          nodes[id2].edges[id] = { dist: d, walk: true, vehicle: true };
         }
       });
     });
@@ -1669,8 +1674,8 @@
 
       // building ↔ entry
       const d1 = Math.hypot(b.x - ex, b.z - ez);
-      nodes[b.id].edges[entryId] = d1;
-      nodes[entryId].edges[b.id] = d1;
+      nodes[b.id].edges[entryId] = { dist: d1, walk: true, vehicle: true };
+      nodes[entryId].edges[b.id] = { dist: d1, walk: true, vehicle: true };
 
       // FIX: connect entry to the TWO nearest grid intersections bracketing it
       // on the same road, so A* can travel either direction without a detour.
@@ -1683,13 +1688,13 @@
             const idHi = i + 1 < sortedRZ.length ? `${nearestRX}_${sortedRZ[i + 1]}` : null;
             if (nodes[idLo]) {
               const dLo = Math.abs(ez - sortedRZ[i]);
-              nodes[entryId].edges[idLo] = dLo;
-              nodes[idLo].edges[entryId] = dLo;
+              nodes[entryId].edges[idLo] = { dist: dLo, walk: true, vehicle: true };
+              nodes[idLo].edges[entryId] = { dist: dLo, walk: true, vehicle: true };
             }
             if (idHi && nodes[idHi]) {
               const dHi = Math.abs(sortedRZ[i + 1] - ez);
-              nodes[entryId].edges[idHi] = dHi;
-              nodes[idHi].edges[entryId] = dHi;
+              nodes[entryId].edges[idHi] = { dist: dHi, walk: true, vehicle: true };
+              nodes[idHi].edges[entryId] = { dist: dHi, walk: true, vehicle: true };
             }
             break;
           }
@@ -1703,19 +1708,51 @@
             const idHi = i + 1 < sortedRX.length ? `${sortedRX[i + 1]}_${nearestRZ}` : null;
             if (nodes[idLo]) {
               const dLo = Math.abs(ex - sortedRX[i]);
-              nodes[entryId].edges[idLo] = dLo;
-              nodes[idLo].edges[entryId] = dLo;
+              nodes[entryId].edges[idLo] = { dist: dLo, walk: true, vehicle: true };
+              nodes[idLo].edges[entryId] = { dist: dLo, walk: true, vehicle: true };
             }
             if (idHi && nodes[idHi]) {
               const dHi = Math.abs(sortedRX[i + 1] - ex);
-              nodes[entryId].edges[idHi] = dHi;
-              nodes[idHi].edges[entryId] = dHi;
+              nodes[entryId].edges[idHi] = { dist: dHi, walk: true, vehicle: true };
+              nodes[idHi].edges[entryId] = { dist: dHi, walk: true, vehicle: true };
             }
             break;
           }
         }
       }
     });
+
+    // ── Travel Mode ──────────────────────────────────────────────────────────
+    let travelMode = "walk";
+
+    const BLOCKED_EDGES = [
+      // Original 5 grid-level blocked road segments
+      ["-9_-9", "9_-9"],
+      ["-9_9",  "9_9"],
+      ["-9_-9", "-9_9"],
+      ["-24_9", "-9_9"],
+      ["9_-9",  "9_9"],
+
+      // Block 3 <-> Block 0 — isolate B3_entry and B0_entry from the z=9 road
+      ["B3_entry", "-9_9"], ["B3_entry", "9_9"],
+      ["B0_entry", "-9_9"], ["B0_entry", "9_9"],
+
+      // Block 3 <-> Block 2 — block upper link of B2_entry toward -9_9
+      // (keeps B2 reachable from the south via -9_-9)
+      ["B2_entry", "-9_9"],
+
+      // Block 4 <-> Block 0 — B4_entry sits on same z=9 road; isolate it
+      ["B4_entry", "-9_9"], ["B4_entry", "9_9"]
+    ];
+
+    function applyVehicleRestrictions() {
+      BLOCKED_EDGES.forEach(([a, b]) => {
+        if (nodes[a] && nodes[a].edges[b]) nodes[a].edges[b].vehicle = false;
+        if (nodes[b] && nodes[b].edges[a]) nodes[b].edges[a].vehicle = false;
+      });
+    }
+    applyVehicleRestrictions();
+    // ─────────────────────────────────────────────────────────────────────────
 
     // A* (simplified Dijkstra with heuristic via Euclidean distance)
     function astar(startId, endId) {
@@ -1738,7 +1775,9 @@
         open.delete(u);
         for (const v in nodes[u].edges) {
           if (!open.has(v)) continue;
-          const alt = dist[u] + nodes[u].edges[v];
+          const edge = nodes[u].edges[v];
+          if (!edge[travelMode]) continue;
+          const alt = dist[u] + edge.dist;
           if (alt < dist[v]) { dist[v] = alt; prev[v] = u; }
         }
       }
@@ -3043,7 +3082,66 @@
       l.style.opacity = '0';
       setTimeout(() => l.style.display = 'none', 1000);
     }, 2500);
+
+    // ── Travel Mode Toggle Button ─────────────────────────────────────────────
+    (function() {
+      const btn = document.getElementById('c-travelmode');
+
+      function setTravelMode(mode) {
+        travelMode = mode;
+        if (mode === 'walk') {
+          btn.textContent = '🚶';
+          btn.title = 'Travel Mode: Walking';
+        } else {
+          btn.textContent = '🚗';
+          btn.title = 'Travel Mode: Vehicle';
+        }
+        // Recalculate route if one is already drawn
+        const fid = document.getElementById('from-s').value;
+        const tid = document.getElementById('to-s').value;
+        if (fid && tid && fid !== tid) drawPath(fid, tid);
+      }
+
+      btn.onclick = () => {
+        setTravelMode(travelMode === 'walk' ? 'vehicle' : 'walk');
+      };
+
+      // Show mode selection modal after loading screen fades.
+      // Wire button clicks here — modal HTML is outside this <script> block
+      // so it isn't in the DOM until after the parser reaches it; the setTimeout
+      // delay guarantees the elements exist before we query them.
+      setTimeout(() => {
+        const modal = document.getElementById('tm-modal');
+        modal.style.display = 'flex';
+        document.getElementById('tm-walk').onclick = () => {
+          setTravelMode('walk');
+          modal.style.display = 'none';
+        };
+        document.getElementById('tm-vehicle').onclick = () => {
+          setTravelMode('vehicle');
+          modal.style.display = 'none';
+        };
+      }, 3600);
+    })();
+    // ─────────────────────────────────────────────────────────────────────────
   </script>
+
+  <!-- Travel Mode Modal -->
+  <div id="tm-modal" style="display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;background:rgba(0,0,0,0.55);padding:16px;">
+    <div style="background:var(--panel-bg,#1e1e2e);color:var(--text,#e0e0e0);border-radius:14px;padding:28px 24px 24px;max-width:320px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,0.5);font-family:inherit;text-align:center;">
+      <div style="font-size:1.5rem;margin-bottom:8px;">🗺️</div>
+      <h2 style="margin:0 0 8px;font-size:1.1rem;font-weight:700;">Choose Navigation Mode</h2>
+      <p style="margin:0 0 20px;font-size:0.85rem;opacity:0.75;line-height:1.5;">Select how you're moving around campus for better route accuracy.</p>
+      <div style="display:flex;flex-direction:column;gap:10px;">
+        <button id="tm-walk" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 16px;border-radius:10px;border:none;background:var(--accent,#4c8bf5);color:#fff;font-size:0.95rem;font-weight:600;cursor:pointer;">
+          🚶 <span>Walking <span style="font-weight:400;opacity:0.85;font-size:0.82rem;">(Recommended)</span></span>
+        </button>
+        <button id="tm-vehicle" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 16px;border-radius:10px;border:2px solid var(--accent,#4c8bf5);background:transparent;color:var(--text,#e0e0e0);font-size:0.95rem;font-weight:600;cursor:pointer;">
+          🚗 <span>Vehicle <span style="font-weight:400;opacity:0.85;font-size:0.82rem;">(Avoids restricted paths)</span></span>
+        </button>
+      </div>
+    </div>
+  </div>
 </body>
 
 </html>
