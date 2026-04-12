@@ -1725,27 +1725,38 @@
       }
     });
 
+    // HOSTEL_GATE sits outside the grid (x=-28.1 < RX min=-27), so its entry
+    // never gets bracket-connected. Manually wire it to the nearest grid node.
+    (function() {
+      const entryId = 'HOSTEL_GATE_entry';
+      const gridId  = '-27_-3.6';
+      if (nodes[entryId] && nodes[gridId] && !nodes[entryId].edges[gridId]) {
+        const d = Math.hypot(nodes[entryId].x - nodes[gridId].x, nodes[entryId].z - nodes[gridId].z);
+        nodes[entryId].edges[gridId] = { dist: d, walk: true, vehicle: true };
+        nodes[gridId].edges[entryId] = { dist: d, walk: true, vehicle: true };
+      }
+    })();
+
     // ── Travel Mode ──────────────────────────────────────────────────────────
     let travelMode = "walk";
 
     const BLOCKED_EDGES = [
-      // Original 5 grid-level blocked road segments
-      ["-9_-9", "9_-9"],
-      ["-9_9",  "9_9"],
-      ["-9_-9", "-9_9"],
-      ["-24_9", "-9_9"],
-      ["9_-9",  "9_9"],
-
-      // Block 3 <-> Block 0 — isolate B3_entry and B0_entry from the z=9 road
-      ["B3_entry", "-9_9"], ["B3_entry", "9_9"],
-      ["B0_entry", "-9_9"], ["B0_entry", "9_9"],
-
-      // Block 3 <-> Block 2 — block upper link of B2_entry toward -9_9
-      // (keeps B2 reachable from the south via -9_-9)
-      ["B2_entry", "-9_9"],
-
-      // Block 4 <-> Block 0 — B4_entry sits on same z=9 road; isolate it
-      ["B4_entry", "-9_9"], ["B4_entry", "9_9"]
+      ["-7.2_-3.6", "9_-3.6"],
+      ["-7.2_14.4", "9_14.4"],
+      ["-7.2_-3.6", "-7.2_14.4"],
+      ["-27_14.4", "-7.2_14.4"],
+      ["9_-3.6", "9_14.4"],
+      ["B3_entry", "-7.2_14.4"],
+      ["B3_entry", "9_14.4"],
+      ["B4_entry", "-7.2_14.4"],
+      ["B4_entry", "9_14.4"],
+      ["B0_entry", "-7.2_14.4"],
+      ["B0_entry", "9_14.4"],
+      ["B2_entry", "-7.2_14.4"],
+      ["B6_entry", "9_14.4"],
+      ["B6_entry", "9_-3.6"],
+      ["CSQR_entry", "-7.2_14.4"],
+      ["CSQR_entry", "9_14.4"]
     ];
 
     function applyVehicleRestrictions() {
