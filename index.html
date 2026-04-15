@@ -649,8 +649,6 @@
       margin-top: 1px
     }
 
-    .step-body {}
-
     .step-dir {
       font-size: 13px;
       color: var(--t1);
@@ -1406,6 +1404,122 @@
         display: none
       }
     }
+
+    /* ── BUILDING EVENTS PANEL (inside info card) ── */
+    #ic-events-section {
+      display: none;
+      margin-top: 12px;
+      border-top: 1px solid var(--b1);
+      padding-top: 12px
+    }
+
+    .ic-events-title {
+      font-family: 'JetBrains Mono';
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.5px;
+      color: var(--amber);
+      text-transform: uppercase;
+      margin-bottom: 9px;
+      display: flex;
+      align-items: center;
+      gap: 6px
+    }
+
+    .ic-events-title::before {
+      content: '';
+      width: 3px;
+      height: 11px;
+      background: var(--amber);
+      border-radius: 2px;
+      display: inline-block
+    }
+
+    .ic-evt-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: rgba(251,191,36,.15);
+      border: 1px solid rgba(251,191,36,.35);
+      border-radius: 20px;
+      padding: 2px 8px;
+      font-family: 'JetBrains Mono';
+      font-size: 9px;
+      color: var(--amber);
+      margin-left: auto
+    }
+
+    .ic-evt-list {
+      display: flex;
+      flex-direction: column;
+      gap: 6px
+    }
+
+    .ic-evt-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+      background: rgba(251,191,36,.05);
+      border: 1px solid rgba(251,191,36,.15);
+      border-radius: 10px;
+      padding: 8px 10px;
+      cursor: pointer;
+      transition: background .18s, border-color .18s
+    }
+
+    .ic-evt-item:hover,
+    .ic-evt-item:active {
+      background: rgba(251,191,36,.12);
+      border-color: rgba(251,191,36,.35)
+    }
+
+    .ic-evt-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--amber);
+      flex-shrink: 0;
+      margin-top: 4px;
+      box-shadow: 0 0 6px rgba(251,191,36,.6)
+    }
+
+    .ic-evt-name {
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--t1);
+      line-height: 1.45;
+      flex: 1
+    }
+
+    .ic-evt-nav {
+      font-size: 11px;
+      color: var(--amber);
+      flex-shrink: 0;
+      margin-top: 2px;
+      opacity: .7
+    }
+
+    .ic-no-events {
+      font-size: 11px;
+      color: var(--t3);
+      font-family: 'JetBrains Mono';
+      text-align: center;
+      padding: 6px 0
+    }
+
+    @media(min-width:700px) {
+      #ic-events-section {
+        max-height: 220px;
+        overflow-y: auto
+      }
+    }
+
+    @media(max-width:699px) {
+      #ic-events-section {
+        max-height: 240px;
+        overflow-y: auto
+      }
+    }
   </style>
 </head>
 
@@ -1531,6 +1645,14 @@
       <div id="ic-desc"></div>
       <div id="ic-tags"></div>
       <button id="ic-nav">→ NAVIGATE HERE</button>
+      <!-- ── BUILDING EVENTS PANEL ── -->
+      <div id="ic-events-section">
+        <div class="ic-events-title">
+          ⚡ Events Here
+          <span class="ic-evt-badge" id="ic-evt-count">0</span>
+        </div>
+        <div class="ic-evt-list" id="ic-evt-list"></div>
+      </div>
     </div>
   </div>
 
@@ -1591,7 +1713,7 @@
       { id: 'B8', lbl: 'Textile', full: 'Block 8 (Textile)', num: '8', cat: 'academic', clr: 0xec4899, em: 0x3a0820, x: 14.6, z: -0.1, w: 4, d: 3, h: 2, fl: 3, desc: 'Textile' },
       { id: 'B7', lbl: 'Block 7', full: 'Block 7 (Chem Engg)', num: '7', cat: 'academic', clr: 0x14b8a6, em: 0x052820, x: 22.1, z: 10.4, w: 4, d: 4, h: 2.5, fl: 3, desc: 'Chemical Engg' },
       { id: 'B10', lbl: 'Block 10', full: 'Block 10 (Annexe Building)', num: '10', cat: 'academic', clr: 0x06b6d4, em: 0x022030, x: 22.1, z: 5.4, w: 4, d: 3, h: 3, fl: 4, desc: 'MCA, BM' },
-      { id: 'B12', lbl: 'Block 12', full: 'Tark Shaastra — 24 Hours Hackathon', num: '12', cat: 'academic', clr: 0xec4899, em: 0x3a0820, x: 22.1, z: -21, w: 4, d: 4, h: 3, fl: 5, desc: 'Block 12' },
+      { id: 'B12', lbl: 'Block 12', full: 'Block 12', num: '12', cat: 'academic', clr: 0xec4899, em: 0x3a0820, x: 22.1, z: -21, w: 4, d: 4, h: 3, fl: 5, desc: 'Tark Shaastra' },
       { id: 'B9', lbl: 'Block 9', full: 'Block 9 (EC/ENV)', num: '9', cat: 'academic', clr: 0x6366f1, em: 0x100838, x: 22.1, z: -8.3, w: 6, d: 6, h: 3.2, fl: 4, isRound: true, desc: 'EC and Env' },
 
       { id: 'BOYS_D', lbl: 'PG Hostel', full: 'PG Boys Hostel', num: 'HD', cat: 'hostel', clr: 0x60a5fa, em: 0x0d1e40, x: -21.8, z: -14.6, w: 5, d: 10, h: 3, fl: 3, desc: 'PG Hostel' },
@@ -2497,6 +2619,133 @@
         selectBuilding(hits[0].object.parent.userData.id);
     }, { passive: true });
 
+    // ════════════════════════════════════════════════════════
+    //  BUILDING EVENTS DATA
+    //  Maps building label → list of event names.
+    //  Add more buildings/events here as needed.
+    //  Keys must match the `lbl` field in BLDGS array.
+    // ════════════════════════════════════════════════════════
+    const BUILDING_EVENTS = {
+      "Block 12": [
+        "Tark Shaastra — 24 Hours Hackathon"
+      ],
+      "Block 5": [
+        "Rapid CAD Arena",
+        "Aero-Struct Challenges",
+        "Renewable ReMakers",
+        "Civil Chaos",
+        "Balance Track",
+        "AI Short Film Generation (Red Cross)",
+        "RoboMaze (Maze Solver)",
+        "LineXplorer",
+        "Eco-Clean Water Fest"
+      ],
+      "Block 2": [
+        "Auction & Creation",
+        "Quiz Crete",
+        "Circuit Debugging",
+        "Pitch the Idea",
+        "ChemVista",
+        "Chem-Car-O-Burn",
+        "SimulChem",
+        "PromptCraft",
+        "Imposter Code Quest"
+      ],
+      "Block 4": [
+        "ChemQuest",
+        "Cosmic Hunt"
+      ],
+      "Block 3": [
+        "Filter Fusion"
+      ],
+      "Main Block": [
+        "Structural Survival",
+        "Youth Parliament",
+        "The Painted Realm (Cosmic Palette)",
+        "The Last Engineer Standing",
+        "Market Masters — Stock Market & Global Training",
+        "Seminar",
+        "LD Talks / Tech Talks",
+        "Bachpan NGO — The Changemaker"
+      ],
+      "Cricket Ground": [
+        "RoboRush",
+        "Sky Gazing Night — Explore the Universe"
+      ],
+      "Block 10": [
+        "ByteHunt"
+      ]
+    };
+
+    // ── Lookup helper: find events by building label or id ────────────────
+    // Accepts building `lbl` (e.g. "Block 5") or tries the `full` name.
+    // Returns array of event name strings, or [] if none.
+    function getEventsForBuilding(b) {
+      if (!b) return [];
+      // Direct label match
+      if (BUILDING_EVENTS[b.lbl]) return BUILDING_EVENTS[b.lbl];
+      // Try matching against each key partially (e.g. "Main Block" ↔ "Block 0")
+      for (const key of Object.keys(BUILDING_EVENTS)) {
+        if (b.lbl && b.lbl.toLowerCase().includes(key.toLowerCase())) return BUILDING_EVENTS[key];
+        if (b.full && b.full.toLowerCase().includes(key.toLowerCase())) return BUILDING_EVENTS[key];
+        if (key.toLowerCase().includes(b.lbl && b.lbl.toLowerCase())) return BUILDING_EVENTS[key];
+      }
+      // Special alias: Block 0 / Main Block
+      if (b.id === 'B0' && BUILDING_EVENTS['Main Block']) return BUILDING_EVENTS['Main Block'];
+      if (b.id === 'CRICKET' && BUILDING_EVENTS['Cricket Ground']) return BUILDING_EVENTS['Cricket Ground'];
+      return [];
+    }
+
+    // ── updateBuildingPanel ───────────────────────────────────────────────
+    // Call with a building label (string) or BLDGS object.
+    // Injects event list into the info card's events section.
+    // Modular: just add entries to BUILDING_EVENTS to scale.
+    function updateBuildingPanel(buildingNameOrObj) {
+      const section = document.getElementById('ic-events-section');
+      const list = document.getElementById('ic-evt-list');
+      const countBadge = document.getElementById('ic-evt-count');
+
+      let b;
+      if (typeof buildingNameOrObj === 'string') {
+        // Accept building label string
+        b = BLDGS.find(x => x.lbl === buildingNameOrObj || x.id === buildingNameOrObj || x.full === buildingNameOrObj);
+      } else {
+        b = buildingNameOrObj;
+      }
+
+      const events = getEventsForBuilding(b);
+      countBadge.textContent = events.length;
+
+      if (!events.length) {
+        // Hide section gracefully when no events
+        section.style.display = 'none';
+        list.innerHTML = '';
+        return;
+      }
+
+      section.style.display = 'block';
+      list.innerHTML = events.map((evtName, idx) => `
+        <div class="ic-evt-item" title="Navigate to ${b ? b.full : ''} for this event" onclick="(function(){
+          var tid = '${b ? b.id : ''}';
+          if(!tid) return;
+          document.getElementById('to-s').value = tid;
+          checkGo();
+          var fs = document.getElementById('from-s').value;
+          if(fs && fs !== tid){ document.getElementById('go-btn').click(); }
+          else {
+            if(window.innerWidth < 700){ document.getElementById('nav').classList.add('open'); navOpen=true; }
+            var sel = document.getElementById('from-s');
+            sel.style.borderColor='rgba(249,115,22,.8)';
+            sel.style.boxShadow='0 0 14px rgba(249,115,22,.4)';
+            setTimeout(function(){ sel.style.borderColor=''; sel.style.boxShadow=''; }, 2800);
+          }
+        })()">
+          <div class="ic-evt-dot"></div>
+          <div class="ic-evt-name">${evtName}</div>
+          <div class="ic-evt-nav">→</div>
+        </div>`).join('');
+    }
+
     function selectBuilding(id) {
       selId = id;
       const b = BLDGS.find(x => x.id === id); if (!b) return;
@@ -2522,6 +2771,9 @@
       } else dp.style.display = 'none';
 
       document.getElementById('ic').style.display = 'block';
+
+      // ── Inject building events into the info card panel ──
+      updateBuildingPanel(b);
 
       bGrp.children.forEach(g => {
         const m = g.userData.body;
