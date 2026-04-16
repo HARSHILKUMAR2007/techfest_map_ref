@@ -310,6 +310,36 @@
       white-space: nowrap
     }
 
+    /* UX IMPROVEMENT: Navigate button inside search result items */
+    .sri-nav-btn {
+      flex-shrink: 0;
+      margin-left: 8px;
+      padding: 5px 10px;
+      border-radius: 8px;
+      border: 1px solid rgba(0, 229, 255, .35);
+      background: rgba(0, 229, 255, .07);
+      color: var(--cyan);
+      font-family: 'JetBrains Mono';
+      font-size: 10px;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+      line-height: 1;
+      min-width: 44px;
+      min-height: 32px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background .15s, border-color .15s, box-shadow .15s
+    }
+
+    .sri-nav-btn:hover,
+    .sri-nav-btn:active {
+      background: rgba(0, 229, 255, .18);
+      border-color: rgba(0, 229, 255, .7);
+      box-shadow: 0 0 10px rgba(0, 229, 255, .2)
+    }
+
     /* ── NAV PANEL ── */
     #nav {
       position: fixed;
@@ -327,6 +357,7 @@
     }
 
     /* MOBILE: bottom sheet */
+    /* UX SAFE IMPROVEMENT: mobile spacing — smoother cubic-bezier and slightly more peek height */
     @media(max-width:699px) {
       #nav {
         bottom: 0;
@@ -336,8 +367,8 @@
         border-bottom: none;
         max-height: 85vh;
         overflow-y: auto;
-        transform: translateY(calc(100% - 64px));
-        transition: transform .38s cubic-bezier(.32, 0, .67, 0);
+        transform: translateY(calc(100% - 68px));
+        transition: transform .42s cubic-bezier(.22, 1, .36, 1);
         box-shadow: 0 -12px 48px rgba(0, 0, 0, .6)
       }
 
@@ -346,27 +377,27 @@
       }
 
       #nav.peek {
-        transform: translateY(calc(100% - 112px))
+        transform: translateY(calc(100% - 114px))
       }
 
       #nav-handle {
-        padding: 12px 16px 0;
+        padding: 14px 16px 0;
         cursor: pointer
       }
 
       .handle-bar {
-        width: 38px;
+        width: 40px;
         height: 4px;
         background: var(--b2);
         border-radius: 2px;
-        margin: 0 auto 10px
+        margin: 0 auto 12px
       }
 
       .peek-row {
         display: flex;
         align-items: center;
-        gap: 8px;
-        padding-bottom: 10px
+        gap: 10px;
+        padding-bottom: 12px
       }
     }
 
@@ -383,6 +414,11 @@
 
       #nav-handle {
         display: none
+      }
+
+      /* UX SAFE: step dots only meaningful on mobile peek row */
+      #nav-step-dots {
+        display: none;
       }
     }
 
@@ -411,7 +447,7 @@
     }
 
     .peek-txt {
-      font-size: 12px;
+      font-size: 13px;
       color: var(--t2);
       flex: 1;
       font-weight: 500
@@ -1067,6 +1103,45 @@
       background: rgba(0, 229, 255, .12)
     }
 
+    /* UX SAFE IMPROVEMENT: mobile spacing — larger touch targets for .cb on mobile */
+    @media (max-width: 699px) {
+      .cb {
+        width: 46px;
+        height: 46px;
+        font-size: 18px;
+        border-radius: 13px;
+      }
+
+      #ctrls {
+        gap: 8px;
+      }
+
+      select.ns {
+        padding: 11px 10px;
+        font-size: 14px;
+      }
+
+      .nav-body {
+        padding: 0 16px 28px;
+      }
+
+      #go-btn {
+        padding: 15px;
+        font-size: 16px;
+      }
+
+      .sel-ic {
+        width: 34px;
+        height: 34px;
+        font-size: 14px;
+      }
+
+      .swap-btn {
+        padding: 6px 12px;
+        font-size: 24px;
+      }
+    }
+
     /* ── COMPASS ── */
     #cmp {
       position: fixed;
@@ -1229,6 +1304,14 @@
       border-color: var(--cyan2);
       color: var(--cyan2);
       background: rgba(0, 229, 255, .1)
+    }
+
+    /* UX SAFE IMPROVEMENT: mobile spacing — slightly taller filter chips for better touch area */
+    @media(max-width:699px) {
+      .ft {
+        padding: 8px 14px;
+        font-size: 10.5px;
+      }
     }
 
     /* ── TOOLTIP ── */
@@ -1520,6 +1603,121 @@
         overflow-y: auto
       }
     }
+
+    /* UX SAFE IMPROVEMENT: you are here label — subtle persistent label inside #nav */
+    #yah-label {
+      display: none;
+      align-items: center;
+      gap: 7px;
+      background: rgba(74, 222, 128, .07);
+      border: 1px solid rgba(74, 222, 128, .22);
+      border-radius: 10px;
+      padding: 7px 11px;
+      margin-bottom: 10px;
+      font-family: 'JetBrains Mono';
+      font-size: 10px;
+      color: #86efac;
+      letter-spacing: .3px;
+      line-height: 1.4;
+      pointer-events: none;
+      animation: yahFadeIn .4s ease forwards;
+    }
+
+    #yah-label.visible {
+      display: flex;
+    }
+
+    @keyframes yahFadeIn {
+      from { opacity: 0; transform: translateY(-4px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .yah-dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: #4ade80;
+      flex-shrink: 0;
+      box-shadow: 0 0 7px rgba(74, 222, 128, .8);
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    .yah-text {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .yah-hint {
+      color: var(--t3);
+      font-size: 9px;
+      margin-top: 1px;
+      display: block;
+    }
+
+    /* ── UX IMPROVEMENT: state-based hint text — smooth fade transition ── */
+    /* UX SAFE: no overlay, no new elements — purely targets existing #ptxt and .yah-hint */
+    #ptxt, .yah-hint, .peek-txt {
+      transition: opacity 0.3s ease;
+    }
+
+    /* UX IMPROVEMENT: hint fade animation for state changes */
+    @keyframes hintFade {
+      0%   { opacity: 0; transform: translateY(3px); }
+      100% { opacity: 1; transform: translateY(0); }
+    }
+    .hint-updated {
+      animation: hintFade 0.28s ease forwards;
+    }
+
+    /* UX IMPROVEMENT: soft active glow on focused select (from/to) — no new elements */
+    /* UX SAFE: CSS-only, does not affect layout */
+    select.ns:focus {
+      border-color: rgba(0, 229, 255, .55);
+      box-shadow: 0 0 0 3px rgba(0, 229, 255, .10), 0 0 12px rgba(0, 229, 255, .08);
+      transition: border-color .22s, box-shadow .22s;
+    }
+
+    /* UX IMPROVEMENT: first-visit "From" highlight — subtle, CSS-driven, removed after interaction */
+    /* UX SAFE: applied via JS class on first visit only, no popup/overlay */
+    select.ns.first-visit-nudge {
+      border-color: rgba(249, 115, 22, .55);
+      box-shadow: 0 0 0 3px rgba(249, 115, 22, .10), 0 0 14px rgba(249, 115, 22, .13);
+      animation: firstVisitPulse 2s ease-in-out 3;
+    }
+
+    @keyframes firstVisitPulse {
+      0%, 100% { box-shadow: 0 0 0 3px rgba(249,115,22,.10), 0 0 14px rgba(249,115,22,.13); }
+      50%       { box-shadow: 0 0 0 5px rgba(249,115,22,.18), 0 0 22px rgba(249,115,22,.22); }
+    }
+
+    /* UX IMPROVEMENT: step-progress indicator inside #nav peek row — tiny dots, no layout shift */
+    /* UX SAFE: absolutely positioned inside existing peek-row, pointer-events:none */
+    #nav-step-dots {
+      display: flex;
+      gap: 4px;
+      align-items: center;
+      flex-shrink: 0;
+    }
+    .ns-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background: var(--b1);
+      border: 1px solid var(--b2);
+      transition: background .3s, border-color .3s, transform .25s;
+      flex-shrink: 0;
+    }
+    .ns-dot.done {
+      background: var(--green);
+      border-color: var(--green);
+      transform: scale(1.15);
+    }
+    .ns-dot.active {
+      background: var(--cyan2);
+      border-color: var(--cyan2);
+      transform: scale(1.2);
+      box-shadow: 0 0 6px rgba(0,229,255,.45);
+    }
   </style>
 </head>
 
@@ -1565,7 +1763,8 @@
   <div id="srch-wrap">
     <div class="srch-box">
       <span style="color:var(--cyan);font-size:15px;flex-shrink:0">🔍</span>
-      <input id="si" type="text" placeholder="Search block, dept, canteen...">
+      <!-- UX IMPROVEMENT: clearer onboarding placeholder -->
+      <input id="si" type="text" placeholder="Search destination (e.g. Canteen, Block 5…)" autocomplete="off">
       <span id="sc">×</span>
     </div>
     <div id="sr"></div>
@@ -1591,11 +1790,26 @@
       <div class="peek-row">
         <div class="peek-dot"></div>
         <div class="peek-txt" id="ptxt">Tap to plan your route</div>
+        <!-- UX IMPROVEMENT: 3-step progress dots — state-based, inside existing peek-row -->
+        <!-- UX SAFE: no layout change, pointer-events none, hidden on desktop via JS -->
+        <div id="nav-step-dots" aria-hidden="true">
+          <div class="ns-dot active" id="nsd-1" title="Step 1: Pick start"></div>
+          <div class="ns-dot"        id="nsd-2" title="Step 2: Pick destination"></div>
+          <div class="ns-dot"        id="nsd-3" title="Step 3: Navigate"></div>
+        </div>
         <div class="peek-arr">▾</div>
       </div>
     </div>
     <div class="nav-body">
       <div class="nav-sec">Route Planner</div>
+      <!-- UX SAFE IMPROVEMENT: you are here label — shown when "from" location is set -->
+      <div id="yah-label" role="status" aria-live="polite">
+        <div class="yah-dot"></div>
+        <div class="yah-text">
+          You are here &bull; <span id="yah-name" style="color:var(--green);font-weight:700"></span>
+          <span class="yah-hint">Select a destination to get directions</span>
+        </div>
+      </div>
       <div class="sel-row">
         <div class="sel-ic from">A</div>
         <select class="ns" id="from-s">
@@ -2516,10 +2730,63 @@
     let arrows = [];
     let currentPathPoints = [];
 
+    // UX CONTINUATION: start/end markers — created once, repositioned per route
+    const _mkrGeo = new THREE.SphereGeometry(0.72, 18, 18);
+
+    const startMarker = new THREE.Mesh(_mkrGeo,
+      new THREE.MeshStandardMaterial({
+        color: 0x4ade80, emissive: 0x4ade80, emissiveIntensity: 3.5,
+        depthTest: false
+      })
+    );
+    startMarker.renderOrder = 110;
+    startMarker.visible = false;
+    scene.add(startMarker);
+
+    const startRing = new THREE.Mesh(
+      new THREE.RingGeometry(1.1, 1.9, 48),
+      new THREE.MeshBasicMaterial({
+        color: 0x4ade80, transparent: true, opacity: 0.35,
+        side: THREE.DoubleSide, depthTest: false
+      })
+    );
+    startRing.rotation.x = -Math.PI / 2;
+    startRing.renderOrder = 109;
+    startRing.visible = false;
+    scene.add(startRing);
+
+    const endMarker = new THREE.Mesh(_mkrGeo,
+      new THREE.MeshStandardMaterial({
+        color: 0xf97316, emissive: 0xf97316, emissiveIntensity: 3.5,
+        depthTest: false
+      })
+    );
+    endMarker.renderOrder = 110;
+    endMarker.visible = false;
+    scene.add(endMarker);
+
+    const endRing = new THREE.Mesh(
+      new THREE.RingGeometry(1.1, 1.9, 48),
+      new THREE.MeshBasicMaterial({
+        color: 0xf97316, transparent: true, opacity: 0.35,
+        side: THREE.DoubleSide, depthTest: false
+      })
+    );
+    endRing.rotation.x = -Math.PI / 2;
+    endRing.renderOrder = 109;
+    endRing.visible = false;
+    scene.add(endRing);
+
     function clearPath() {
       pathObjs.forEach(o => scene.remove(o));
       pathObjs = [];
       arrows = []; // VERY IMPORTANT
+      // UX CONTINUATION: start/end markers — hide on clear
+      startMarker.visible = false;
+      startRing.visible = false;
+      endMarker.visible = false;
+      endRing.visible = false;
+      currentPathPoints = [];
     }
 
     function drawPath(fid, tid) {
@@ -2528,6 +2795,20 @@
       let pts = smoothPath(rawPts);
       currentPathPoints = pts;
       if (pts.length < 2) return;
+
+      // UX CONTINUATION: start/end markers — place at route endpoints
+      const pFirst = pts[0];
+      const pLast  = pts[pts.length - 1];
+
+      startMarker.position.set(pFirst.x, 1.6, pFirst.z);
+      startRing.position.set(pFirst.x, 0.22, pFirst.z);
+      startMarker.visible = true;
+      startRing.visible   = true;
+
+      endMarker.position.set(pLast.x, 1.6, pLast.z);
+      endRing.position.set(pLast.x, 0.22, pLast.z);
+      endMarker.visible = true;
+      endRing.visible   = true;
 
       // ===== NEW ROUTE UI (FROM index.html) =====
       for (let i = 1; i < pts.length; i++) {
@@ -2988,6 +3269,37 @@
       const f = document.getElementById('from-s').value, t = document.getElementById('to-s').value;
       document.getElementById('go-btn').disabled = !(f && t && f !== t);
       if (f) { const b = BLDGS.find(x => x.id === f); if (b) document.getElementById('ptxt').textContent = 'From: ' + b.lbl; }
+
+      // UX SAFE IMPROVEMENT: you are here label — show when "from" is set, hide when cleared
+      const yahEl = document.getElementById('yah-label');
+      const yahName = document.getElementById('yah-name');
+      const yahHint = yahEl ? yahEl.querySelector('.yah-hint') : null;
+      if (f) {
+        const fb = BLDGS.find(x => x.id === f);
+        if (fb && yahEl) {
+          yahName.textContent = fb.lbl;
+          // Update hint: if destination already chosen, prompt to press Go; else prompt to pick destination
+          if (yahHint) {
+            yahHint.textContent = t && t !== f
+              ? 'Ready — tap Show Route to navigate'
+              : 'Select a destination to get directions';
+          }
+          // Only animate in if not already visible (avoid re-trigger on every change)
+          if (!yahEl.classList.contains('visible')) {
+            yahEl.style.animation = 'none';
+            void yahEl.offsetWidth; // reflow to restart animation
+            yahEl.style.animation = '';
+            yahEl.classList.add('visible');
+          }
+        }
+      } else {
+        if (yahEl) yahEl.classList.remove('visible');
+      }
+
+      // UX IMPROVEMENT: dynamic onboarding using existing elements
+      // Updates #ptxt peek text AND step progress dots based on current nav state
+      // UX SAFE: no overlay, no popup — only modifies text content of existing elements
+      updateNavHints(f, t, false);
     }
     document.getElementById('from-s').addEventListener('change', checkGo);
     document.getElementById('to-s').addEventListener('change', checkGo);
@@ -3038,6 +3350,11 @@
       document.getElementById('rc').style.display = 'none';
       const n = document.getElementById('nav');
       n.classList.remove('peek');
+      // UX SAFE IMPROVEMENT: you are here label — reset hint after clearing route
+      const yahHint = document.querySelector('#yah-label .yah-hint');
+      if (yahHint) yahHint.textContent = 'Select a destination to get directions';
+      // UX IMPROVEMENT: reset dynamic hints to reflect cleared state
+      updateNavHints(document.getElementById('from-s').value, '', false);
     };
 
     document.getElementById('ic-nav').onclick = () => {
@@ -3081,10 +3398,12 @@
       srEl.innerHTML = ms.slice(0, 9).map(b => {
         const hex = '#' + b.clr.toString(16).padStart(6, '0');
         const d = fs && fs !== b.id ? ` · 📍${calcDist(fs, b.id)}m` : '';
+        // UX IMPROVEMENT: search navigate button — separate from existing pickSR click
         return `<div class="sri" onclick="pickSR('${b.id}')">
       <div class="sri-dot" style="background:${hex}"></div>
       <div class="sri-name">${b.full}</div>
       <div class="sri-meta">${CATS[b.cat]?.lbl || b.cat}${d}</div>
+      <button class="sri-nav-btn" title="Navigate to ${b.full}" onclick="event.stopPropagation();navigateSR('${b.id}')">→ Go</button>
     </div>`;
       }).join('');
     });
@@ -3092,6 +3411,34 @@
     siEl.addEventListener('keydown', e => { if (e.key === 'Escape') { siEl.value = ''; scEl.style.display = 'none'; srEl.style.display = 'none'; } });
     document.addEventListener('click', e => { if (!e.target.closest('#srch-wrap')) srEl.style.display = 'none'; });
     window.pickSR = (id) => { siEl.value = ''; scEl.style.display = 'none'; srEl.style.display = 'none'; selectBuilding(id); };
+
+    // UX IMPROVEMENT: search navigate button handler
+    // Sets building as destination; if "from" is already chosen, fires the route immediately.
+    // If "from" is not set, sets destination and nudges user toward the nav panel.
+    window.navigateSR = (id) => {
+      // Clear search UI
+      siEl.value = ''; scEl.style.display = 'none'; srEl.style.display = 'none';
+      // Set destination
+      document.getElementById('to-s').value = id;
+      checkGo();
+      // Also select the building so the info card + camera focus update
+      selectBuilding(id);
+      const fid = document.getElementById('from-s').value;
+      if (fid && fid !== id) {
+        // "From" already selected — fire route immediately
+        document.getElementById('go-btn').click();
+      } else {
+        // Guide user to pick "from" location
+        if (window.innerWidth < 700) {
+          document.getElementById('nav').classList.add('open');
+          navOpen = true;
+        }
+        const sel = document.getElementById('from-s');
+        sel.style.borderColor = 'rgba(249,115,22,.8)';
+        sel.style.boxShadow = '0 0 14px rgba(249,115,22,.4)';
+        setTimeout(() => { sel.style.borderColor = ''; sel.style.boxShadow = ''; }, 2800);
+      }
+    };
 
     // ════════════════════════════════════════════════════════
     //  LEGEND & FILTER
@@ -3307,35 +3654,10 @@
 
     function applyEventHighlight(on) {
       getEventGroups().forEach(g => {
-        const id = g.userData.id;
         g.traverse(c => {
-          if (c.isMesh && c.material && c.material.emissiveIntensity !== undefined) {
-            if (on) {
-              // Mark as event-highlighted; animate() will drive the intensity
-              c.userData.evtHighlight = true;
-              if (!c.userData.originalColor) {
-                c.userData.originalColor = c.material.color.clone();
-                c.userData.originalEmissive = c.material.emissive.clone();
-                c.userData.originalEmissiveIntensity = c.material.emissiveIntensity;
-                c.userData.originalRoughness = c.material.roughness;
-                c.userData.originalMetalness = c.material.metalness;
-              }
-            } else {
-              c.userData.evtHighlight = false;
-              c.userData.originalColor = c.material.color.clone();
-              c.userData.originalEmissive = c.material.emissive.clone();
-              c.userData.originalEmissiveIntensity = c.material.emissiveIntensity;
-              c.userData.originalScale = c.scale.clone();
-              c.material.emissive.set('#000000');
-              c.material.color.set('#d9d9d9'); // or whatever your default building color is
-              // Restore original intensity
-              const orig = evtOrigIntensity[id] && evtOrigIntensity[id][c.uuid];
-              c.material.emissiveIntensity = orig !== undefined ? orig : 1.0;
-            }
-          }
+          if (!c.isMesh) return;
+          c.userData.evtHighlight = on;
         });
-        // Restore scale when turning off
-        if (!on) g.scale.set(1, g.scale.y, 1);
       });
     }
 
@@ -3351,23 +3673,21 @@
     document.getElementById('c-evtmode').onclick = () => {
       eventMode = !eventMode;
 
-      console.log("Event Mode:", eventMode); // debug
+      console.log("Event Mode:", eventMode);
 
-      // Force immediate visual update (IMPORTANT)
-      renderer.render(scene, camera);
       const btn = document.getElementById('c-evtmode');
+
       if (eventMode) {
-        // Cache originals on first activation (after buildings are built)
         if (Object.keys(evtOrigIntensity).length === 0) cacheEventOriginals();
         btn.classList.add('evt-on');
-        btn.title = 'Event Mode: ON';
+        btn.title = 'Event Mode ON — tap to disable';
         applyEventHighlight(true);
-        showEvtToast('⚡ Event Mode Activated');
+        showEvtToast('⚡ Showing event locations (' + EVENT_BLDG_IDS.length + ' buildings)');
       } else {
         btn.classList.remove('evt-on');
-        btn.title = 'Event Mode: OFF';
+        btn.title = 'Event Mode — highlight Techfest buildings';
         applyEventHighlight(false);
-        showEvtToast('Event Mode Disabled');
+        showEvtToast('Event mode disabled');
       }
     };
 
@@ -3422,34 +3742,60 @@
             c.userData.isHighlighted = false;
           }
 
-          const shouldHighlight = eventMode && isEventBuilding;
+          // 🔥 EVENT MODE VISUAL SYSTEM (NEW CLEAN LOGIC)
 
-          // APPLY highlight
-          if (shouldHighlight && !c.userData.isHighlighted) {
-            c.userData.isHighlighted = true;
+          if (eventMode) {
 
-            c.material.emissive.set('#ffd54f');
-            c.material.emissiveIntensity = 1.5;
-            c.material.color.set('#fff3b0');
-            c.material.roughness = 0.3;
-            c.material.metalness = 0.2;
-          }
+            if (isEventBuilding) {
+              // 🟡 HIGHLIGHT EVENT BUILDINGS
 
-          // RESET properly
-          if (!shouldHighlight && c.userData.isHighlighted) {
-            c.userData.isHighlighted = false;
+              if (!c.userData.isHighlighted) {
+                c.userData.isHighlighted = true;
+                c.userData.isDimmed = false;
 
-            c.material.color.copy(c.userData.originalColor);
-            c.material.emissive.copy(c.userData.originalEmissive);
-            c.material.emissiveIntensity = c.userData.originalEmissiveIntensity;
-            c.material.roughness = c.userData.originalRoughness;
-            c.material.metalness = c.userData.originalMetalness;
+                c.material.emissive.set('#ffb300');
+                c.material.color.set('#fff3b0');
+                c.material.roughness = 0.3;
+                c.material.metalness = 0.2;
+              }
+
+              // ✨ Smooth pulse
+              c.material.emissiveIntensity = 1.5 + Math.sin(T * 3) * 0.8;
+
+            } else {
+              // ⚫ DIM NON-EVENT BUILDINGS
+
+              if (!c.userData.isDimmed) {
+                c.userData.isDimmed = true;
+                c.userData.isHighlighted = false;
+
+                c.material.color.copy(c.userData.originalColor).multiplyScalar(0.7);
+                c.material.emissive.set('#000000');
+                c.material.emissiveIntensity = 0;
+                c.material.roughness = 0.7;
+                c.material.metalness = 0;
+              }
+            }
+
+          } else {
+            // 🔄 RESTORE ORIGINAL STATE
+
+            if (c.userData.isHighlighted || c.userData.isDimmed) {
+              c.userData.isHighlighted = false;
+              c.userData.isDimmed = false;
+
+              c.material.color.copy(c.userData.originalColor);
+              c.material.emissive.copy(c.userData.originalEmissive);
+              c.material.emissiveIntensity = c.userData.originalEmissiveIntensity;
+              c.material.roughness = c.userData.originalRoughness;
+              c.material.metalness = c.userData.originalMetalness;
+            }
           }
         });
 
         // 🔥 SCALE LOGIC (CLEAN — NO DUPLICATES)
         if (eventMode && isEventBuilding) {
-          const sc = 1.05 + Math.sin(T * 2) * 0.02;
+          const sc = 1.06 + Math.sin(T * 2.5) * 0.02;
           g.scale.x = sc;
           g.scale.z = sc;
         } else {
@@ -3533,6 +3879,18 @@
         usrBeam.scale.y = 1 + Math.sin(T * 2) * 0.1;
       }
 
+      // UX CONTINUATION: start/end markers — bob and ring pulse
+      if (startMarker.visible) {
+        startMarker.position.y = 1.6 + Math.sin(T * 3.2) * 0.22;
+        startRing.scale.setScalar(1 + Math.sin(T * 2.8) * 0.18);
+        startRing.material.opacity = 0.22 + Math.sin(T * 2.8) * 0.18;
+      }
+      if (endMarker.visible) {
+        endMarker.position.y = 1.6 + Math.sin(T * 3.2 + 1.2) * 0.22;
+        endRing.scale.setScalar(1 + Math.sin(T * 2.8 + 1.2) * 0.18);
+        endRing.material.opacity = 0.22 + Math.sin(T * 2.8 + 1.2) * 0.18;
+      }
+
       ren.render(scene, cam);
     }
 
@@ -3544,6 +3902,137 @@
     animate();
 
     // ════════════════════════════════════════════════════════
+    //  UX IMPROVEMENT: DYNAMIC ONBOARDING SYSTEM
+    //  - State-based hint text (existing #ptxt + .yah-hint)
+    //  - Step progress dots (existing peek-row, no extra elements)
+    //  - First-visit experience (localStorage, no popup/overlay)
+    //  UX SAFE: no overlay, no tooltip, no new floating elements
+    //  All mutations target existing DOM elements only
+    // ════════════════════════════════════════════════════════
+
+    // Helper: animate hint text change with a soft fade
+    // UX SAFE: only opacity/transform animation on existing element
+    function setHintText(el, newText) {
+      if (!el || el.textContent === newText) return;
+      el.classList.remove('hint-updated');
+      void el.offsetWidth; // reflow
+      el.textContent = newText;
+      el.classList.add('hint-updated');
+    }
+
+    // Update step-progress dots inside existing peek-row
+    // step: 1 = pick start, 2 = pick dest, 3 = both picked / route active
+    function updateStepDots(step) {
+      const d1 = document.getElementById('nsd-1');
+      const d2 = document.getElementById('nsd-2');
+      const d3 = document.getElementById('nsd-3');
+      if (!d1 || !d2 || !d3) return;
+
+      d1.className = 'ns-dot';
+      d2.className = 'ns-dot';
+      d3.className = 'ns-dot';
+
+      if (step === 1) {
+        d1.classList.add('active');
+      } else if (step === 2) {
+        d1.classList.add('done');
+        d2.classList.add('active');
+      } else if (step >= 3) {
+        d1.classList.add('done');
+        d2.classList.add('done');
+        d3.classList.add('active');
+      }
+    }
+
+    // Master state-based hint updater
+    // Called from checkGo, go-btn click, clr-btn click
+    // routeActive: true when a route is currently drawn
+    function updateNavHints(fromVal, toVal, routeActive) {
+      const ptxtEl  = document.getElementById('ptxt');
+      const yahHint = document.querySelector('#yah-label .yah-hint');
+
+      if (routeActive) {
+        // STATE: route is drawn
+        setHintText(ptxtEl, 'Follow the highlighted path');
+        if (yahHint) setHintText(yahHint, 'Route active — arrows show the way');
+        updateStepDots(3);
+      } else if (fromVal && toVal && fromVal !== toVal) {
+        // STATE: both selected, route not yet drawn
+        setHintText(ptxtEl, 'Tap Navigate to see route');
+        if (yahHint) setHintText(yahHint, 'Ready — tap Show Route to navigate');
+        updateStepDots(3);
+      } else if (fromVal) {
+        // STATE: only start selected
+        setHintText(ptxtEl, 'Now choose your destination');
+        if (yahHint) setHintText(yahHint, 'Select a destination to get directions');
+        updateStepDots(2);
+      } else {
+        // STATE: nothing selected
+        setHintText(ptxtEl, 'Select your starting point');
+        updateStepDots(1);
+      }
+    }
+
+    // Wire go-btn to update hint to "route active"
+    // UX SAFE: wraps existing go-btn onclick without replacing it
+    (function wrapGoBtnForHints() {
+      const orig = document.getElementById('go-btn').onclick;
+      document.getElementById('go-btn').addEventListener('click', function() {
+        // After a tick, update hints — orig click draws the route
+        setTimeout(() => {
+          const f = document.getElementById('from-s').value;
+          const t = document.getElementById('to-s').value;
+          const rcVisible = document.getElementById('rc').style.display !== 'none';
+          if (rcVisible) updateNavHints(f, t, true);
+        }, 80);
+      });
+    })();
+
+    // ── FIRST-TIME USER EXPERIENCE ──────────────────────────────────────────
+    // UX IMPROVEMENT: detect first visit via localStorage
+    // On first visit ONLY: subtly highlight "From" dropdown + auto-open nav briefly
+    // UX SAFE: no popup, no overlay, no tooltip — CSS class + setTimeout collapse
+    (function initFirstVisit() {
+      const KEY = 'ldce_nav_visited';
+      if (localStorage.getItem(KEY)) {
+        // Returning user — just set initial hint state
+        updateNavHints('', '', false);
+        return;
+      }
+
+      // Mark visited immediately so refresh doesn't repeat
+      localStorage.setItem(KEY, '1');
+
+      // Set initial hint to onboarding state
+      updateNavHints('', '', false);
+
+      // Wait for loading screen to clear, then apply first-visit nudges
+      setTimeout(() => {
+        const fromSel = document.getElementById('from-s');
+        const nav     = document.getElementById('nav');
+
+        // 1. Subtly highlight the "From" dropdown
+        // UX SAFE: CSS class only, removed after animation completes
+        if (fromSel) {
+          fromSel.classList.add('first-visit-nudge');
+          // Remove after 3 pulses × ~2s = 6s
+          setTimeout(() => fromSel.classList.remove('first-visit-nudge'), 6400);
+        }
+
+        // 2. Auto-open nav panel briefly on mobile, then collapse
+        // UX SAFE: only on mobile, collapses after 2.2s so user sees the controls
+        if (window.innerWidth < 700 && nav) {
+          nav.classList.add('open');
+          navOpen = true;
+          setTimeout(() => {
+            nav.classList.remove('open');
+            navOpen = false;
+          }, 2200);
+        }
+      }, 3700); // after loading screen fades (2500 + 1000 fade + buffer)
+    })();
+
+    // ────────────────────────────────────────────────────────
     //  THEME TOGGLE
     // ════════════════════════════════════════════════════════
     const THEMES = {
@@ -3585,7 +4074,14 @@
       const l = document.getElementById('ld');
       l.style.transition = 'opacity 1s';
       l.style.opacity = '0';
-      setTimeout(() => l.style.display = 'none', 1000);
+      setTimeout(() => {
+        l.style.display = 'none';
+        // UX IMPROVEMENT: auto-focus search bar after loading — desktop only
+        // (skip on mobile to prevent keyboard pop-up and layout shift)
+        if (window.innerWidth >= 700) {
+          document.getElementById('si').focus();
+        }
+      }, 1000);
     }, 2500);
 
     // ── Travel Mode Toggle Button ─────────────────────────────────────────────
