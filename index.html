@@ -1732,8 +1732,7 @@
 
     // ── STALLS, WATER, URINALS GENERATION ──────────
     (function generateExtraFacilities() {
-      const waterTargets = ['B0', 'CANTEEN', 'B1', 'B12', 'STAFF'];
-      const urinalTargets = ['B2', 'B5', 'HOSTB', 'BOYS_D', 'B12'];
+      const urinalTargets = ['B5', 'HOSTB', 'BOYS_D', 'B12'];
 
       const rx = [-27, -7.2, 9, 18, 27];
       const rz = [-27, -3.6, 14.4, 27];
@@ -1765,11 +1764,15 @@
 
       // ── FIXED STALL PLACEMENTS ──
       const stallConfigs = [
-        // Beside Block 12: Moved to space between B12 & B9
-        { type: 'Food Stall', count: 3, clr: 0xf97316, manualPos: { x: 23, z: -15 } },
-        // Beside Main Gate: Food (left) & Sponsor (right) - manual positions where trees were
+        // Space between B12 & B9: 2 Food Stalls + 1 Water Stall
+        { type: 'Food Stall', count: 2, clr: 0xf97316, manualPos: { x: 23, z: -15 } },
+        { type: 'Water Stall', count: 1, clr: 0x00e5ff, manualPos: { x: 25.5, z: -15 } },
+        // Beside Main Gate: Food, Sponsor, and Water Stall
         { type: 'Food Stall', count: 2, clr: 0xf97316, manualPos: { x: 5, z: 28 } },
+        { type: 'Water Stall', count: 1, clr: 0x00e5ff, manualPos: { x: 7.5, z: 28 } },
         { type: 'Sponsor Stall', count: 3, clr: 0x38bdf8, manualPos: { x: 15.5, z: 28 } },
+        // Block 2: Water Stall replaces Urinal
+        { type: 'Water Stall', count: 1, clr: 0x00e5ff, tid: 'B2' },
         // Empty Space in front of Girls Hostel (between B9 and Hostel C)
         { type: 'Food Stall', count: 2, clr: 0xf97316, manualPos: { x: 13.4, z: -15.5 } }
       ];
@@ -1790,25 +1793,12 @@
           }
 
           BLDGS.push({
-            id: 'STALL_' + stallIdx++, lbl: cfg.type, full: cfg.type, num: cfg.type === 'Food Stall' ? 'FS' : 'SS', cat: 'facility',
+            id: 'STALL_' + stallIdx++, lbl: cfg.type, full: cfg.type, num: cfg.type === 'Food Stall' ? 'FS' : (cfg.type === 'Water Stall' ? 'H2O' : 'SS'), cat: 'facility',
             clr: cfg.clr, em: 0x402000, x: px, z: pz,
             w: 1.2, d: 1.2, h: 1.4, fl: 1, isStall: true,
             desc: cfg.type + ' for Techfest guests.'
           });
         }
-      });
-
-      // Generate Water Stations (Unchanged)
-      waterTargets.forEach((tid, i) => {
-        const b = BLDGS.find(x => x.id === tid);
-        if (!b) return;
-        const pos = getFrontPos(b, 2.5);
-        BLDGS.push({
-          id: 'WATER_' + i, lbl: 'Water Station', full: 'Drinking Water Point', num: 'H2O', cat: 'facility',
-          clr: 0x00e5ff, em: 0x004050, x: pos.x, z: pos.z,
-          w: 1.0, d: 1.0, h: 1.2, fl: 1, isStall: true, isWater: true,
-          desc: 'Clean RO drinking water station.'
-        });
       });
 
       // Generate Urinals (Unchanged)
@@ -2406,6 +2396,44 @@
         );
         cap.position.y = bh + .08; cap.userData.glowCap = true; g.add(cap);
         const pl = new THREE.PointLight(b.clr, 4, 18); pl.position.y = bh + 2; g.add(pl);
+      }
+
+      // Water Cooler Pinpoint (Enlarged)
+      if (b.cat === 'academic' || b.cat === 'admin') {
+        const pin = new THREE.Mesh(
+          new THREE.SphereGeometry(0.4, 8, 8),
+          new THREE.MeshStandardMaterial({ color: 0x00e5ff, emissive: 0x00e5ff, emissiveIntensity: 1 })
+        );
+        pin.position.set(b.w / 2 - 0.5, bh + 0.65, b.d / 2 - 0.5);
+        g.add(pin);
+        const stick = new THREE.Mesh(
+          new THREE.CylinderGeometry(0.08, 0.08, 0.65),
+          new THREE.MeshStandardMaterial({ color: 0xcccccc })
+        );
+        stick.position.set(b.w / 2 - 0.5, bh + 0.325, b.d / 2 - 0.5);
+        g.add(stick);
+        // Water Cooler Hover Label
+        const WCC = document.createElement('canvas');
+        WCC.width = 200; WCC.height = 40;
+        const wctx = WCC.getContext('2d');
+        wctx.fillStyle = 'rgba(7,9,15,0.85)';
+        wctx.beginPath(); wctx.roundRect(0, 0, 200, 40, 20); wctx.fill();
+        wctx.strokeStyle = '#00e5ff'; wctx.lineWidth = 2;
+        wctx.beginPath(); wctx.roundRect(0, 0, 200, 40, 20); wctx.stroke();
+        wctx.font = 'bold 15px Space Grotesk,sans-serif';
+        wctx.fillStyle = '#00e5ff'; wctx.textAlign = 'center';
+        wctx.fillText('🚰 Water Cooler Available', 100, 26);
+        
+        const wcsp = new THREE.Sprite(new THREE.SpriteMaterial({
+          map: new THREE.CanvasTexture(WCC),
+          transparent: true, depthTest: false
+        }));
+        wcsp.scale.set(3, 0.6, 1);
+        wcsp.position.set(b.w / 2 - 0.5, bh + 1.5, b.d / 2 - 0.5);
+        wcsp.visible = false;
+        wcsp.renderOrder = 1000;
+        g.add(wcsp);
+        g.wcLabel = wcsp;
       }
 
       // Label sprite
@@ -3424,6 +3452,9 @@
           const d = cam.position.distanceTo(g.position);
           g.labelSprite.material.opacity =
             d < 30 ? 1 : Math.max(0, 1 - (d - 30) / 18);
+        }
+        if (g.wcLabel) {
+          g.wcLabel.visible = (g.userData.id === hov);
         }
 
       });
