@@ -1439,8 +1439,8 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      background: rgba(251,191,36,.15);
-      border: 1px solid rgba(251,191,36,.35);
+      background: rgba(251, 191, 36, .15);
+      border: 1px solid rgba(251, 191, 36, .35);
       border-radius: 20px;
       padding: 2px 8px;
       font-family: 'JetBrains Mono';
@@ -1459,8 +1459,8 @@
       display: flex;
       align-items: flex-start;
       gap: 8px;
-      background: rgba(251,191,36,.05);
-      border: 1px solid rgba(251,191,36,.15);
+      background: rgba(251, 191, 36, .05);
+      border: 1px solid rgba(251, 191, 36, .15);
       border-radius: 10px;
       padding: 8px 10px;
       cursor: pointer;
@@ -1469,8 +1469,8 @@
 
     .ic-evt-item:hover,
     .ic-evt-item:active {
-      background: rgba(251,191,36,.12);
-      border-color: rgba(251,191,36,.35)
+      background: rgba(251, 191, 36, .12);
+      border-color: rgba(251, 191, 36, .35)
     }
 
     .ic-evt-dot {
@@ -1480,7 +1480,7 @@
       background: var(--amber);
       flex-shrink: 0;
       margin-top: 4px;
-      box-shadow: 0 0 6px rgba(251,191,36,.6)
+      box-shadow: 0 0 6px rgba(251, 191, 36, .6)
     }
 
     .ic-evt-name {
@@ -1730,55 +1730,75 @@
       { id: 'CSQR', lbl: 'Square', full: 'Central Square', num: 'S', cat: 'facility', clr: 0xef4444, em: 0x3a0808, x: 0.9, z: 20.3, w: 2.2, d: 2.2, h: .2, fl: 1, flat: true, desc: 'Square' }
     ];
 
-    // ── RANDOM FOOD STALLS ──────────────────────────────────────────
-    // ── RANDOM FACILITY GENERATION (Stalls, Water, Urinals) ──────────
+    // ── STALLS, WATER, URINALS GENERATION ──────────
     (function generateExtraFacilities() {
-      // Targets for various stalls
-      const stallTargets = ['B8', 'B10', 'B1', 'GIRLS', 'MESS', 'HOSTA'];
       const waterTargets = ['B0', 'CANTEEN', 'B1', 'B12', 'STAFF'];
       const urinalTargets = ['B2', 'B5', 'HOSTB', 'BOYS_D', 'B12'];
 
       const rx = [-27, -7.2, 9, 18, 27];
       const rz = [-27, -3.6, 14.4, 27];
 
-      function getFrontPos(b, margin = 2.0) {
+      function getFrontPos(b, margin = 2.0, offset = 0) {
         const nx = rx.reduce((p, c) => Math.abs(c - b.x) < Math.abs(p - b.x) ? c : p);
         const nz = rz.reduce((p, c) => Math.abs(c - b.z) < Math.abs(p - b.z) ? c : p);
-        
+
         let dx = nx - b.x;
         let dz = nz - b.z;
 
         let sx = b.x, sz = b.z;
-        
-        // If centered on a road axis, push away from it on the OTHER axis
+
         if (Math.abs(dx) < 0.01) {
           sz = b.z + (dz === 0 ? -1 : Math.sign(dz)) * (b.d / 2 + margin);
+          sx += offset;
         } else if (Math.abs(dz) < 0.01) {
           sx = b.x + (dx === 0 ? 1 : Math.sign(dx)) * (b.w / 2 + margin);
+          sz += offset;
         } else if (Math.abs(dx) < Math.abs(dz)) {
           sx = b.x + Math.sign(dx) * (b.w / 2 + margin);
+          sz += offset;
         } else {
           sz = b.z + Math.sign(dz) * (b.d / 2 + margin);
+          sx += offset;
         }
         return { x: sx, z: sz };
       }
 
-      // Generate Food Stalls
-      const names = ['Tea Corner', 'Maggi Pnt', 'Juice Hub', 'Frankie', 'Snack Bar', 'Cold Cofe'];
-      const clrs = [0xf97316, 0xfbbf24, 0x22c55e, 0xa855f7, 0xf43f5e, 0x64748b];
-      stallTargets.sort(() => Math.random() - 0.5).slice(0, 6).forEach((tid, i) => {
-        const b = BLDGS.find(x => x.id === tid);
-        if (!b) return;
-        const pos = getFrontPos(b, 2.2);
-        BLDGS.push({
-          id: 'STALL_' + i, lbl: names[i], full: names[i] + ' (Stall)', num: 'FS', cat: 'facility',
-          clr: clrs[i % clrs.length], em: 0x402000, x: pos.x, z: pos.z,
-          w: 1.2, d: 1.2, h: 1.4, fl: 1, isStall: true,
-          desc: 'Refreshing ' + names[i] + ' for Techfest guests.'
-        });
+      // ── FIXED STALL PLACEMENTS ──
+      const stallConfigs = [
+        // Beside Block 12: Moved to space between B12 & B9
+        { type: 'Food Stall', count: 3, clr: 0xf97316, manualPos: { x: 23, z: -15 } },
+        // Beside Main Gate: Food (left) & Sponsor (right) - manual positions where trees were
+        { type: 'Food Stall', count: 2, clr: 0xf97316, manualPos: { x: 5, z: 28 } },
+        { type: 'Sponsor Stall', count: 3, clr: 0x38bdf8, manualPos: { x: 15.5, z: 28 } },
+        // Empty Space in front of Girls Hostel (between B9 and Hostel C)
+        { type: 'Food Stall', count: 2, clr: 0xf97316, manualPos: { x: 13.4, z: -15.5 } }
+      ];
+
+      let stallIdx = 0;
+      stallConfigs.forEach(cfg => {
+        const baseShift = cfg.shift || 0;
+        for (let i = 0; i < cfg.count; i++) {
+          let px, pz;
+          if (cfg.manualPos) {
+            px = cfg.manualPos.x + (i * 1.8) - (cfg.count * 0.9);
+            pz = cfg.manualPos.z;
+          } else {
+            const b = BLDGS.find(x => x.id === cfg.tid);
+            if (!b) continue;
+            const pos = getFrontPos(b, 2.2, baseShift + (i * 1.8) - (cfg.count * 0.9));
+            px = pos.x; pz = pos.z;
+          }
+
+          BLDGS.push({
+            id: 'STALL_' + stallIdx++, lbl: cfg.type, full: cfg.type, num: cfg.type === 'Food Stall' ? 'FS' : 'SS', cat: 'facility',
+            clr: cfg.clr, em: 0x402000, x: px, z: pz,
+            w: 1.2, d: 1.2, h: 1.4, fl: 1, isStall: true,
+            desc: cfg.type + ' for Techfest guests.'
+          });
+        }
       });
 
-      // Generate Water Stations
+      // Generate Water Stations (Unchanged)
       waterTargets.forEach((tid, i) => {
         const b = BLDGS.find(x => x.id === tid);
         if (!b) return;
@@ -1791,11 +1811,11 @@
         });
       });
 
-      // Generate Urinals (placed slightly further or behind)
+      // Generate Urinals (Unchanged)
       urinalTargets.forEach((tid, i) => {
         const b = BLDGS.find(x => x.id === tid);
         if (!b) return;
-        const pos = getFrontPos(b, 3.5); // Push further away
+        const pos = getFrontPos(b, 3.5);
         BLDGS.push({
           id: 'URINAL_' + i, lbl: 'Urinal', full: 'Public Restroom / Urinal', num: 'WC', cat: 'facility',
           clr: 0x94a3b8, em: 0x161e28, x: pos.x, z: pos.z,
@@ -1924,9 +1944,9 @@
 
     // HOSTEL_GATE sits outside the grid (x=-28.1 < RX min=-27), so its entry
     // never gets bracket-connected. Manually wire it to the nearest grid node.
-    (function() {
+    (function () {
       const entryId = 'HOSTEL_GATE_entry';
-      const gridId  = '-27_-3.6';
+      const gridId = '-27_-3.6';
       if (nodes[entryId] && nodes[gridId] && !nodes[entryId].edges[gridId]) {
         const d = Math.hypot(nodes[entryId].x - nodes[gridId].x, nodes[entryId].z - nodes[gridId].z);
         nodes[entryId].edges[gridId] = { dist: d, walk: true, vehicle: true };
@@ -2269,7 +2289,7 @@
     [
       [-22, 14], [-22, 0], [-22, -12], [-22, -22],
       [22, 14], [22, 0], [22, -12], [22, -22],
-      [-5, 28], [5, 28], [-14, 28], [14, 28],
+      [-5, 28], [-14, 28],
       [-5, -28], [5, -28], [-14, -28], [14, -28],
       [-17, 8], [-17, -6], [17, 8], [17, -6],
       [-7, 14], [7, 14], [-7, -8], [7, -8],
@@ -3528,7 +3548,7 @@
     }, 2500);
 
     // ── Travel Mode Toggle Button ─────────────────────────────────────────────
-    (function() {
+    (function () {
       const btn = document.getElementById('c-travelmode');
 
       function setTravelMode(mode) {
@@ -3571,17 +3591,23 @@
   </script>
 
   <!-- Travel Mode Modal -->
-  <div id="tm-modal" style="display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;background:rgba(0,0,0,0.55);padding:16px;">
-    <div style="background:var(--panel-bg,#1e1e2e);color:var(--text,#e0e0e0);border-radius:14px;padding:28px 24px 24px;max-width:320px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,0.5);font-family:inherit;text-align:center;">
+  <div id="tm-modal"
+    style="display:none;position:fixed;inset:0;z-index:9999;align-items:center;justify-content:center;background:rgba(0,0,0,0.55);padding:16px;">
+    <div
+      style="background:var(--panel-bg,#1e1e2e);color:var(--text,#e0e0e0);border-radius:14px;padding:28px 24px 24px;max-width:320px;width:100%;box-shadow:0 8px 32px rgba(0,0,0,0.5);font-family:inherit;text-align:center;">
       <div style="font-size:1.5rem;margin-bottom:8px;">🗺️</div>
       <h2 style="margin:0 0 8px;font-size:1.1rem;font-weight:700;">Choose Navigation Mode</h2>
-      <p style="margin:0 0 20px;font-size:0.85rem;opacity:0.75;line-height:1.5;">Select how you're moving around campus for better route accuracy.</p>
+      <p style="margin:0 0 20px;font-size:0.85rem;opacity:0.75;line-height:1.5;">Select how you're moving around campus
+        for better route accuracy.</p>
       <div style="display:flex;flex-direction:column;gap:10px;">
-        <button id="tm-walk" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 16px;border-radius:10px;border:none;background:var(--accent,#4c8bf5);color:#fff;font-size:0.95rem;font-weight:600;cursor:pointer;">
+        <button id="tm-walk"
+          style="display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 16px;border-radius:10px;border:none;background:var(--accent,#4c8bf5);color:#fff;font-size:0.95rem;font-weight:600;cursor:pointer;">
           🚶 <span>Walking <span style="font-weight:400;opacity:0.85;font-size:0.82rem;">(Recommended)</span></span>
         </button>
-        <button id="tm-vehicle" style="display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 16px;border-radius:10px;border:2px solid var(--accent,#4c8bf5);background:transparent;color:var(--text,#e0e0e0);font-size:0.95rem;font-weight:600;cursor:pointer;">
-          🚗 <span>Vehicle <span style="font-weight:400;opacity:0.85;font-size:0.82rem;">(Avoids restricted paths)</span></span>
+        <button id="tm-vehicle"
+          style="display:flex;align-items:center;justify-content:center;gap:10px;padding:12px 16px;border-radius:10px;border:2px solid var(--accent,#4c8bf5);background:transparent;color:var(--text,#e0e0e0);font-size:0.95rem;font-weight:600;cursor:pointer;">
+          🚗 <span>Vehicle <span style="font-weight:400;opacity:0.85;font-size:0.82rem;">(Avoids restricted
+              paths)</span></span>
         </button>
       </div>
     </div>
