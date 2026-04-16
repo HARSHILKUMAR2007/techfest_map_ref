@@ -25,7 +25,7 @@
     "category": "Tech / Robotics",
     "date": "18 April 2026",
     "time": "4:00 PM – 7:00 PM",
-    "location": "Drone Grand Prix Area",
+    "location": "Electrical Lawn",
     "description": "A competitive drone racing event where teams navigate a specially designed obstacle course, evaluated on speed, stability, control, and durability.",
     "day": "Day 1"
   },
@@ -65,7 +65,7 @@
     "category": "Environmental / Tech",
     "date": "19 April 2026",
     "time": "10:00 AM – 4:00 PM",
-    "location": "Block 5 Corridor",
+    "location": "Block 12",
     "description": "A sustainability challenge where teams design working prototypes that transform waste materials into renewable energy solutions like biogas, biofuel, or bioelectricity.",
     "day": "Day 2"
   },
@@ -75,7 +75,7 @@
     "category": "Electronics",
     "date": "19 April 2026",
     "time": "10:00 AM – 3:00 PM",
-    "location": "Upnishad Hall",
+    "location": "211,Block 2",
     "description": "An electronics innovation challenge where teams build a functional prototype from given components, with a live auction adding a strategic layer to the competition.",
     "day": "Day 2"
   },
@@ -95,7 +95,7 @@
     "category": "Civil",
     "date": "18–19 April 2026",
     "time": "11:00 AM onwards",
-    "location": "Visveswarya Hall",
+    "location": "Room 259C ,Block 2",
     "description": "Teams first create a meme highlighting a real civil engineering problem, then develop a technical poster proposing an innovative solution, followed by a judge Q&A.",
     "day": "Day 1 & Day 2"
   },
@@ -155,7 +155,7 @@
     "category": "CS / AI",
     "date": "18 April 2026",
     "time": "3:00 PM – 7:00 PM",
-    "location": "Visveswarya Hall",
+    "location": "Tagore Hall, Block 2",
     "description": "Participants use AI tools to generate short films centred around the theme of sustainability and environmental impact, judged on storytelling and innovative use of AI.",
     "day": "Day 1"
   },
@@ -175,7 +175,7 @@
     "category": "Environmental",
     "date": "18 April 2026",
     "time": "12:00 PM – 6:00 PM",
-    "location": "Block 3",
+    "location": "Room No: 12410 ,Block 12",
     "description": "A sustainability challenge where teams build filtration systems from waste or recyclable materials for water purification or air filtration, promoting circular economy practices.",
     "day": "Day 1"
   },
@@ -195,7 +195,7 @@
     "category": "Art / Culture",
     "date": "19 April 2026",
     "time": "10:00 AM – 1:00 PM",
-    "location": "Homi Bhabha Hall",
+    "location": "Tagore Hall, Block 2",
     "description": "A live space-themed art competition where participants bring their cosmic imagination to life through painting and illustration based on a surprise on-the-spot theme.",
     "day": "Day 2"
   },
@@ -205,7 +205,7 @@
     "category": "Chemical Engineering",
     "date": "18 April 2026",
     "time": "11:00 AM – 2:00 PM",
-    "location": "Electrical Lawn",
+    "location": "Room No:12113,Block 12",
     "description": "A creative poster design competition encouraging students to visually communicate ideas around sustainability, green technology, and engineering innovation.",
     "day": "Day 1"
   },
@@ -215,7 +215,7 @@
     "category": "CS / Tech",
     "date": "18 April 2026",
     "time": "1:00 PM – 5:00 PM",
-    "location": "Campus-wide",
+    "location": "Vishwakarma Hall",
     "description": "A campus-wide treasure hunt where teams solve coding clues and technical puzzles across multiple locations, covering programming, binary logic, and algorithms.",
     "day": "Day 1"
   },
@@ -225,7 +225,7 @@
     "category": "Chemical Engineering",
     "date": "19 April 2026",
     "time": "10:00 AM – 12:00 PM",
-    "location": "BEE Lab",
+    "location": "Block 12 Outside",
     "description": "Teams design and build a model car powered by chemical reactions and compete on a track, judged on speed, stability, and accuracy of performance.",
     "day": "Day 2"
   },
@@ -235,7 +235,7 @@
     "category": "Chemical Engineering",
     "date": "19 April 2026",
     "time": "12:00 PM – 5:00 PM",
-    "location": "Computer Lab",
+    "location": "Room No: 12210 ,Block 12",
     "description": "Participants design and simulate a chemical process using tools like DWSIM, building flowsheets and optimising performance within competition constraints.",
     "day": "Day 2"
   },
@@ -245,7 +245,7 @@
     "category": "Chemical Engineering",
     "date": "18 April 2026",
     "time": "11:00 AM – 3:00 PM",
-    "location": "Room 401, Block 4",
+    "location": "603 , Block 6",
     "description": "A technical quiz competition focused on core chemical engineering concepts — thermodynamics, heat transfer, fluid mechanics, reaction engineering, and industrial processes.",
     "day": "Day 1"
   },
@@ -265,7 +265,7 @@
     "category": "CS / AI",
     "date": "18 April 2026",
     "time": "12:00 PM – 4:00 PM",
-    "location": "Chanakya Hall",
+    "location": "Homi Bhabha Hall",
     "description": "An AI competition where participants craft precise and creative prompts to generate optimal outputs from AI tools, reflecting the real-world importance of prompt engineering.",
     "day": "Day 1"
   },
@@ -285,7 +285,7 @@
     "category": "Environmental",
     "date": "18 April 2026",
     "time": "3:00 PM – 6:00 PM",
-    "location": "Block 5 Corridor",
+    "location": "Room No: 12003 , Block 12",
     "description": "Participants design an adsorption column using agro-bio waste materials to remove colour from industrial wastewater, evaluated on clarity and colour removal efficiency.",
     "day": "Day 1"
   },
@@ -348,5 +348,45 @@
     "location": "Cricket Ground",
     "description": "An astronomy observation event where participants explore celestial objects like the Moon, planets, and constellations through telescopes. Organized by Prakalpa Club.",
     "day": "Day 1 (Night)"
+  },
+  {
+    "id": "e36",
+    "name": "SpaceTalks - Industry meets academia",
+    "category": "Astronomy",
+    "date": "18 April 2026",
+    "time": "10:00AM– 12:30 AM",
+    "location": "TPO Hall (Aryabhatta Hall)",
+    "description": "SpaceTalks Live is an interactive podcast-style session featuring distinguished industry professionals and technical experts in conversation with student moderators.",
+    "day": "Day 1"
+  },
+  {
+    "id": "e37",
+    "name": "Engineer of the year- All Round Excellence",
+    "category": "General",
+    "date": "19 April 2026",
+    "time": "3:00 PM – 05:00 PM",
+    "location": "Homi Bhabha Hall",
+    "description": "Engineer of the Year is the flagship multi-stage competition designed to identify the most versatile and capable engineering mind",
+    "day": "Day 1"
+  },
+  {
+    "id": "e38",
+    "name": "VR Game Zone(Tech)",
+    "category": "General",
+    "date": "18 April 2026",
+    "time": "10:00 AM – 05:00 PM",
+    "location": "TBA",
+    "description": "Experience the future of gaming with our immersive VR game zone!",
+    "day": "Day 1 & Day 2"
+  },
+  {
+    "id": "e39",
+    "name": "Digital Twin Workshop",
+    "category": "General",
+    "date": "18 April 2026",
+    "time": "10:00 AM – 05:00 PM",
+    "location": "TBA",
+    "description": "A two-day hands-on workshop introducing students to the cutting-edge world of Digital Twin technology — where 3D models, IoT data, and simulation platforms converge",
+    "day": "Day 1 & Day 2"
   }
 ]
