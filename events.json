@@ -65,7 +65,7 @@
     "category": "Environmental / Tech",
     "date": "19 April 2026",
     "time": "10:00 AM – 4:00 PM",
-    "location": "Block 12",
+    "location": "Room No: 12409 ,Block 12",
     "description": "A sustainability challenge where teams design working prototypes that transform waste materials into renewable energy solutions like biogas, biofuel, or bioelectricity.",
     "day": "Day 2"
   },
@@ -151,7 +151,7 @@
   },
   {
     "id": "e16",
-    "name": "AI Short Film Generation",
+    "name": "Short Film Generation",
     "category": "CS / AI",
     "date": "18 April 2026",
     "time": "3:00 PM – 7:00 PM",
@@ -211,7 +211,7 @@
   },
   {
     "id": "e22",
-    "name": "TechTrace — Offline Tech Treasure Hunt",
+    "name": "TechTrace",
     "category": "CS / Tech",
     "date": "18 April 2026",
     "time": "1:00 PM – 5:00 PM",
@@ -221,7 +221,7 @@
   },
   {
     "id": "e23",
-    "name": "Chem-Car-O-Burn",
+    "name": "Chem-CarBurn",
     "category": "Chemical Engineering",
     "date": "19 April 2026",
     "time": "10:00 AM – 12:00 PM",
@@ -251,16 +251,6 @@
   },
   {
     "id": "e26",
-    "name": "The Last Engineer Standing",
-    "category": "General",
-    "date": "19 April 2026",
-    "time": "11:00 AM – 1:00 PM",
-    "location": "Homi Bhabha Hall",
-    "description": "An all-rounder competition to identify the most versatile engineer at Lakshya 2.0, featuring aptitude tests, technical problem-solving, case studies, and multi-disciplinary judge interactions.",
-    "day": "Day 2"
-  },
-  {
-    "id": "e27",
     "name": "PromptCraft",
     "category": "CS / AI",
     "date": "18 April 2026",
@@ -270,7 +260,7 @@
     "day": "Day 1"
   },
   {
-    "id": "e28",
+    "id": "e27",
     "name": "Imposter Code Quest",
     "category": "CS / AI",
     "date": "19 April 2026",
@@ -280,7 +270,7 @@
     "day": "Day 2"
   },
   {
-    "id": "e29",
+    "id": "e28",
     "name": "Eco-Clean Water Fest",
     "category": "Environmental",
     "date": "18 April 2026",
@@ -290,17 +280,7 @@
     "day": "Day 1"
   },
   {
-    "id": "e30",
-    "name": "Cosmic Hunt",
-    "category": "General",
-    "date": "18–19 April 2026",
-    "time": "12:00 PM onwards",
-    "location": "Room 401, Block 4",
-    "description": "A space-themed escape room challenge where teams act as astronauts trapped in a malfunctioning space station, decoding messages and solving puzzles to restore systems.",
-    "day": "Day 1 & Day 2"
-  },
-  {
-    "id": "e31",
+    "id": "e29",
     "name": "Market Masters — Stock Market & Global Training Seminar",
     "category": "Finance / General",
     "date": "19 April 2026",
@@ -310,17 +290,7 @@
     "day": "Day 2"
   },
   {
-    "id": "e32",
-    "name": "LD Talks / Tech Talks",
-    "category": "General",
-    "date": "18 April 2026",
-    "time": "12:00 PM – 3:00 PM",
-    "location": "TPO Hall (Aryabhatta Hall)",
-    "description": "An interactive tech podcast-style session where industry experts are interviewed by student moderators, discussing real-world technology applications, career insights, and emerging trends.",
-    "day": "Day 1"
-  },
-  {
-    "id": "e33",
+    "id": "e30",
     "name": "ByteHunt",
     "category": "CS / Tech",
     "date": "18 April 2026",
@@ -330,8 +300,8 @@
     "day": "Day 1"
   },
   {
-    "id": "e34",
-    "name": "Bachpan NGO — The Changemaker",
+    "id": "e31",
+    "name": "The Changemaker",
     "category": "Social Impact / NGO",
     "date": "18 April 2026",
     "time": "4:00 PM – 7:00 PM",
@@ -340,18 +310,8 @@
     "day": "Day 1"
   },
   {
-    "id": "e35",
-    "name": "Sky Gazing Night — Explore the Universe",
-    "category": "Astronomy",
-    "date": "18 April 2026",
-    "time": "8:00 PM – 11:00 PM",
-    "location": "Cricket Ground",
-    "description": "An astronomy observation event where participants explore celestial objects like the Moon, planets, and constellations through telescopes. Organized by Prakalpa Club.",
-    "day": "Day 1 (Night)"
-  },
-  {
-    "id": "e36",
-    "name": "SpaceTalks - Industry meets academia",
+    "id": "e32",
+    "name": "SpaceTalks",
     "category": "Astronomy",
     "date": "18 April 2026",
     "time": "10:00AM– 12:30 AM",
@@ -360,7 +320,7 @@
     "day": "Day 1"
   },
   {
-    "id": "e37",
+    "id": "e33",
     "name": "Engineer of the year- All Round Excellence",
     "category": "General",
     "date": "19 April 2026",
@@ -370,7 +330,7 @@
     "day": "Day 1"
   },
   {
-    "id": "e38",
+    "id": "e34",
     "name": "VR Game Zone(Tech)",
     "category": "General",
     "date": "18 April 2026",
@@ -380,7 +340,7 @@
     "day": "Day 1 & Day 2"
   },
   {
-    "id": "e39",
+    "id": "e35",
     "name": "Digital Twin Workshop",
     "category": "General",
     "date": "18 April 2026",
