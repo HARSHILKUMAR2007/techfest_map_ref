@@ -707,6 +707,52 @@
       margin-top: 4px
     }
 
+    /* ── DAY TOGGLE ── */
+    #day-toggle {
+      display: flex;
+      gap: 6px;
+      margin-bottom: 12px
+    }
+
+    .day-btn {
+      flex: 1;
+      padding: 7px 0;
+      border-radius: 10px;
+      border: 1px solid var(--b1);
+      background: rgba(255,255,255,.03);
+      color: var(--t2);
+      font-family: 'JetBrains Mono';
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .5px;
+      cursor: pointer;
+      transition: all .18s
+    }
+
+    .day-btn.active {
+      background: rgba(251,191,36,.12);
+      border-color: rgba(251,191,36,.45);
+      color: var(--amber);
+      box-shadow: 0 0 10px rgba(251,191,36,.12)
+    }
+
+    /* ── SCHEDULE TIME GROUP ── */
+    .sched-group {
+      margin-bottom: 14px
+    }
+
+    .sched-time-hdr {
+      font-family: 'JetBrains Mono';
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: 1.2px;
+      color: var(--amber);
+      text-transform: uppercase;
+      padding: 0 2px 6px;
+      border-bottom: 1px solid rgba(251,191,36,.15);
+      margin-bottom: 6px
+    }
+
     .evt-card {
       background: rgba(255, 255, 255, .03);
       border: 1px solid var(--b1);
@@ -715,7 +761,7 @@
       display: flex;
       gap: 10px;
       align-items: center;
-      margin-bottom: 8px
+      margin-bottom: 6px
     }
 
     .evt-card:last-child {
@@ -1823,6 +1869,11 @@
       <!-- ── EVENTS SECTION ── -->
       <div id="evt-section">
         <div class="nav-sec">Techfest Events</div>
+        <!-- Day toggle -->
+        <div id="day-toggle">
+          <button class="day-btn active" data-day="1">Day 1</button>
+          <button class="day-btn" data-day="2">Day 2</button>
+        </div>
         <div id="evts-list"></div>
       </div>
     </div>
@@ -3045,7 +3096,9 @@
         "ChemVista",
         "Chem-CarBurn",
         "SimulChem",
-        "Eco-Clean Water Fest"
+        "Eco-Clean Water Fest",
+        "C2C Display Presentation",
+        "ChemQuest"
       ],
       "Block 5": [
         "Rapid CAD Arena",
@@ -3053,6 +3106,7 @@
         "Balance Track",
         "RoboMaze (Maze Solver)",
         "LineXplorer",
+        "Jamming Session"
       ],
       "Block 2": [
         "Auction & Creation",
@@ -3061,7 +3115,6 @@
         "Civil Chaos",
         "Short Film Generation",
         "The Painted Realm",
-        "TechTrace",
         "Drone Grand Prix"
       ],
       "Main Block": [
@@ -3072,16 +3125,24 @@
         "SpaceTalks",
         "Pitch the Idea",
         "Engineer of the Year",
-        "PromptCraft"
+        "VR Game Zone",
+        "Opening Ceremony"
       ],
       "Cricket Ground": [
-        "RoboRush"
+        "RoboRush",
+        "Sky Gazing Night"
       ],
       "Block 10": [
-        "ByteHunt"
+        "ByteHunt",
+        "Digital Twin Workshop"
       ],
-       "Block 6": [
-        "ChemQuest"
+       "Block 8": [
+        "TechTrace",
+        "PromptCraft",
+        "Imposter Code Quest"
+      ],
+      "LAWN":[
+        "Felicitation Ceremony"
       ]
     };
 
@@ -3545,54 +3606,116 @@
       "Room 259C ,Block 2": "B2",
       "TPO Hall (Aryabhatta Hall)": "B0",
       "Annexe": "B10",
-      "TBA": "B0"
+      "TBA": "B0",
+      "Civil Lawn": "LAWN",
+      "Room 811-812": "B8",
+      "213,Block 2" : "B2",
+      "Room 3006": "B10",
+      "Room No: 12411 ,Block 12": "B12",
+      "Room 815-819, Block 8": "B8",
+      "Room 12116, Block 12": "B12",
+      "Room 2006, Annexe": "B10",
     };
 
+    // ── Day toggle state ──────────────────────────────────────────────────────
+    let _allEvents = [];
+    let _activeDay = 1;
+
     function renderEvents(evts) {
+      _allEvents = evts || [];
+      renderSchedule(_activeDay);
+
+      // Wire day toggle buttons
+      document.querySelectorAll('.day-btn').forEach(btn => {
+        btn.onclick = () => {
+          _activeDay = parseInt(btn.dataset.day, 10);
+          document.querySelectorAll('.day-btn').forEach(b => b.classList.remove('active'));
+          btn.classList.add('active');
+          renderSchedule(_activeDay);
+        };
+      });
+    }
+
+    function renderSchedule(day) {
       const list = document.getElementById('evts-list');
-      if (!evts || !evts.length) {
-        list.innerHTML = '<div style="font-size:11px;color:var(--t3);font-family:JetBrains Mono,monospace;padding:4px 2px">No events loaded. Add events.json.</div>';
+      const filtered = _allEvents.filter(e => e.day === day);
+
+      if (!filtered.length) {
+        list.innerHTML = '<div style="font-size:11px;color:var(--t3);font-family:JetBrains Mono,monospace;padding:4px 2px">No events for this day.</div>';
         return;
       }
-      list.innerHTML = '';
-      evts.forEach(e => {
-        // Try exact match, then map, then fuzzy
-        let tid = e.location;
-        if (VENUE_MAP[tid]) tid = VENUE_MAP[tid];
 
-        const bldg = BLDGS.find(x => x.id === tid);
-        const card = document.createElement('div');
-        card.className = 'evt-card';
-        // Time — show first word (e.g. "10:00" from "10:00 AM")
-        const timeParts = e.time ? e.time.split(' ') : ['—'];
-        card.innerHTML = `
-      <div class="evt-time">${timeParts[0]}<br><span style="font-size:8px;opacity:.7">${timeParts[1] || ''}</span></div>
-      <div class="evt-info">
-        <div class="evt-title">${e.name}</div>
-        <div class="evt-loc">${e.day ? e.day + ' • ' : ''}${e.location || '?'}</div>
-      </div>
-      <button class="evt-nav-btn" title="Navigate to event">→</button>
-    `;
-        card.querySelector('.evt-nav-btn').onclick = () => {
-          if (!tid || !BLDGS.find(x => x.id === tid)) return;
-          document.getElementById('to-s').value = tid;
-          checkGo();
-          // If from is set, immediately show route
-          if (document.getElementById('from-s').value) {
-            document.getElementById('go-btn').click();
-          } else {
-            // Highlight from selector
-            if (window.innerWidth < 700) {
-              document.getElementById('nav').classList.add('open');
-              navOpen = true;
+      // Sort by time (parse HH:MM AM/PM → 24h minutes for sorting)
+      function toMinutes(t) {
+        if (!t) return 9999;
+        const m = t.match(/(\d+):(\d+)\s*(AM|PM)/i);
+        if (!m) return 9999;
+        let h = parseInt(m[1], 10), min = parseInt(m[2], 10);
+        const pm = m[3].toUpperCase() === 'PM';
+        if (pm && h !== 12) h += 12;
+        if (!pm && h === 12) h = 0;
+        return h * 60 + min;
+      }
+
+      filtered.sort((a, b) => toMinutes(a.time) - toMinutes(b.time));
+
+      // Group by time
+      const groups = {};
+      filtered.forEach(e => {
+        const key = e.time || 'TBD';
+        if (!groups[key]) groups[key] = [];
+        groups[key].push(e);
+      });
+
+      list.innerHTML = '';
+
+      Object.keys(groups).sort((a, b) => toMinutes(a) - toMinutes(b)).forEach(timeKey => {
+        const grp = document.createElement('div');
+        grp.className = 'sched-group';
+
+        const hdr = document.createElement('div');
+        hdr.className = 'sched-time-hdr';
+        hdr.textContent = timeKey;
+        grp.appendChild(hdr);
+
+        groups[timeKey].forEach(e => {
+          // Resolve building ID via VENUE_MAP
+          let tid = e.location;
+          if (VENUE_MAP[tid]) tid = VENUE_MAP[tid];
+
+          const card = document.createElement('div');
+          card.className = 'evt-card';
+          card.innerHTML = `
+            <div class="evt-info">
+              <div class="evt-title">${e.name}</div>
+              <div class="evt-loc">${e.location || '?'}</div>
+            </div>
+            <button class="evt-nav-btn" title="Navigate to event">→</button>
+          `;
+
+          // ── PRESERVE EXACT ROUTING BEHAVIOUR (unchanged logic) ──
+          card.querySelector('.evt-nav-btn').onclick = () => {
+            if (!tid || !BLDGS.find(x => x.id === tid)) return;
+            document.getElementById('to-s').value = tid;
+            checkGo();
+            if (document.getElementById('from-s').value) {
+              document.getElementById('go-btn').click();
+            } else {
+              if (window.innerWidth < 700) {
+                document.getElementById('nav').classList.add('open');
+                navOpen = true;
+              }
+              const sel = document.getElementById('from-s');
+              sel.style.borderColor = 'rgba(249,115,22,.8)';
+              sel.style.boxShadow = '0 0 14px rgba(249,115,22,.4)';
+              setTimeout(() => { sel.style.borderColor = ''; sel.style.boxShadow = ''; }, 2800);
             }
-            const sel = document.getElementById('from-s');
-            sel.style.borderColor = 'rgba(249,115,22,.8)';
-            sel.style.boxShadow = '0 0 14px rgba(249,115,22,.4)';
-            setTimeout(() => { sel.style.borderColor = ''; sel.style.boxShadow = ''; }, 2800);
-          }
-        };
-        list.appendChild(card);
+          };
+
+          grp.appendChild(card);
+        });
+
+        list.appendChild(grp);
       });
     }
 
@@ -3604,7 +3727,7 @@
     // ════════════════════════════════════════════════════════
     //  EVENT MODE
     // ════════════════════════════════════════════════════════
-    const EVENT_BLDG_IDS = ['B12', 'B2', 'B5', 'B6', 'B0', 'CRICKET', 'B10'];
+    const EVENT_BLDG_IDS = ['B12', 'B2', 'B5', 'B6', 'B0', 'CRICKET', 'B10', 'B8', 'LAWN']; // Extracted from events.json venues
 
     let eventMode = false;
 
